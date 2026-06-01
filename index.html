@@ -259,15 +259,11 @@ nav.solid {
 .mob-menu a:hover { color:var(--accent); border-right-color:var(--accent); }
 
 /* ═══════════════════════════════════════
-   SPA PAGES
+   SECTIONS
 ═══════════════════════════════════════ */
-.page {
-  display:none; opacity:0;
-  transform:translateY(16px);
-  transition:opacity .4s var(--ease), transform .4s var(--ease);
+section {
   position:relative; z-index:2;
 }
-.page.active { display:block; opacity:1; transform:translateY(0); }
 
 /* ═══════════════════════════════════════
    LAYOUT
@@ -483,19 +479,19 @@ p:last-child { margin-bottom:0; }
 .p-card p  { font-size:.82rem; margin-bottom:16px; }
 
 /* ═══════════════════════════════════════
-   PAGE TOP
+   PAGE TOP (برای بخش‌ها)
 ═══════════════════════════════════════ */
-.page-top {
-  padding:calc(var(--nav) + 64px) 0 56px;
+.section-top {
+  padding:calc(var(--nav) + 40px) 0 30px;
   border-bottom:1px solid var(--border);
   position:relative;
 }
-.page-top::after {
+.section-top::after {
   content:''; position:absolute;
   bottom:-1px; right:0; width:120px; height:1px;
   background:var(--accent);
 }
-.page-top h1 { margin-top:10px; }
+.section-top h1 { margin-top:10px; }
 
 /* ═══════════════════════════════════════
    ABOUT / TIMELINE
@@ -545,7 +541,7 @@ p:last-child { margin-bottom:0; }
 }
 
 /* ═══════════════════════════════════════
-   PROJECTS PAGE
+   PROJECTS PAGE (حالا به صورت بخش)
 ═══════════════════════════════════════ */
 .pj-list { display:flex; flex-direction:column; }
 .pj { padding:48px 0; border-bottom:1px solid var(--border); }
@@ -567,7 +563,7 @@ p:last-child { margin-bottom:0; }
 .feat li::before { content:'→'; position:absolute; right:0; color:var(--accent); font-weight:700; }
 
 /* ═══════════════════════════════════════
-   RESUME PAGE
+   RESUME SECTION
 ═══════════════════════════════════════ */
 .resume-wrap { display:grid; grid-template-columns:1fr 290px; gap:52px; align-items:start; }
 .job-entry { margin-bottom:36px; padding-bottom:36px; border-bottom:1px solid var(--border); }
@@ -631,7 +627,7 @@ p:last-child { margin-bottom:0; }
 .dev-t { font-size:.76rem; color:var(--fg2); }
 
 /* ═══════════════════════════════════════
-   CONTACT
+   CONTACT SECTION
 ═══════════════════════════════════════ */
 .cms { display:flex; flex-direction:column; gap:14px; margin-top:30px; }
 .cm {
@@ -669,7 +665,7 @@ form { display:flex; flex-direction:column; gap:20px; }
 /* ═══════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════ */
-footer { border-top:1px solid var(--border); padding:28px 0; }
+footer { border-top:1px solid var(--border); padding:28px 0; margin-top:40px; }
 .foot { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
 footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 .foot-lnks { display:flex; gap:20px; }
@@ -710,15 +706,15 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-inner">
-    <div class="logo" data-page="home">
+    <div class="logo" data-section="home">
       <span class="logo-bracket">[</span>HM<span class="logo-bracket">]</span>
     </div>
     <ul class="nav-links">
-      <li><a data-page="home" class="active">خانه</a></li>
-      <li><a data-page="about">درباره من</a></li>
-      <li><a data-page="projects">پروژه‌ها</a></li>
-      <li><a data-page="resume">رزومه</a></li>
-      <li><a data-page="contact">تماس</a></li>
+      <li><a data-section="home" class="active">خانه</a></li>
+      <li><a data-section="about">درباره من</a></li>
+      <li><a data-section="projects">پروژه‌ها</a></li>
+      <li><a data-section="resume">رزومه</a></li>
+      <li><a data-section="contact">تماس</a></li>
       <li><button class="theme-btn" id="themeBtn" title="تغییر تم">🌙</button></li>
     </ul>
     <div style="display:flex;align-items:center;gap:10px">
@@ -728,127 +724,87 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   </div>
 </nav>
 <div class="mob-menu" id="mobMenu">
-  <a data-page="home">خانه</a>
-  <a data-page="about">درباره من</a>
-  <a data-page="projects">پروژه‌ها</a>
-  <a data-page="resume">رزومه</a>
-  <a data-page="contact">تماس</a>
+  <a data-section="home">خانه</a>
+  <a data-section="about">درباره من</a>
+  <a data-section="projects">پروژه‌ها</a>
+  <a data-section="resume">رزومه</a>
+  <a data-section="contact">تماس</a>
 </div>
 
-<!-- ══ PAGE: HOME ══ -->
-<div class="page active" id="page-home">
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero-in">
-        <div>
-          <div class="hero-badge">
-            <span class="badge-dot"></span>
-            رزومه و معرفی کوتاه
-          </div>
-          
-          <h1 class="line2">
-             هادی موسوی 
-          </h1>
-            
-             <h2>
-            <span class="line2">توسعه دهنده وب (لاراول) <br>متخصص دیجیتال<br>استراتژیست محتوا</span>
-          </h2>
-          <p class="hero-sub">از HTML تا Laravel، از طراحی تا استراتژی محتوا — راه‌حل‌های دیجیتال کامل می‌سازم.</p>
-          <div class="hero-btns">
-            <button class="btn solid" data-page="projects">پروژه‌هام ←</button>
-            <button class="btn outline" data-page="contact">تماس بگیر</button>
-          </div>
-        </div>
-        <div class="hero-visual float-card">
-          <div class="profile-image-wrapper">
-            <img 
-              src="assets/profile.png" 
-              alt="هادی موسوی - توسعه‌دهنده وب" 
-              class="profile-image"
-              onerror="this.style.opacity='0'; this.style.visibility='hidden';"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="strip-sec"><div class="wrap strip-track">
-    <span class="pill">Laravel</span><span class="pill">PHP</span><span class="pill">MySQL</span>
-    <span class="pill">Livewire</span><span class="pill">JavaScript</span><span class="pill">HTML5</span>
-    <span class="pill">CSS3</span><span class="pill">Photoshop</span><span class="pill">Canva</span>
-    <span class="pill">Git/GitHub</span><span class="pill">AI Tools</span><span class="pill">SEO</span>
-  </div></div>
-
-  <section class="sec">
-    <div class="wrap two">
+<!-- ══ SECTION: HOME ══ -->
+<section id="home" class="hero">
+  <div class="wrap">
+    <div class="hero-in">
       <div>
-        <p class="label">درباره من</p>
-        <h2>کد می‌نویسم، محتوا می‌سازم، نتیجه می‌گیرم.</h2>
-        <p>از ۱۳۹۹ مسیر توسعه وب رو طی کردم — از HTML ساده تا معماری MVC و طراحی پایگاه داده. کنارش با شبکه‌های اجتماعی و بازاریابی دیجیتال کار کردم. دو دنیا رو با هم بلدم.</p>
-        <button class="ghost-btn" data-page="about">بیشتر بدون ←</button>
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          رزومه و معرفی کوتاه
+        </div>
+        
+        <h1 class="line2">
+          هادی موسوی 
+        </h1>
+          
+        <h2>
+          <span class="line2">توسعه دهنده وب (لاراول) <br>متخصص دیجیتال<br>استراتژیست محتوا</span>
+        </h2>
+        <p class="hero-sub">از HTML تا Laravel، از طراحی تا استراتژی محتوا — راه‌حل‌های دیجیتال کامل می‌سازم.</p>
+        <div class="hero-btns">
+          <button class="btn solid" data-section="projects">پروژه‌هام ←</button>
+          <button class="btn outline" data-section="contact">تماس بگیر</button>
+        </div>
       </div>
-      <div class="stat-grid">
-        <div class="stat-card glass"><span class="stat-n">۶+</span><span class="stat-l">سال تجربه کدنویسی</span></div>
-        <div class="stat-card glass"><span class="stat-n">۵+</span><span class="stat-l">پروژه Laravel</span></div>
-        <div class="stat-card glass"><span class="stat-n">۳</span><span class="stat-l">پلتفرم مدیریت‌شده</span></div>
-        <div class="stat-card glass"><span class="stat-n">۳</span><span class="stat-l">طراحی جلد کتاب</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" style="padding-top:0">
-    <div class="wrap">
-      <p class="label">پروژه‌ها</p>
-      <h2>کارهایی که انجام دادم</h2>
-      <div class="cards3">
-        <div class="p-card glass"><span class="p-tag">⚙️ Laravel</span><h3>اپلیکیشن‌های وب</h3><p>فول‌استک با MVC، Eloquent ORM و MySQL</p><a href="https://github.com/hr2562b" class="ghost-btn" target="_blank" style="font-size:.8rem">GitHub →</a></div>
-        <div class="p-card glass"><span class="p-tag">📱 دیجیتال مارکتینگ</span><h3>کمپین بیدستان استیل</h3><p>مدیریت لینکدین، اینستاگرام و توییتر/X</p><button class="ghost-btn" data-page="projects" style="font-size:.8rem">جزئیات →</button></div>
-        <div class="p-card glass"><span class="p-tag">🎨 طراحی</span><h3>جلد کتاب + کلیپ</h3><p>۳ جلد کتاب تجاری + کلیپ جشنواره‌های دانشگاه</p><button class="ghost-btn" data-page="contact" style="font-size:.8rem">نمونه‌کار →</button></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec ctr" style="padding-top:0">
-    <div class="wrap">
-      <p class="label" style="justify-content:center">همکاری</p>
-      <h2>یه ایده داری؟<br>بیا باهم بسازیمش.</h2>
-      <br>
-      <button class="btn solid lg" data-page="contact">شروع کنیم ←</button>
-    </div>
-  </section>
-
-  <footer><div class="wrap foot">
-    <p>© ۱۴۰۵ هادی موسوی — All rights reserved</p>
-    <div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com">ایمیل</a></div>
-  </div></footer>
-</div>
-
-<!-- ══ PAGE: ABOUT ══ -->
-<div class="page" id="page-about">
-  <section class="page-top"><div class="wrap"><p class="label">بیشتر بدون</p><h1>درباره من</h1></div></section>
-  <section class="sec"><div class="wrap two" style="gap:80px;align-items:start">
-    <div>
-      <h2>هادی موسوی</h2>
-      <span class="role-badge">توسعه‌دهنده وب Full-Stack | متخصص بازاریابی دیجیتال</span>
-      <p>از سال ۱۳۹۹ وقتی اولین خط HTML نوشتم تا الان که با Laravel، MySQL و Livewire اپلیکیشن می‌سازم، یه مسیر واقعی طی کردم. نه فقط کد — بازاریابی دیجیتال، طراحی گرافیک، تدریس، ترجمه. همه رو تجربه کردم.</p>
-      <p>کارشناسی آموزش زبان انگلیسی از دانشگاه مراغه دارم که کمکم می‌کنه هم با تیم‌های بین‌المللی راحت کار کنم، هم مستندات فنی درست بنویسم.</p>
-      <div class="ctcts">
-        <a href="mailto:h.mousavi264@gmail.com">✉️ h.mousavi264@gmail.com</a>
-        <a href="tel:09128152648">📞 ۰۹۱۲۸۱۵۲۶۴۸</a>
-        <a href="https://github.com/hr2562b" target="_blank">💻 github.com/hr2562b</a>
+      <div class="hero-visual float-card">
+        <div class="profile-image-wrapper">
+          <img 
+            src="assets/profile.png" 
+            alt="هادی موسوی - توسعه‌دهنده وب" 
+            class="profile-image"
+            onerror="this.style.opacity='0'; this.style.visibility='hidden';"
+          />
+        </div>
       </div>
     </div>
-    <div class="tl-list glass" style="padding:24px;border-radius:16px">
-      <div class="tl"><div class="tl-y">۱۳۹۹</div><div class="tl-c"><strong>HTML, CSS, JavaScript</strong><p>شروع کدنویسی + ثبت واکسیناسیون کووید</p></div></div>
-      <div class="tl"><div class="tl-y">۱۴۰۱</div><div class="tl-c"><strong>کار دانشجویی گرافیک</strong><p>Photoshop، Premiere، کلیپ جشنواره‌های دانشگاه</p></div></div>
-      <div class="tl"><div class="tl-y">۱۴۰۲</div><div class="tl-c"><strong>PHP، Laravel، Livewire</strong><p>سربازی: تدریس، ترجمه، آموزش دیجیتال</p></div></div>
-      <div class="tl"><div class="tl-y">۱۴۰۳</div><div class="tl-c"><strong>MySQL، ORM، Design Patterns</strong><p>فارغ‌التحصیلی از دانشگاه مراغه</p></div></div>
-      <div class="tl now"><div class="tl-y">۱۴۰۴</div><div class="tl-c"><strong>بیدستان استیل ← اکنون</strong><p>بازاریابی دیجیتال + ادمین وب</p></div></div>
+  </div>
+</section>
+
+<div class="strip-sec"><div class="wrap strip-track">
+  <span class="pill">Laravel</span><span class="pill">PHP</span><span class="pill">MySQL</span>
+  <span class="pill">Livewire</span><span class="pill">JavaScript</span><span class="pill">HTML5</span>
+  <span class="pill">CSS3</span><span class="pill">Photoshop</span><span class="pill">Canva</span>
+  <span class="pill">Git/GitHub</span><span class="pill">AI Tools</span><span class="pill">SEO</span>
+</div></div>
+
+<!-- ══ SECTION: ABOUT ══ -->
+<section id="about" class="sec">
+  <div class="wrap">
+    <div class="two" style="gap:80px;align-items:start">
+      <div>
+        <p class="role-badge">بیشتر بدون</p>
+        <h2>درباره من</h2>
+        <p>از سال ۱۳۹۹ وقتی اولین خط HTML نوشتم تا الان که با Laravel، MySQL و Livewire اپلیکیشن می‌سازم، یه مسیر واقعی طی کردم. نه فقط کد — بازاریابی دیجیتال، طراحی گرافیک، تدریس، ترجمه. همه رو تجربه کردم.</p>
+        <p>کارشناسی آموزش زبان انگلیسی از دانشگاه مراغه دارم که کمکم می‌کنه هم با تیم‌های بین‌المللی راحت کار کنم، هم مستندات فنی درست بنویسم.</p>
+        <div class="ctcts">
+          <a href="mailto:h.mousavi264@gmail.com">✉️ h.mousavi264@gmail.com</a>
+          <a href="tel:09128152648">📞 ۰۹۱۲۸۱۵۲۶۴۸</a>
+          <a href="https://github.com/hr2562b" target="_blank">💻 github.com/hr2562b</a>
+        </div>
+      </div>
+      <div class="tl-list glass" style="padding:24px;border-radius:16px">
+        <div class="tl"><div class="tl-y">۱۳۹۹</div><div class="tl-c"><strong>HTML, CSS, JavaScript</strong><p>شروع کدنویسی + ثبت واکسیناسیون کووید</p></div></div>
+        <div class="tl"><div class="tl-y">۱۴۰۱</div><div class="tl-c"><strong>کار دانشجویی گرافیک</strong><p>Photoshop، Premiere، کلیپ جشنواره‌های دانشگاه</p></div></div>
+        <div class="tl"><div class="tl-y">۱۴۰۲</div><div class="tl-c"><strong>PHP، Laravel، Livewire</strong><p>سربازی: تدریس، ترجمه، آموزش دیجیتال</p></div></div>
+        <div class="tl"><div class="tl-y">۱۴۰۳</div><div class="tl-c"><strong>MySQL، ORM، Design Patterns</strong><p>فارغ‌التحصیلی از دانشگاه مراغه</p></div></div>
+        <div class="tl now"><div class="tl-y">۱۴۰۴</div><div class="tl-c"><strong>بیدستان استیل ← اکنون</strong><p>بازاریابی دیجیتال + ادمین وب</p></div></div>
+      </div>
     </div>
-  </div></section>
-  <section class="sec" style="padding-top:0"><div class="wrap">
-    <p class="label">تخصص‌ها</p><h2>چی بلدم</h2>
+  </div>
+</section>
+
+<!-- تخصص‌ها -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <p class="role-badge">تخصص‌ها</p><h2>چی بلدم</h2>
     <div class="sk-grid">
       <div class="sk-block glass"><div class="sk-ico">⚙️</div><h3>Back-End</h3><div class="sk-tags"><span class="sk-tag">PHP</span><span class="sk-tag">Laravel</span><span class="sk-tag">Livewire</span><span class="sk-tag">MVC</span><span class="sk-tag">OOP</span><span class="sk-tag">Design Patterns</span><span class="sk-tag">Eloquent ORM</span></div></div>
       <div class="sk-block glass"><div class="sk-ico">🎨</div><h3>Front-End</h3><div class="sk-tags"><span class="sk-tag">HTML5</span><span class="sk-tag">CSS3</span><span class="sk-tag">JavaScript</span><span class="sk-tag">Responsive Design</span></div></div>
@@ -857,145 +813,146 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
       <div class="sk-block glass"><div class="sk-ico">🖌️</div><h3>طراحی و رسانه</h3><div class="sk-tags"><span class="sk-tag">Adobe Photoshop</span><span class="sk-tag">Premiere Pro</span><span class="sk-tag">Canva</span><span class="sk-tag">InShot</span></div></div>
       <div class="sk-block glass"><div class="sk-ico">🤖</div><h3>هوش مصنوعی</h3><div class="sk-tags"><span class="sk-tag">AI مولد</span><span class="sk-tag">جریان‌کاری AI-محور</span><span class="sk-tag">Word</span><span class="sk-tag">Excel</span></div></div>
     </div>
-  </div></section>
-  <footer><div class="wrap foot"><p>© ۱۴۰۵ هادی موسوی</p><div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com">ایمیل</a></div></div></footer>
-</div>
+  </div>
+</section>
 
-<!-- ══ PAGE: PROJECTS ══ -->
-<div class="page" id="page-projects">
-  <section class="page-top"><div class="wrap"><p class="label">کارهایی که انجام دادم</p><h1>پروژه‌ها</h1></div></section>
-  <section class="sec"><div class="wrap"><div class="pj-list">
-    <div class="pj">
-      <div class="pj-tags"><span class="tag-pill">Laravel / PHP</span><span class="tag-pill">MySQL</span><span class="tag-pill">MVC</span><span class="tag-pill">Livewire</span></div>
-      <h2>اپلیکیشن‌های وب Full-Stack</h2>
-      <p>چندین پروژه وب با فریم‌ورک Laravel، معماری MVC، OOP و Design Patterns. پایگاه داده MySQL با نرمال‌سازی کامل و Eloquent ORM.</p>
-      <ul class="feat"><li>معماری MVC و Repository Pattern</li><li>Eloquent ORM با روابط Many-to-Many</li><li>طراحی پایگاه داده رابطه‌ای MySQL با نرمال‌سازی 1NF تا 3NF</li><li>Livewire برای interactive components بدون رفرش</li></ul>
-      <a href="https://github.com/hr2562b" class="btn solid" target="_blank">مشاهده در GitHub</a>
+<!-- ══ SECTION: PROJECTS ══ -->
+<section id="projects" class="sec">
+  <div class="wrap">
+    <p class="role-badge">کارهایی که انجام دادم</p>
+    <h2>تجربه کاری</h2>
+    <div class="pj-list" style="margin-top:40px">
+      <div class="pj">
+        <div class="pj-tags"><span class="tag-pill">Laravel / PHP</span><span class="tag-pill">MySQL</span><span class="tag-pill">MVC</span><span class="tag-pill">Livewire</span></div>
+        <h2>اپلیکیشن‌های وب Full-Stack</h2>
+        <p>چندین پروژه وب با فریم‌ورک Laravel، معماری MVC، OOP و Design Patterns. پایگاه داده MySQL با نرمال‌سازی کامل و Eloquent ORM.</p>
+        <ul class="feat"><li>معماری MVC و Repository Pattern</li><li>Eloquent ORM با روابط Many-to-Many</li><li>طراحی پایگاه داده رابطه‌ای MySQL با نرمال‌سازی 1NF تا 3NF</li><li>Livewire برای interactive components بدون رفرش</li></ul>
+        <a href="https://github.com/hr2562b" class="btn solid" target="_blank">مشاهده در GitHub</a>
+      </div>
+      <div class="pj">
+        <div class="pj-tags"><span class="tag-pill">دیجیتال مارکتینگ</span><span class="tag-pill">LinkedIn B2B</span><span class="tag-pill">Content Strategy</span></div>
+        <h2>کمپین بازاریابی دیجیتال — بیدستان استیل</h2>
+        <p>مدیریت کامل حضور دیجیتال شرکت در لینکدین، اینستاگرام و توییتر/X با استراتژی الگوریتم‌محور.</p>
+        <ul class="feat"><li>شبکه‌سازی B2B هدفمند در لینکدین</li><li>تولید محتوای بصری با Photoshop و Canva</li><li>رشد ارگانیک با الگوریتم بومی هر پلتفرم</li><li>SEO Copywriting و Content Calendar</li></ul>
+      </div>
+      <div class="pj">
+        <div class="pj-tags"><span class="tag-pill">Photoshop</span><span class="tag-pill">Premiere Pro</span><span class="tag-pill">طراحی چاپی</span></div>
+        <h2>طراحی گرافیک و تدوین ویدیو</h2>
+        <p>طراحی ۳ جلد کتاب تجاری و تدوین کلیپ‌های رسمی جشنواره‌های حرکت و رویش و مراسم فارغ‌التحصیلی دانشگاه مراغه.</p>
+        <ul class="feat"><li>طراحی Print Ready با تایپوگرافی حرفه‌ای</li><li>تدوین و Color Grading کلیپ‌های رسمی جشنواره</li><li>Post-Production مراسم فارغ‌التحصیلی</li></ul>
+        <button class="btn outline" data-section="contact">نمونه‌کار بخواه</button>
+      </div>
+      <div class="pj">
+        <div class="pj-tags"><span class="tag-pill">AI</span><span class="tag-pill">آموزش</span></div>
+        <h2>جزوات آموزشی پلتفرم‌های دیجیتال</h2>
+        <p>تألیف جزوات جامع آموزشی برای مدیریت اینستاگرام، توییتر/X و یوتیوب با کمک هوش مصنوعی مولد.</p>
+        <ul class="feat"><li>جریان کاری AI-محور</li><li>الگوریتم‌شناسی هر پلتفرم</li><li>ساختار آموزشی حرفه‌ای</li></ul>
+      </div>
     </div>
-    <div class="pj">
-      <div class="pj-tags"><span class="tag-pill">دیجیتال مارکتینگ</span><span class="tag-pill">LinkedIn B2B</span><span class="tag-pill">Content Strategy</span></div>
-      <h2>کمپین بازاریابی دیجیتال — بیدستان استیل</h2>
-      <p>مدیریت کامل حضور دیجیتال شرکت در لینکدین، اینستاگرام و توییتر/X با استراتژی الگوریتم‌محور.</p>
-      <ul class="feat"><li>شبکه‌سازی B2B هدفمند در لینکدین</li><li>تولید محتوای بصری با Photoshop و Canva</li><li>رشد ارگانیک با الگوریتم بومی هر پلتفرم</li><li>SEO Copywriting و Content Calendar</li></ul>
-    </div>
-    <div class="pj">
-      <div class="pj-tags"><span class="tag-pill">Photoshop</span><span class="tag-pill">Premiere Pro</span><span class="tag-pill">طراحی چاپی</span></div>
-      <h2>طراحی گرافیک و تدوین ویدیو</h2>
-      <p>طراحی ۳ جلد کتاب تجاری و تدوین کلیپ‌های رسمی جشنواره‌های حرکت و رویش و مراسم فارغ‌التحصیلی دانشگاه مراغه.</p>
-      <ul class="feat"><li>طراحی Print Ready با تایپوگرافی حرفه‌ای</li><li>تدوین و Color Grading کلیپ‌های رسمی جشنواره</li><li>Post-Production مراسم فارغ‌التحصیلی</li></ul>
-      <button class="btn outline" data-page="contact">نمونه‌کار بخواه</button>
-    </div>
-    <div class="pj">
-      <div class="pj-tags"><span class="tag-pill">AI</span><span class="tag-pill">آموزش</span></div>
-      <h2>جزوات آموزشی پلتفرم‌های دیجیتال</h2>
-      <p>تألیف جزوات جامع آموزشی برای مدیریت اینستاگرام، توییتر/X و یوتیوب با کمک هوش مصنوعی مولد.</p>
-      <ul class="feat"><li>جریان کاری AI-محور</li><li>الگوریتم‌شناسی هر پلتفرم</li><li>ساختار آموزشی حرفه‌ای</li></ul>
-    </div>
-  </div></div></section>
-  <footer><div class="wrap foot"><p>© ۱۴۰۵ هادی موسوی</p><div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com">ایمیل</a></div></div></footer>
-</div>
+  </div>
+</section>
 
-<!-- ══ PAGE: RESUME ══ -->
-<div class="page" id="page-resume">
-  <section class="page-top"><div class="wrap"><p class="label">سوابق کامل</p><h1>رزومه</h1></div></section>
-  <section class="sec"><div class="wrap"><div class="resume-wrap">
-    <div>
-      <p class="label" style="margin-bottom:28px">سوابق حرفه‌ای</p>
-      <div class="job-entry">
-        <div class="job-head"><span class="job-title-t">متخصص بازاریابی دیجیتال و ادمین وب‌سایت</span><span class="job-date">۱۴۰۴ – ۱۴۰۵</span></div>
-        <div class="job-co">شرکت بیدستان کالای استیل</div>
-        <ul class="job-buls">
-          <li>طراحی و اجرای استراتژی‌های محتوایی پلتفرم‌محور برای لینکدین، اینستاگرام و توییتر/X با بهره‌گیری از الگوریتم بومی هر پلتفرم</li>
-          <li>مدیریت شبکه‌سازی B2B در لینکدین شامل ارتباط‌گیری هدفمند و انتشار محتوای Thought Leadership</li>
-          <li>تولید محتوای بصری با Adobe Photoshop و Canva منطبق با هویت بصری برند</li>
-          <li>نگارش پست‌های SEO-optimized جهت رشد قابل‌اندازه‌گیری فالوور و Post Impressions</li>
-          <li>مدیریت وب‌سایت شرکت و سازماندهی داده در Microsoft Excel و Word</li>
-        </ul>
-      </div>
-      <div class="job-entry">
-        <div class="job-head"><span class="job-title-t">توسعه‌دهنده وب Full-Stack (Laravel)</span><span class="job-date">۱۳۹۹ – اکنون</span></div>
-        <div class="job-co">پروژه‌های مستقل / فریلنس — github.com/hr2562b</div>
-        <ul class="job-buls">
-          <li>آغاز با HTML5، CSS3 و JavaScript (۱۳۹۹) و ارتقاء به PHP، Laravel و Livewire (از ۱۴۰۲)</li>
-          <li>توسعه اپلیکیشن‌های وب فول‌استک با معماری MVC و Design Patterns (Repository، Factory، Singleton)</li>
-          <li>طراحی پایگاه داده MySQL با نرمال‌سازی 1NF تا 3NF، Foreign Key Constraints و Indexing بهینه</li>
-          <li>استفاده از Eloquent ORM برای روابط Many-to-Many و مدیریت Migration و Seeder</li>
-          <li>کنترل نسخه با Git و GitHub با استراتژی Feature Branching</li>
-        </ul>
-      </div>
-      <div class="job-entry">
-        <div class="job-head"><span class="job-title-t">مترجم، مدرس زبان انگلیسی و متخصص محتوای دیجیتال</span><span class="job-date">۱۴۰۲ – ۱۴۰۴</span></div>
-        <div class="job-co">خدمت سربازی – واحد آموزش و ترجمه</div>
-        <ul class="job-buls">
-          <li>ارائه تدریس رسمی زبان انگلیسی و خدمات ترجمه تخصصی در محیط نظامی</li>
-          <li>آموزش مدیریت شبکه‌های اجتماعی (لینکدین، اینستاگرام، توییتر/X) با تمرکز بر الگوریتم‌های پلتفرم‌محور</li>
-          <li>تولید جزوات آموزشی برای اینستاگرام، توییتر/X و یوتیوب با ابزارهای هوش مصنوعی مولد</li>
-          <li>نگهداری پایگاه داده واژگان ترجمه‌شده در Microsoft Excel</li>
-        </ul>
-      </div>
-      <div class="job-entry">
-        <div class="job-head"><span class="job-title-t">گرافیست و تدوینگر ویدیو (کار دانشجویی)</span><span class="job-date">۱۴۰۱ – ۱۴۰۳</span></div>
-        <div class="job-co">دانشگاه مراغه – اداره امور فرهنگی</div>
-        <ul class="job-buls">
-          <li>طراحی پوسترهای تبلیغاتی با Adobe Photoshop برای رویدادهای فرهنگی و آکادمیک</li>
-          <li>تولید و تدوین کلیپ‌های رسمی جشنواره‌های دانشجویی حرکت و رویش با Premiere Pro، شامل Color Grading و Post-Production</li>
-          <li>تهیه و تدوین کلیپ‌های مراسم فارغ‌التحصیلی دانشگاه با Storytelling بصری و تنظیم صدا</li>
-          <li>طراحی ۳ جلد کتاب تجاری Print-Ready با تایپوگرافی حرفه‌ای — نمونه‌کار موجود</li>
-        </ul>
-      </div>
-      <div class="job-entry">
-        <div class="job-head"><span class="job-title-t">اپراتور ثبت داده واکسیناسیون</span><span class="job-date">۱۳۹۹ – ۱۴۰۰</span></div>
-        <div class="job-co">مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان</div>
-        <ul class="job-buls">
-          <li>ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت</li>
-          <li>هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا</li>
-        </ul>
-      </div>
-    </div>
-    <div>
-      <div class="side-box glass"><div class="side-title">اطلاعات تماس</div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <a href="tel:09128152648" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">📞 ۰۹۱۲۸۱۵۲۶۴۸</a>
-          <a href="mailto:h.mousavi264@gmail.com" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">✉️ h.mousavi264@gmail.com</a>
-          <a href="https://github.com/hr2562b" target="_blank" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">💻 github.com/hr2562b</a>
+<!-- ══ SECTION: RESUME ══ -->
+<section id="resume" class="sec">
+  <div class="wrap">
+    <div class="resume-wrap">
+      <div>
+        <p class="role-badge">سوابق حرفه ای</p>
+        <h2>رزومه</h2>
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t">متخصص بازاریابی دیجیتال و ادمین وب‌سایت</span><span class="job-date">۱۴۰۴ – ۱۴۰۵</span></div>
+          <div class="job-co">شرکت بیدستان کالای استیل</div>
+          <ul class="job-buls">
+            <li>طراحی و اجرای استراتژی‌های محتوایی پلتفرم‌محور برای لینکدین، اینستاگرام و توییتر/X با بهره‌گیری از الگوریتم بومی هر پلتفرم</li>
+            <li>مدیریت شبکه‌سازی B2B در لینکدین شامل ارتباط‌گیری هدفمند و انتشار محتوای Thought Leadership</li>
+            <li>تولید محتوای بصری با Adobe Photoshop و Canva منطبق با هویت بصری برند</li>
+            <li>نگارش پست‌های SEO-optimized جهت رشد قابل‌اندازه‌گیری فالوور و Post Impressions</li>
+            <li>مدیریت وب‌سایت شرکت و سازماندهی داده در Microsoft Excel و Word</li>
+          </ul>
+        </div>
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t">توسعه‌دهنده وب Full-Stack (Laravel)</span><span class="job-date">۱۳۹۹ – اکنون</span></div>
+          <div class="job-co">پروژه‌های مستقل / فریلنس — github.com/hr2562b</div>
+          <ul class="job-buls">
+            <li>آغاز با HTML5، CSS3 و JavaScript (۱۳۹۹) و ارتقاء به PHP، Laravel و Livewire (از ۱۴۰۲)</li>
+            <li>توسعه اپلیکیشن‌های وب فول‌استک با معماری MVC و Design Patterns (Repository، Factory، Singleton)</li>
+            <li>طراحی پایگاه داده MySQL با نرمال‌سازی 1NF تا 3NF، Foreign Key Constraints و Indexing بهینه</li>
+            <li>استفاده از Eloquent ORM برای روابط Many-to-Many و مدیریت Migration و Seeder</li>
+            <li>کنترل نسخه با Git و GitHub با استراتژی Feature Branching</li>
+          </ul>
+        </div>
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t">مترجم، مدرس زبان انگلیسی و متخصص محتوای دیجیتال</span><span class="job-date">۱۴۰۲ – ۱۴۰۴</span></div>
+          <div class="job-co">خدمت سربازی – واحد آموزش و ترجمه</div>
+          <ul class="job-buls">
+            <li>ارائه تدریس رسمی زبان انگلیسی و خدمات ترجمه تخصصی در محیط نظامی</li>
+            <li>آموزش مدیریت شبکه‌های اجتماعی (لینکدین، اینستاگرام، توییتر/X) با تمرکز بر الگوریتم‌های پلتفرم‌محور</li>
+            <li>تولید جزوات آموزشی برای اینستاگرام، توییتر/X و یوتیوب با ابزارهای هوش مصنوعی مولد</li>
+            <li>نگهداری پایگاه داده واژگان ترجمه‌شده در Microsoft Excel</li>
+          </ul>
+        </div>
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t">گرافیست و تدوینگر ویدیو (کار دانشجویی)</span><span class="job-date">۱۴۰۱ – ۱۴۰۳</span></div>
+          <div class="job-co">دانشگاه مراغه – اداره امور فرهنگی</div>
+          <ul class="job-buls">
+            <li>طراحی پوسترهای تبلیغاتی با Adobe Photoshop برای رویدادهای فرهنگی و آکادمیک</li>
+            <li>تولید و تدوین کلیپ‌های رسمی جشنواره‌های دانشجویی حرکت و رویش با Premiere Pro، شامل Color Grading و Post-Production</li>
+            <li>تهیه و تدوین کلیپ‌های مراسم فارغ‌التحصیلی دانشگاه با Storytelling بصری و تنظیم صدا</li>
+            <li>طراحی ۳ جلد کتاب تجاری Print-Ready با تایپوگرافی حرفه‌ای — نمونه‌کار موجود</li>
+          </ul>
+        </div>
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t">اپراتور ثبت داده واکسیناسیون</span><span class="job-date">۱۳۹۹ – ۱۴۰۰</span></div>
+          <div class="job-co">مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان</div>
+          <ul class="job-buls">
+            <li>ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت</li>
+            <li>هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا</li>
+          </ul>
         </div>
       </div>
-      <div class="side-box glass"><div class="side-title">تحصیلات</div>
-        <div class="edu-d">کارشناسی آموزش زبان انگلیسی</div>
-        <div class="edu-u">دانشگاه مراغه</div>
-        <div class="edu-y">۱۳۹۹ – ۱۴۰۳</div>
-      </div>
-      <div class="side-box glass"><div class="side-title">مهارت‌ها</div>
-        <div class="side-skill-g"><div class="side-cat">Back-End</div><div class="side-tags"><span class="side-tag">PHP</span><span class="side-tag">Laravel</span><span class="side-tag">Livewire</span><span class="side-tag">MVC</span><span class="side-tag">OOP</span><span class="side-tag">Design Patterns</span><span class="side-tag">Eloquent ORM</span></div></div>
-        <div class="side-skill-g"><div class="side-cat">Front-End</div><div class="side-tags"><span class="side-tag">HTML5</span><span class="side-tag">CSS3</span><span class="side-tag">JavaScript</span><span class="side-tag">Responsive</span></div></div>
-        <div class="side-skill-g"><div class="side-cat">پایگاه داده</div><div class="side-tags"><span class="side-tag">MySQL</span><span class="side-tag">نرمال‌سازی</span><span class="side-tag">Foreign Key</span><span class="side-tag">Indexing</span><span class="side-tag">Migration</span></div></div>
-        <div class="side-skill-g"><div class="side-cat">دیجیتال مارکتینگ</div><div class="side-tags"><span class="side-tag">LinkedIn B2B</span><span class="side-tag">Instagram</span><span class="side-tag">Twitter/X</span><span class="side-tag">SEO</span></div></div>
-        <div class="side-skill-g"><div class="side-cat">طراحی و رسانه</div><div class="side-tags"><span class="side-tag">Photoshop</span><span class="side-tag">Premiere Pro</span><span class="side-tag">Canva</span><span class="side-tag">InShot</span></div></div>
-        <div class="side-skill-g"><div class="side-cat">ابزارها</div><div class="side-tags"><span class="side-tag">Git</span><span class="side-tag">GitHub</span><span class="side-tag">Word</span><span class="side-tag">Excel</span><span class="side-tag">AI Tools</span></div></div>
-      </div>
-      <div class="side-box glass"><div class="side-title">زبان‌ها</div>
-        <div class="lang-r"><span class="lang-n">ترکی آذربایجانی</span><span class="lang-v">زبان مادری</span></div>
-        <div class="lang-r"><span class="lang-n">فارسی</span><span class="lang-v">پیشرفته</span></div>
-        <div class="lang-r"><span class="lang-n">انگلیسی</span><span class="lang-v">حرفه‌ای</span></div>
-      </div>
-      <div class="side-box glass"><div class="side-title">مسیر توسعه‌دهندگی</div>
-        <div class="dev-tl">
-          <div class="dev-step"><div class="dev-y">۱۳۹۹</div><div class="dev-t">HTML5، CSS3، JavaScript</div></div>
-          <div class="dev-step"><div class="dev-y">۱۴۰۲</div><div class="dev-t">PHP، Laravel، Livewire</div></div>
-          <div class="dev-step"><div class="dev-y">۱۴۰۳+</div><div class="dev-t">MySQL، ORM، Design Patterns</div></div>
+      <div>
+        <div class="side-box glass"><div class="side-title">اطلاعات تماس</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <a href="tel:09128152648" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">📞 ۰۹۱۲۸۱۵۲۶۴۸</a>
+            <a href="mailto:h.mousavi264@gmail.com" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">✉️ h.mousavi264@gmail.com</a>
+            <a href="https://github.com/hr2562b" target="_blank" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">💻 github.com/hr2562b</a>
+          </div>
+        </div>
+        <div class="side-box glass"><div class="side-title">تحصیلات</div>
+          <div class="edu-d">کارشناسی آموزش زبان انگلیسی</div>
+          <div class="edu-u">دانشگاه مراغه</div>
+          <div class="edu-y">۱۳۹۹ – ۱۴۰۳</div>
+        </div>
+        <div class="side-box glass"><div class="side-title">مهارت‌ها</div>
+          <div class="side-skill-g"><div class="side-cat">Back-End</div><div class="side-tags"><span class="side-tag">PHP</span><span class="side-tag">Laravel</span><span class="side-tag">Livewire</span><span class="side-tag">MVC</span><span class="side-tag">OOP</span><span class="side-tag">Design Patterns</span><span class="side-tag">Eloquent ORM</span></div></div>
+          <div class="side-skill-g"><div class="side-cat">Front-End</div><div class="side-tags"><span class="side-tag">HTML5</span><span class="side-tag">CSS3</span><span class="side-tag">JavaScript</span><span class="side-tag">Responsive</span></div></div>
+          <div class="side-skill-g"><div class="side-cat">پایگاه داده</div><div class="side-tags"><span class="side-tag">MySQL</span><span class="side-tag">نرمال‌سازی</span><span class="side-tag">Foreign Key</span><span class="side-tag">Indexing</span><span class="side-tag">Migration</span></div></div>
+          <div class="side-skill-g"><div class="side-cat">دیجیتال مارکتینگ</div><div class="side-tags"><span class="side-tag">LinkedIn B2B</span><span class="side-tag">Instagram</span><span class="side-tag">Twitter/X</span><span class="side-tag">SEO</span></div></div>
+          <div class="side-skill-g"><div class="side-cat">طراحی و رسانه</div><div class="side-tags"><span class="side-tag">Photoshop</span><span class="side-tag">Premiere Pro</span><span class="side-tag">Canva</span><span class="side-tag">InShot</span></div></div>
+          <div class="side-skill-g"><div class="side-cat">ابزارها</div><div class="side-tags"><span class="side-tag">Git</span><span class="side-tag">GitHub</span><span class="side-tag">Word</span><span class="side-tag">Excel</span><span class="side-tag">AI Tools</span></div></div>
+        </div>
+        <div class="side-box glass"><div class="side-title">زبان‌ها</div>
+          <div class="lang-r"><span class="lang-n">انگلیسی</span><span class="lang-v">حرفه‌ای</span></div>
+        </div>
+        <div class="side-box glass"><div class="side-title">مسیر توسعه‌دهندگی</div>
+          <div class="dev-tl">
+            <div class="dev-step"><div class="dev-y">۱۳۹۹</div><div class="dev-t">HTML5، CSS3، JavaScript</div></div>
+            <div class="dev-step"><div class="dev-y">۱۴۰۲</div><div class="dev-t">PHP، Laravel، Livewire</div></div>
+            <div class="dev-step"><div class="dev-y">۱۴۰۳+</div><div class="dev-t">MySQL، ORM، Design Patterns</div></div>
+          </div>
         </div>
       </div>
     </div>
-  </div></div></section>
-  <footer><div class="wrap foot"><p>© ۱۴۰۵ هادی موسوی</p><div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com">ایمیل</a></div></div></footer>
-</div>
+  </div>
+</section>
 
-<!-- ══ PAGE: CONTACT ══ -->
-<div class="page" id="page-contact">
-  <section class="page-top"><div class="wrap"><p class="label">بیا صحبت کنیم</p><h1>تماس</h1></div></section>
-  <section class="sec"><div class="wrap two" style="gap:80px;align-items:start">
+<!-- ══ SECTION: CONTACT ══ -->
+<section id="contact" class="sec">
+  <div class="wrap two" style="gap:80px;align-items:start">
     <div>
-      <h2>یه پروژه در ذهن داری؟</h2>
+      <p class="role-badge">بیا صحبت کنیم</p>
+      <h1>تماس</h1>
+      <h2 style="margin-top:20px">یه پروژه در ذهن داری؟</h2>
       <p>چه بخوای یه سایت بسازی، چه مدیریت شبکه‌های اجتماعیت رو بسپاری — خوشحال میشم بشنوم.</p>
       <div class="cms">
         <a href="mailto:h.mousavi264@gmail.com" class="cm glass"><span class="cm-ico">✉️</span><div><strong>ایمیل</strong><span>h.mousavi264@gmail.com</span></div></a>
@@ -1013,9 +970,16 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
         <button type="submit" class="btn solid" style="width:100%;justify-content:center">ارسال پیام →</button>
       </form>
     </div>
-  </div></section>
-  <footer><div class="wrap foot"><p>© ۱۴۰۵ هادی موسوی</p><div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com">ایمیل</a></div></div></footer>
-</div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap foot">
+    <p>© ۱۴۰۵ هادی موسوی — All rights reserved</p>
+    <div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com">ایمیل</a></div>
+  </div>
+</footer>
 
 <script>
 /* ── PARTICLE BACKGROUND ── */
@@ -1120,35 +1084,64 @@ setTheme(saved);
 themeBtn.addEventListener('click', ()=> setTheme(html.dataset.theme==='dark'?'light':'dark'));
 themeBtnMob.addEventListener('click', ()=> setTheme(html.dataset.theme==='dark'?'light':'dark'));
 
-/* ── SPA ROUTER ── */
-function goTo(id){
-  document.querySelectorAll('.page').forEach(p=>{ p.classList.remove('active'); p.style.display='none'; });
-  const t = document.getElementById('page-'+id);
-  if(!t) return;
-  t.style.display='block';
-  t.offsetHeight;
-  t.classList.add('active');
-  document.querySelectorAll('[data-page]').forEach(a=>a.classList.toggle('active', a.dataset.page===id));
-  history.pushState({page:id},'','#'+id);
-  window.scrollTo({top:0,behavior:'smooth'});
-  document.getElementById('mobMenu').classList.remove('open');
-  document.getElementById('burger').classList.remove('open');
-  setTimeout(reveal,80);
+/* ── SCROLL TO SECTION ── */
+function scrollToSection(id){
+  const section = document.getElementById(id);
+  if(section){
+    const offset = document.getElementById('nav').offsetHeight;
+    const sectionTop = section.offsetTop - offset;
+    window.scrollTo({top: sectionTop, behavior: 'smooth'});
+    
+    // آپدیت کلاس active در منو
+    document.querySelectorAll('[data-section]').forEach(el => {
+      el.classList.toggle('active', el.dataset.section === id);
+    });
+    
+    // بستن منو موبایل
+    document.getElementById('mobMenu').classList.remove('open');
+    document.getElementById('burger').classList.remove('open');
+  }
 }
-document.addEventListener('click',e=>{
-  const el=e.target.closest('[data-page]');
-  if(el){ e.preventDefault(); goTo(el.dataset.page); }
-});
-window.addEventListener('popstate',e=>goTo(e.state?.page||'home'));
-goTo(location.hash.replace('#','')||'home');
 
-/* ── NAVBAR ── */
-window.addEventListener('scroll',()=>{
-  document.getElementById('nav').classList.toggle('solid',scrollY>10);
-},{passive:true});
+// کلیک روی دکمه‌های دارای data-section
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-section]');
+  if(el && el.dataset.section){
+    e.preventDefault();
+    scrollToSection(el.dataset.section);
+  }
+});
+
+// اسکرول برای آپدیت کلاس active
+window.addEventListener('scroll', () => {
+  const navHeight = document.getElementById('nav').offsetHeight;
+  const sections = ['home', 'about', 'projects', 'resume', 'contact'];
+  let current = '';
+  for(let section of sections){
+    const el = document.getElementById(section);
+    if(el){
+      const rect = el.getBoundingClientRect();
+      if(rect.top <= navHeight + 100){
+        current = section;
+      }
+    }
+  }
+  document.querySelectorAll('[data-section]').forEach(el => {
+    el.classList.toggle('active', el.dataset.section === current);
+  });
+  
+  // افکت solid برای نوار
+  document.getElementById('nav').classList.toggle('solid', scrollY > 10);
+});
+
+// ست کردن کلاس active اولیه
+setTimeout(() => {
+  const currentSection = window.location.hash.replace('#', '') || 'home';
+  scrollToSection(currentSection);
+}, 100);
 
 /* ── BURGER ── */
-document.getElementById('burger').addEventListener('click',function(){
+document.getElementById('burger').addEventListener('click', function(){
   this.classList.toggle('open');
   document.getElementById('mobMenu').classList.toggle('open');
 });
@@ -1156,31 +1149,46 @@ document.getElementById('burger').addEventListener('click',function(){
 /* ── MOBILE THEME BTN VISIBILITY ── */
 function checkMob(){ themeBtnMob.style.display = window.innerWidth<=600?'flex':'none'; }
 checkMob();
-window.addEventListener('resize',checkMob);
+window.addEventListener('resize', checkMob);
 
 /* ── CONTACT FORM ── */
-document.getElementById('cForm').addEventListener('submit',async e=>{
+document.getElementById('cForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const btn=e.target.querySelector('button[type=submit]');
-  btn.textContent='در حال ارسال...'; btn.disabled=true;
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.textContent = 'در حال ارسال...'; btn.disabled = true;
   try{
-    const r=await fetch(e.target.action,{method:'POST',body:new FormData(e.target),headers:{'Accept':'application/json'}});
-    if(r.ok){ e.target.reset(); document.getElementById('okMsg').classList.add('show'); btn.textContent='ارسال شد ✓'; }
-    else{ btn.textContent='خطا — دوباره امتحان کن'; btn.disabled=false; }
-  }catch{ btn.textContent='خطا — دوباره امتحان کن'; btn.disabled=false; }
+    const r = await fetch(e.target.action, {method:'POST', body:new FormData(e.target), headers:{'Accept':'application/json'}});
+    if(r.ok){ 
+      e.target.reset(); 
+      document.getElementById('okMsg').classList.add('show'); 
+      btn.textContent = 'ارسال شد ✓';
+      setTimeout(() => document.getElementById('okMsg').classList.remove('show'), 5000);
+    } else { 
+      btn.textContent = 'خطا — دوباره امتحان کن'; btn.disabled = false; 
+    }
+  } catch{ 
+    btn.textContent = 'خطا — دوباره امتحان کن'; btn.disabled = false; 
+  }
 });
 
 /* ── SCROLL REVEAL ── */
-const obs=new IntersectionObserver(es=>{
-  es.forEach(e=>{ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; obs.unobserve(e.target); }});
-},{threshold:0.08});
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { 
+    if(e.isIntersecting){ 
+      e.target.style.opacity = '1'; 
+      e.target.style.transform = 'translateY(0)'; 
+      obs.unobserve(e.target); 
+    }
+  });
+}, {threshold: 0.08});
 
 function reveal(){
-  document.querySelectorAll('.p-card,.stat-card,.sk-block,.tl,.pj,.cm,.job-entry,.side-box,.float-card').forEach(el=>{
+  document.querySelectorAll('.p-card,.stat-card,.sk-block,.tl,.pj,.cm,.job-entry,.side-box,.float-card').forEach(el => {
     if(el.dataset.rev) return;
-    el.dataset.rev='1';
-    el.style.opacity='0'; el.style.transform='translateY(20px)';
-    el.style.transition='opacity .5s ease, transform .5s ease';
+    el.dataset.rev = '1';
+    el.style.opacity = '0'; 
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
     obs.observe(el);
   });
 }
