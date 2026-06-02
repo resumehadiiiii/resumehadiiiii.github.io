@@ -65,6 +65,66 @@ body {
   overflow-x:hidden; min-height:100vh;
   transition:background .4s var(--ease), color .4s var(--ease);
 }
+body.lang-en {
+  direction: ltr;
+}
+body.lang-en .wrap,
+body.lang-en .hero-in,
+body.lang-en .two {
+  direction: ltr;
+  text-align: left;
+}
+body.lang-en .label::before {
+  margin-left: 10px;
+  margin-right: 0;
+}
+body.lang-en .hero-badge {
+  direction: ltr;
+}
+body.lang-en .btn {
+  flex-direction: row-reverse;
+}
+body.lang-en .tl {
+  grid-template-columns: 76px 1fr;
+}
+body.lang-en .feat li::before {
+  content: '→';
+  right: auto;
+  left: 0;
+}
+body.lang-en .feat li {
+  padding-right: 0;
+  padding-left: 18px;
+}
+body.lang-en .job-buls li::before {
+  right: auto;
+  left: 0;
+}
+body.lang-en .job-buls li {
+  padding-right: 0;
+  padding-left: 16px;
+}
+body.lang-en .dev-tl {
+  border-right: none;
+  border-left: 2px solid var(--border2);
+  margin-right: 0;
+  margin-left: 8px;
+  padding-right: 0;
+  padding-left: 16px;
+}
+body.lang-en .dev-step::before {
+  right: auto;
+  left: -21px;
+}
+body.lang-en .mob-menu a {
+  border-right: none;
+  border-left: 3px solid transparent;
+}
+body.lang-en .mob-menu a:hover {
+  border-left-color: var(--accent);
+  border-right-color: transparent;
+}
+
 a { color:inherit; text-decoration:none; }
 ::-webkit-scrollbar { width:3px; }
 ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
@@ -221,7 +281,7 @@ nav.solid {
 }
 
 /* Dark mode toggle */
-.theme-btn {
+.theme-btn, .lang-btn {
   width:40px; height:40px;
   border-radius:10px; border:1px solid var(--border);
   background:var(--surface); cursor:pointer;
@@ -229,7 +289,7 @@ nav.solid {
   font-size:1.1rem; transition:all .2s var(--ease);
   color:var(--fg2);
 }
-.theme-btn:hover { border-color:var(--border2); background:var(--glow); color:var(--accent); transform:rotate(20deg); }
+.theme-btn:hover, .lang-btn:hover { border-color:var(--border2); background:var(--glow); color:var(--accent); }
 
 .burger {
   display:none; flex-direction:column; gap:5px;
@@ -244,18 +304,24 @@ nav.solid {
 .burger.open span:nth-child(2){opacity:0;}
 .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-/* منوی همبرگری شیشه‌ای - برای هر دو تم */
+/* منوی همبرگری شیشه‌ای با انیمیشن - برای هر دو تم */
 .mob-menu {
-  display:none; position:fixed;
+  position:fixed;
   top:var(--nav); left:0; right:0;
   background:rgba(3,4,13,0.75);
   backdrop-filter:blur(20px) saturate(180%);
   -webkit-backdrop-filter:blur(20px) saturate(180%);
   border-bottom:1px solid var(--border);
   border-top:1px solid rgba(99,143,255,0.1);
-  z-index:998; flex-direction:column;
+  z-index:998;
+  flex-direction:column;
   padding:16px 0 28px;
   box-shadow:0 20px 40px rgba(0,0,0,0.3);
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 [data-theme="light"] .mob-menu {
   background:rgba(240,244,255,0.75);
@@ -265,7 +331,12 @@ nav.solid {
   border-top:1px solid rgba(61,107,255,0.08);
   box-shadow:0 20px 40px rgba(61,107,255,0.15);
 }
-.mob-menu.open { display:flex; }
+.mob-menu.open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 .mob-menu a {
   padding:14px 28px; font-size:.95rem;
   font-weight:600; color:var(--fg2);
@@ -276,6 +347,13 @@ nav.solid {
   color:var(--accent);
   background:rgba(99,143,255,0.08);
   border-right-color:var(--accent);
+}
+body.lang-en .mob-menu a {
+  border-right: none;
+  border-left: 3px solid transparent;
+}
+body.lang-en .mob-menu a:hover {
+  border-left-color: var(--accent);
 }
 
 /* ═══════════════════════════════════════
@@ -732,6 +810,12 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   .foot      { flex-direction:column; text-align:center; }
   .job-head  { flex-direction:column; }
   
+  /* وسط‌چین کردن دکمه‌ها در موبایل */
+  .job-entry .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
   /* ترتیب جدید فقط در حالت عمودی: badge -> دکمه‌ها -> عکس */
   .hero-in {
     display: flex;
@@ -804,25 +888,27 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
       <span class="logo-bracket">[</span>HM<span class="logo-bracket">]</span>
     </div>
     <ul class="nav-links">
-      <li><a data-section="home" class="active">خانه</a></li>
-      <li><a data-section="about">درباره من</a></li>
-      <li><a data-section="skills">تخصص ها</a></li>
-      <li><a data-section="resume">رزومه</a></li>
-      <li><a data-section="contact">تماس</a></li>
-      <li><button class="theme-btn" id="themeBtn" title="تغییر تم">🌙</button></li>
+      <li><a data-section="home" class="active" data-key="nav-home">خانه</a></li>
+      <li><a data-section="about" data-key="nav-about">درباره من</a></li>
+      <li><a data-section="skills" data-key="nav-skills">تخصص ها</a></li>
+      <li><a data-section="resume" data-key="nav-resume">رزومه</a></li>
+      <li><a data-section="contact" data-key="nav-contact">تماس</a></li>
+      <li><button class="lang-btn" id="langBtn" title="English">🇬🇧 EN</button></li>
+      <li><button class="theme-btn" id="themeBtn" title="Light mode">☀️</button></li>
     </ul>
     <div style="display:flex;align-items:center;gap:10px">
-      <button class="theme-btn" id="themeBtnMob" title="تغییر تم" style="display:none">🌙</button>
+      <button class="theme-btn" id="themeBtnMob" title="Light mode" style="display:none">☀️</button>
+      <button class="lang-btn" id="langBtnMob" title="English" style="display:none">🇬🇧</button>
       <button class="burger" id="burger"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
 <div class="mob-menu" id="mobMenu">
-  <a data-section="home">خانه</a>
-  <a data-section="about">درباره من</a>
-  <a data-section="skills">تخصص ها</a>
-  <a data-section="resume">رزومه</a>
-  <a data-section="contact">تماس</a>
+  <a data-section="home" data-key="nav-home">خانه</a>
+  <a data-section="about" data-key="nav-about">درباره من</a>
+  <a data-section="skills" data-key="nav-skills">تخصص ها</a>
+  <a data-section="resume" data-key="nav-resume">رزومه</a>
+  <a data-section="contact" data-key="nav-contact">تماس</a>
 </div>
 
 <!-- ══ SECTION: HOME ══ -->
@@ -832,27 +918,27 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
       <div>
         <div class="hero-badge">
           <span class="badge-dot"></span>
-          رزومه و معرفی کوتاه
+          <span data-key="hero-badge">رزومه و معرفی کوتاه</span>
         </div>
         
         <h1 class="line2">
-          هادی موسوی 
+          <span data-key="hero-name">هادی موسوی</span>
         </h1>
           
         <h2>
-          <span class="line2">توسعه دهنده وب (لاراول) <br>متخصص دیجیتال<br>استراتژیست محتوا</span>
+          <span class="line2" data-key="hero-title">توسعه دهنده وب (لاراول) <br>متخصص دیجیتال<br>استراتژیست محتوا</span>
         </h2>
-        <p class="hero-sub">از HTML تا Laravel، از طراحی تا استراتژی محتوا — راه‌حل‌های دیجیتال کامل می‌سازم.</p>
+        <p class="hero-sub" data-key="hero-sub">از HTML تا Laravel، از طراحی تا استراتژی محتوا — راه‌حل‌های دیجیتال کامل می‌سازم.</p>
         <div class="hero-btns">
-          <button class="btn solid" data-section="about">شروع ←</button>
-          <button class="btn outline" data-section="contact">تماس بگیر</button>
+          <button class="btn solid" data-section="about" data-key="btn-start">شروع ←</button>
+          <button class="btn outline" data-section="contact" data-key="btn-contact">تماس بگیر</button>
         </div>
       </div>
       <div class="hero-visual float-card">
         <div class="profile-image-wrapper">
           <img 
             src="assets/profile.png" 
-            alt="هادی موسوی - توسعه‌دهنده وب" 
+            alt="Hadi Mousavi - Web Developer" 
             class="profile-image"
             onerror="this.style.opacity='0'; this.style.visibility='hidden';"
           />
@@ -874,22 +960,22 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   <div class="wrap">
     <div class="two" style="gap:80px;align-items:start">
       <div>
-        <p class="role-badge">بیشتر بدون</p>
-        <h2>درباره من</h2>
-        <p>از سال ۱۳۹۹ وقتی اولین خط HTML نوشتم تا الان که با Laravel، MySQL و Livewire اپلیکیشن می‌سازم، یه مسیر واقعی طی کردم. نه فقط کد — بازاریابی دیجیتال، طراحی گرافیک، تدریس، ترجمه. همه رو تجربه کردم.
+        <p class="role-badge" data-key="about-badge">بیشتر بدون</p>
+        <h2 data-key="about-title">درباره من</h2>
+        <p data-key="about-text1">از سال ۱۳۹۹ وقتی اولین خط HTML نوشتم تا الان که با Laravel، MySQL و Livewire اپلیکیشن می‌سازم، یه مسیر واقعی طی کردم. نه فقط کد — بازاریابی دیجیتال، طراحی گرافیک، تدریس، ترجمه. همه رو تجربه کردم.
         کارشناسی آموزش زبان انگلیسی از دانشگاه مراغه دارم که کمکم می‌کنه هم با تیم‌های بین‌المللی راحت کار کنم، هم مستندات فنی درست بنویسم.</p>
         <div class="ctcts">
           <a href="mailto:h.mousavi264@gmail.com">✉️ h.mousavi264@gmail.com</a>
-          <a href="tel:09128152648">📞 ۰۹۱۲۸۱۵۲۶۴۸</a>
+          <a href="tel:09128152648">📞 09128152648</a>
           <a href="https://github.com/hr2562b" target="_blank">💻 github.com/hr2562b</a>
         </div>
       </div>
       <div class="tl-list glass" style="padding:24px;border-radius:16px">
-          <div class="tl now"><div class="tl-y">۱۴۰۴</div><div class="tl-c"><strong>بیدستان استیل ← اکنون</strong><p>بازاریابی دیجیتال + ادمین وب</p></div></div>
-          <div class="tl"><div class="tl-y">۱۴۰۳</div><div class="tl-c"><strong>MySQL، ORM، Design Patterns</strong><p>فارغ‌التحصیلی از دانشگاه مراغه</p></div></div>
-          <div class="tl"><div class="tl-y">۱۴۰۲</div><div class="tl-c"><strong>PHP، Laravel، Livewire</strong><p>سربازی: تدریس، ترجمه، آموزش دیجیتال</p></div></div>
-          <div class="tl"><div class="tl-y">۱۴۰۱</div><div class="tl-c"><strong>کار دانشجویی گرافیک</strong><p>Photoshop، Premiere، کلیپ جشنواره‌های دانشگاه</p></div></div>
-        <div class="tl"><div class="tl-y">۱۳۹۹</div><div class="tl-c"><strong>HTML, CSS, JavaScript</strong><p>شروع کدنویسی + ثبت واکسیناسیون کووید</p></div></div>
+          <div class="tl now"><div class="tl-y">1404</div><div class="tl-c"><strong data-key="timeline1-title">بیدستان استیل ← اکنون</strong><p data-key="timeline1-desc">بازاریابی دیجیتال + ادمین وب</p></div></div>
+          <div class="tl"><div class="tl-y">1403</div><div class="tl-c"><strong data-key="timeline2-title">MySQL، ORM، Design Patterns</strong><p data-key="timeline2-desc">فارغ‌التحصیلی از دانشگاه مراغه</p></div></div>
+          <div class="tl"><div class="tl-y">1402</div><div class="tl-c"><strong data-key="timeline3-title">PHP، Laravel، Livewire</strong><p data-key="timeline3-desc">سربازی: تدریس، ترجمه، آموزش دیجیتال</p></div></div>
+          <div class="tl"><div class="tl-y">1401</div><div class="tl-c"><strong data-key="timeline4-title">کار دانشجویی گرافیک</strong><p data-key="timeline4-desc">Photoshop، Premiere، کلیپ جشنواره‌های دانشگاه</p></div></div>
+        <div class="tl"><div class="tl-y">1399</div><div class="tl-c"><strong data-key="timeline5-title">HTML, CSS, JavaScript</strong><p data-key="timeline5-desc">شروع کدنویسی + ثبت واکسیناسیون کووید</p></div></div>
       </div>
     </div>
   </div>
@@ -898,14 +984,14 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 <!-- ══ SECTION: SKILLS (تخصص‌ها) ══ -->
 <section id="skills" class="sec" style="padding-top:0">
   <div class="wrap">
-    <p class="role-badge">تخصص‌ها</p><h2>چی بلدم</h2>
+    <p class="role-badge" data-key="skills-badge">تخصص‌ها</p><h2 data-key="skills-title">چی بلدم</h2>
     <div class="sk-grid">
-      <div class="sk-block glass"><div class="sk-ico">⚙️</div><h3>Back-End</h3><div class="sk-tags"><span class="sk-tag">PHP</span><span class="sk-tag">Laravel</span><span class="sk-tag">Livewire</span><span class="sk-tag">MVC</span><span class="sk-tag">OOP</span><span class="sk-tag">Design Patterns</span><span class="sk-tag">Eloquent ORM</span></div></div>
-      <div class="sk-block glass"><div class="sk-ico">🎨</div><h3>Front-End</h3><div class="sk-tags"><span class="sk-tag">HTML5</span><span class="sk-tag">CSS3</span><span class="sk-tag">JavaScript</span><span class="sk-tag">Responsive Design</span></div></div>
-      <div class="sk-block glass"><div class="sk-ico">🗄️</div><h3>پایگاه داده</h3><div class="sk-tags"><span class="sk-tag">MySQL</span><span class="sk-tag">نرمال‌سازی</span><span class="sk-tag">Foreign Key</span><span class="sk-tag">Indexing</span><span class="sk-tag">Migration</span></div></div>
-      <div class="sk-block glass"><div class="sk-ico">📱</div><h3>دیجیتال مارکتینگ</h3><div class="sk-tags"><span class="sk-tag">Instagram</span><span class="sk-tag">LinkedIn B2B</span><span class="sk-tag">Twitter/X</span><span class="sk-tag">SEO</span><span class="sk-tag">Content Strategy</span></div></div>
-      <div class="sk-block glass"><div class="sk-ico">🖌️</div><h3>طراحی و رسانه</h3><div class="sk-tags"><span class="sk-tag">Adobe Photoshop</span><span class="sk-tag">Premiere Pro</span><span class="sk-tag">Canva</span><span class="sk-tag">InShot</span></div></div>
-      <div class="sk-block glass"><div class="sk-ico">🤖</div><h3>هوش مصنوعی</h3><div class="sk-tags"><span class="sk-tag">AI مولد</span><span class="sk-tag">جریان‌کاری AI-محور</span><span class="sk-tag">Word</span><span class="sk-tag">Excel</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">⚙️</div><h3 data-key="skill1">Back-End</h3><div class="sk-tags"><span class="sk-tag">PHP</span><span class="sk-tag">Laravel</span><span class="sk-tag">Livewire</span><span class="sk-tag">MVC</span><span class="sk-tag">OOP</span><span class="sk-tag">Design Patterns</span><span class="sk-tag">Eloquent ORM</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">🎨</div><h3 data-key="skill2">Front-End</h3><div class="sk-tags"><span class="sk-tag">HTML5</span><span class="sk-tag">CSS3</span><span class="sk-tag">JavaScript</span><span class="sk-tag">Responsive Design</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">🗄️</div><h3 data-key="skill3">پایگاه داده</h3><div class="sk-tags"><span class="sk-tag">MySQL</span><span class="sk-tag">Normalization</span><span class="sk-tag">Foreign Key</span><span class="sk-tag">Indexing</span><span class="sk-tag">Migration</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">📱</div><h3 data-key="skill4">دیجیتال مارکتینگ</h3><div class="sk-tags"><span class="sk-tag">Instagram</span><span class="sk-tag">LinkedIn B2B</span><span class="sk-tag">Twitter/X</span><span class="sk-tag">SEO</span><span class="sk-tag">Content Strategy</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">🖌️</div><h3 data-key="skill5">طراحی و رسانه</h3><div class="sk-tags"><span class="sk-tag">Adobe Photoshop</span><span class="sk-tag">Premiere Pro</span><span class="sk-tag">Canva</span><span class="sk-tag">InShot</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">🤖</div><h3 data-key="skill6">هوش مصنوعی</h3><div class="sk-tags"><span class="sk-tag">Generative AI</span><span class="sk-tag">AI-Powered Workflow</span><span class="sk-tag">Word</span><span class="sk-tag">Excel</span></div></div>
     </div>
   </div>
 </section>
@@ -915,137 +1001,112 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   <div class="wrap">
     <div class="resume-wrap">
       <div>
-        <p class="role-badge">سوابق حرفه ای</p>
-        <h2>رزومه</h2>
+        <p class="role-badge" data-key="resume-badge">سوابق حرفه ای</p>
+        <h2 data-key="resume-title">رزومه</h2>
+        
+        <!-- Job 1 -->
         <div class="job-entry">
-          <div class="job-head"><span class="job-title-t">متخصص بازاریابی دیجیتال و ادمین وب‌سایت</span><span class="job-date">۱۴۰۴ – ۱۴۰۵</span></div>
-          <div class="job-co">شرکت بیدستان کالای استیل</div>
-          <div class="pj-tags"><span class="tag-pill">دیجیتال مارکتینگ</span><span class="tag-pill">LinkedIn B2B</span><span class="tag-pill">Content Strategy</span></div>
+          <div class="job-head"><span class="job-title-t" data-key="job1-title">متخصص بازاریابی دیجیتال و ادمین وب‌سایت</span><span class="job-date">1404 – 1405</span></div>
+          <div class="job-co" data-key="job1-company">شرکت بیدستان کالای استیل</div>
+          <div class="pj-tags"><span class="tag-pill">Digital Marketing</span><span class="tag-pill">LinkedIn B2B</span><span class="tag-pill">Content Strategy</span></div>
           <ul class="job-buls">
-            <li>طراحی و اجرای استراتژی‌های محتوایی پلتفرم‌محور برای لینکدین، اینستاگرام و توییتر/X با بهره‌گیری از الگوریتم بومی هر پلتفرم</li>
-            <li>مدیریت شبکه‌سازی B2B در لینکدین شامل ارتباط‌گیری هدفمند و انتشار محتوای Thought Leadership</li>
-            <li>تولید محتوای بصری با Adobe Photoshop و Canva منطبق با هویت بصری برند</li>
-            <li>نگارش پست‌های SEO-optimized جهت رشد قابل‌اندازه‌گیری فالوور و Post Impressions</li>
-            <li>مدیریت وب‌سایت شرکت و سازماندهی داده در Microsoft Excel و Word</li>
+            <li data-key="job1-bul1">طراحی و اجرای استراتژی‌های محتوایی پلتفرم‌محور برای لینکدین، اینستاگرام و توییتر/X با بهره‌گیری از الگوریتم بومی هر پلتفرم</li>
+            <li data-key="job1-bul2">مدیریت شبکه‌سازی B2B در لینکدین شامل ارتباط‌گیری هدفمند و انتشار محتوای Thought Leadership</li>
+            <li data-key="job1-bul3">تولید محتوای بصری با Adobe Photoshop و Canva منطبق با هویت بصری برند</li>
+            <li data-key="job1-bul4">نگارش پست‌های SEO-optimized جهت رشد قابل‌اندازه‌گیری فالوور و Post Impressions</li>
+            <li data-key="job1-bul5">مدیریت وب‌سایت شرکت و سازماندهی داده در Microsoft Excel و Word</li>
           </ul>
         </div>
+        
+        <!-- Job 2 -->
         <div class="job-entry">
-          <div class="job-head"><span class="job-title-t">توسعه‌دهنده وب Full-Stack (Laravel)</span><span class="job-date">۱۳۹۹ – اکنون</span></div>
-          <div class="job-co">پروژه‌های مستقل / فریلنس — github.com/hr2562b</div>
+          <div class="job-head"><span class="job-title-t" data-key="job2-title">توسعه‌دهنده وب Full-Stack (Laravel)</span><span class="job-date">1399 – Present</span></div>
+          <div class="job-co" data-key="job2-company">پروژه‌های مستقل / فریلنس — github.com/hr2562b</div>
           <div class="pj-tags"><span class="tag-pill">Laravel / PHP</span><span class="tag-pill">MySQL</span><span class="tag-pill">MVC</span><span class="tag-pill">Livewire</span></div>
           <ul class="job-buls">
-            <li>آغاز با HTML5، CSS3 و JavaScript (۱۳۹۹) و ارتقاء به PHP، Laravel و Livewire (از ۱۴۰۲)</li>
-            <li>توسعه اپلیکیشن‌های وب فول‌استک با معماری MVC و Design Patterns (Repository، Factory، Singleton)</li>
-            <li>طراحی پایگاه داده MySQL با نرمال‌سازی 1NF تا 3NF، Foreign Key Constraints و Indexing بهینه</li>
-            <li>استفاده از Eloquent ORM برای روابط Many-to-Many و مدیریت Migration و Seeder</li>
-            <li>کنترل نسخه با Git و GitHub با استراتژی Feature Branching</li>
+            <li data-key="job2-bul1">آغاز با HTML5، CSS3 و JavaScript (۱۳۹۹) و ارتقاء به PHP، Laravel و Livewire (از ۱۴۰۲)</li>
+            <li data-key="job2-bul2">توسعه اپلیکیشن‌های وب فول‌استک با معماری MVC و Design Patterns (Repository، Factory، Singleton)</li>
+            <li data-key="job2-bul3">طراحی پایگاه داده MySQL با نرمال‌سازی 1NF تا 3NF، Foreign Key Constraints و Indexing بهینه</li>
+            <li data-key="job2-bul4">استفاده از Eloquent ORM برای روابط Many-to-Many و مدیریت Migration و Seeder</li>
+            <li data-key="job2-bul5">کنترل نسخه با Git و GitHub با استراتژی Feature Branching</li>
           </ul>
-          <a href="https://github.com/hr2562b" class="btn solid" target="_blank">مشاهده در GitHub</a>
+          <a href="https://github.com/hr2562b" class="btn solid" target="_blank" data-key="btn-github">مشاهده در GitHub</a>
         </div>
+        
+        <!-- Job 3 -->
         <div class="job-entry">
-          <div class="job-head"><span class="job-title-t">مترجم، مدرس زبان انگلیسی و متخصص محتوای دیجیتال</span><span class="job-date">۱۴۰۲ – ۱۴۰۴</span></div>
-          <div class="job-co">خدمت سربازی – واحد آموزش و ترجمه</div>
-          <div class="pj-tags"><span class="tag-pill">آموزش</span></div>
+          <div class="job-head"><span class="job-title-t" data-key="job3-title">مترجم، مدرس زبان انگلیسی و متخصص محتوای دیجیتال</span><span class="job-date">1402 – 1404</span></div>
+          <div class="job-co" data-key="job3-company">خدمت سربازی – واحد آموزش و ترجمه</div>
+          <div class="pj-tags"><span class="tag-pill">Education</span></div>
           <ul class="job-buls">
-            <li>ارائه تدریس رسمی زبان انگلیسی و خدمات ترجمه تخصصی در محیط نظامی</li>
-            <li>آموزش مدیریت شبکه‌های اجتماعی (لینکدین، اینستاگرام، توییتر/X) با تمرکز بر الگوریتم‌های پلتفرم‌محور</li>
-            <li>تولید جزوات آموزشی برای اینستاگرام، توییتر/X و یوتیوب با ابزارهای هوش مصنوعی مولد</li>
-            <li>نگهداری پایگاه داده واژگان ترجمه‌شده در Microsoft Excel</li>
+            <li data-key="job3-bul1">ارائه تدریس رسمی زبان انگلیسی و خدمات ترجمه تخصصی در محیط نظامی</li>
+            <li data-key="job3-bul2">آموزش مدیریت شبکه‌های اجتماعی (لینکدین، اینستاگرام، توییتر/X) با تمرکز بر الگوریتم‌های پلتفرم‌محور</li>
+            <li data-key="job3-bul3">تولید جزوات آموزشی برای اینستاگرام، توییتر/X و یوتیوب با ابزارهای هوش مصنوعی مولد</li>
+            <li data-key="job3-bul4">نگهداری پایگاه داده واژگان ترجمه‌شده در Microsoft Excel</li>
           </ul>
         </div>
+        
+        <!-- Job 4 -->
         <div class="job-entry">
-          <div class="job-head"><span class="job-title-t">گرافیست و تدوینگر ویدیو (کار دانشجویی)</span><span class="job-date">۱۴۰۱ – ۱۴۰۳</span></div>
-          <div class="job-co">دانشگاه مراغه – اداره امور فرهنگی</div>
-          <div class="pj-tags"><span class="tag-pill">Photoshop</span><span class="tag-pill">Premiere Pro</span><span class="tag-pill">طراحی چاپی</span></div>
+          <div class="job-head"><span class="job-title-t" data-key="job4-title">گرافیست و تدوینگر ویدیو (کار دانشجویی)</span><span class="job-date">1401 – 1403</span></div>
+          <div class="job-co" data-key="job4-company">دانشگاه مراغه – اداره امور فرهنگی</div>
+          <div class="pj-tags"><span class="tag-pill">Photoshop</span><span class="tag-pill">Premiere Pro</span><span class="tag-pill">Print Design</span></div>
           <ul class="job-buls">
-            <li>طراحی پوسترهای تبلیغاتی با Adobe Photoshop برای رویدادهای فرهنگی و آکادمیک</li>
-            <li>تولید و تدوین کلیپ‌های رسمی جشنواره‌های دانشجویی حرکت و رویش با Premiere Pro، شامل Color Grading و Post-Production</li>
-            <li>تهیه و تدوین کلیپ‌های مراسم فارغ‌التحصیلی دانشگاه با Storytelling بصری و تنظیم صدا</li>
-            <li>طراحی ۳ جلد کتاب تجاری Print-Ready با تایپوگرافی حرفه‌ای — نمونه‌کار موجود</li>
+            <li data-key="job4-bul1">طراحی پوسترهای تبلیغاتی با Adobe Photoshop برای رویدادهای فرهنگی و آکادمیک</li>
+            <li data-key="job4-bul2">تولید و تدوین کلیپ‌های رسمی جشنواره‌های دانشجویی حرکت و رویش با Premiere Pro، شامل Color Grading و Post-Production</li>
+            <li data-key="job4-bul3">تهیه و تدوین کلیپ‌های مراسم فارغ‌التحصیلی دانشگاه با Storytelling بصری و تنظیم صدا</li>
+            <li data-key="job4-bul4">طراحی ۳ جلد کتاب تجاری Print-Ready با تایپوگرافی حرفه‌ای — نمونه‌کار موجود</li>
           </ul>
-          <button class="btn outline" data-section="contact">نمونه‌کار بخواه</button>
+          <button class="btn outline" data-section="contact" data-key="btn-sample">نمونه‌کار بخواه</button>
         </div>
+        
+        <!-- Job 5 -->
         <div class="job-entry">
-          <div class="job-head"><span class="job-title-t">اپراتور ثبت داده واکسیناسیون</span><span class="job-date">۱۳۹۹ – ۱۴۰۰</span></div>
-          <div class="job-co">مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان</div>
+          <div class="job-head"><span class="job-title-t" data-key="job5-title">اپراتور ثبت داده واکسیناسیون</span><span class="job-date">1399 – 1400</span></div>
+          <div class="job-co" data-key="job5-company">مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان</div>
           <div class="pj-tags"><span class="tag-pill">Microsoft Excel</span><span class="tag-pill">Microsoft Word</span></div>
           <ul class="job-buls">
-            <li>ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت</li>
-            <li>هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا</li>
+            <li data-key="job5-bul1">ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت</li>
+            <li data-key="job5-bul2">هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا</li>
           </ul>
         </div>
       </div>
+      
       <div>
-        <div class="side-box glass"><div class="side-title">اطلاعات تماس</div>
+        <div class="side-box glass"><div class="side-title" data-key="contact-title">اطلاعات تماس</div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <a href="tel:09128152648" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">📞 ۰۹۱۲۸۱۵۲۶۴۸</a>
+            <a href="tel:09128152648" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">📞 09128152648</a>
             <a href="mailto:h.mousavi264@gmail.com" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">✉️ h.mousavi264@gmail.com</a>
             <a href="https://github.com/hr2562b" target="_blank" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--fg2)'">💻 github.com/hr2562b</a>
           </div>
         </div>
-        <div class="side-box glass"><div class="side-title">تحصیلات</div>
-          <div class="edu-d">کارشناسی آموزش زبان انگلیسی</div>
-          <div class="edu-u">دانشگاه مراغه</div>
-          <div class="edu-y">۱۳۹۹ – ۱۴۰۳</div>
+        <div class="side-box glass"><div class="side-title" data-key="edu-title">تحصیلات</div>
+          <div class="edu-d" data-key="edu-degree">کارشناسی آموزش زبان انگلیسی</div>
+          <div class="edu-u" data-key="edu-univ">دانشگاه مراغه</div>
+          <div class="edu-y">1399 – 1403</div>
         </div>
-        <div class="side-box glass"><div class="side-title">مهارت‌ها</div>
+        <div class="side-box glass"><div class="side-title" data-key="skills-side-title">مهارت‌ها</div>
           <div class="side-skill-g"><div class="side-cat">Back-End</div><div class="side-tags"><span class="side-tag">PHP</span><span class="side-tag">Laravel</span><span class="side-tag">Livewire</span><span class="side-tag">MVC</span><span class="side-tag">OOP</span><span class="side-tag">Design Patterns</span><span class="side-tag">Eloquent ORM</span></div></div>
           <div class="side-skill-g"><div class="side-cat">Front-End</div><div class="side-tags"><span class="side-tag">HTML5</span><span class="side-tag">CSS3</span><span class="side-tag">JavaScript</span><span class="side-tag">Responsive</span></div></div>
-          <div class="side-skill-g"><div class="side-cat">پایگاه داده</div><div class="side-tags"><span class="side-tag">MySQL</span><span class="side-tag">نرمال‌سازی</span><span class="side-tag">Foreign Key</span><span class="side-tag">Indexing</span><span class="side-tag">Migration</span></div></div>
-          <div class="side-skill-g"><div class="side-cat">دیجیتال مارکتینگ</div><div class="side-tags"><span class="side-tag">LinkedIn B2B</span><span class="side-tag">Instagram</span><span class="side-tag">Twitter/X</span><span class="side-tag">SEO</span></div></div>
-          <div class="side-skill-g"><div class="side-cat">طراحی و رسانه</div><div class="side-tags"><span class="side-tag">Photoshop</span><span class="side-tag">Premiere Pro</span><span class="side-tag">Canva</span><span class="side-tag">InShot</span></div></div>
-          <div class="side-skill-g"><div class="side-cat">ابزارها</div><div class="side-tags"><span class="side-tag">Git</span><span class="side-tag">GitHub</span><span class="side-tag">Word</span><span class="side-tag">Excel</span><span class="side-tag">AI Tools</span></div></div>
+          <div class="side-skill-g"><div class="side-cat" data-key="skill-db">پایگاه داده</div><div class="side-tags"><span class="side-tag">MySQL</span><span class="side-tag">Normalization</span><span class="side-tag">Foreign Key</span><span class="side-tag">Indexing</span><span class="side-tag">Migration</span></div></div>
+          <div class="side-skill-g"><div class="side-cat" data-key="skill-marketing">دیجیتال مارکتینگ</div><div class="side-tags"><span class="side-tag">LinkedIn B2B</span><span class="side-tag">Instagram</span><span class="side-tag">Twitter/X</span><span class="side-tag">SEO</span></div></div>
+          <div class="side-skill-g"><div class="side-cat" data-key="skill-design">طراحی و رسانه</div><div class="side-tags"><span class="side-tag">Photoshop</span><span class="side-tag">Premiere Pro</span><span class="side-tag">Canva</span><span class="side-tag">InShot</span></div></div>
+          <div class="side-skill-g"><div class="side-cat">Tools</div><div class="side-tags"><span class="side-tag">Git</span><span class="side-tag">GitHub</span><span class="side-tag">Word</span><span class="side-tag">Excel</span><span class="side-tag">AI Tools</span></div></div>
         </div>
-        <div class="side-box glass"><div class="side-title">زبان‌ها</div>
-          <div class="lang-r"><span class="lang-n">انگلیسی</span><span class="lang-v">حرفه‌ای</span></div>
+        <div class="side-box glass"><div class="side-title" data-key="lang-title">زبان‌ها</div>
+          <div class="lang-r"><span class="lang-n" data-key="lang-english">انگلیسی</span><span class="lang-v" data-key="lang-level">حرفه‌ای</span></div>
         </div>
-        <div class="side-box glass"><div class="side-title">مسیر حرفه‌ای</div>
-  <div class="dev-tl">
-
-    <div class="dev-step">
-      <div class="dev-y">۱۳۹۹</div>
-      <div class="dev-t">Front-End Development</div>
-      <div class="dev-sub">HTML5، CSS3، JavaScript</div>
-    </div>
-
-    <div class="dev-step">
-      <div class="dev-y">۱۳۹۹–۱۴۰۰</div>
-      <div class="dev-t">اپراتور ثبت واکسیناسیون</div>
-      <div class="dev-sub">سامانه ملی بهداشت — خدابنده، زنجان</div>
-    </div>
-
-    <div class="dev-step">
-      <div class="dev-y">۱۴۰۱–۱۴۰۳</div>
-      <div class="dev-t">گرافیست و تدوینگر ویدیو</div>
-      <div class="dev-sub">Photoshop، Premiere Pro، کلیپ جشنواره حرکت و رویش، طراحی جلد کتاب</div>
-    </div>
-
-    <div class="dev-step">
-      <div class="dev-y">۱۴۰۲</div>
-      <div class="dev-t">Back-End Development</div>
-      <div class="dev-sub">PHP ← Laravel ← Livewire ← MVC ← OOP</div>
-    </div>
-
-    <div class="dev-step">
-      <div class="dev-y">۱۴۰۲–۱۴۰۴</div>
-      <div class="dev-t">مترجم و مدرس زبان انگلیسی</div>
-      <div class="dev-sub">خدمت سربازی — تدریس، ترجمه رسمی، آموزش دیجیتال مارکتینگ</div>
-    </div>
-
-    <div class="dev-step">
-      <div class="dev-y">۱۴۰۳</div>
-      <div class="dev-t">Database & Architecture</div>
-      <div class="dev-sub">MySQL، نرمال‌سازی، ORM، Design Patterns — فارغ‌التحصیلی دانشگاه مراغه</div>
-    </div>
-
-    <div class="dev-step dev-step-active">
-      <div class="dev-y">۱۴۰۴ – اکنون</div>
-      <div class="dev-t">متخصص بازاریابی دیجیتال</div>
-      <div class="dev-sub">بیدستان استیل — لینکدین B2B، اینستاگرام، توییتر/X، ادمین وب</div>
-    </div>
-
-  </div>
-</div>
+        <div class="side-box glass"><div class="side-title" data-key="career-title">مسیر حرفه‌ای</div>
+          <div class="dev-tl">
+            <div class="dev-step"><div class="dev-y">1399</div><div class="dev-t" data-key="career1-title">Front-End Development</div><div class="dev-sub" data-key="career1-desc">HTML5، CSS3، JavaScript</div></div>
+            <div class="dev-step"><div class="dev-y">1399–1400</div><div class="dev-t" data-key="career2-title">اپراتور ثبت واکسیناسیون</div><div class="dev-sub" data-key="career2-desc">سامانه ملی بهداشت — خدابنده، زنجان</div></div>
+            <div class="dev-step"><div class="dev-y">1401–1403</div><div class="dev-t" data-key="career3-title">گرافیست و تدوینگر ویدیو</div><div class="dev-sub" data-key="career3-desc">Photoshop، Premiere Pro، کلیپ جشنواره حرکت و رویش، طراحی جلد کتاب</div></div>
+            <div class="dev-step"><div class="dev-y">1402</div><div class="dev-t" data-key="career4-title">Back-End Development</div><div class="dev-sub" data-key="career4-desc">PHP ← Laravel ← Livewire ← MVC ← OOP</div></div>
+            <div class="dev-step"><div class="dev-y">1402–1404</div><div class="dev-t" data-key="career5-title">مترجم و مدرس زبان انگلیسی</div><div class="dev-sub" data-key="career5-desc">خدمت سربازی — تدریس، ترجمه رسمی، آموزش دیجیتال مارکتینگ</div></div>
+            <div class="dev-step"><div class="dev-y">1403</div><div class="dev-t" data-key="career6-title">Database & Architecture</div><div class="dev-sub" data-key="career6-desc">MySQL، نرمال‌سازی، ORM، Design Patterns — فارغ‌التحصیلی دانشگاه مراغه</div></div>
+            <div class="dev-step dev-step-active"><div class="dev-y">1404 – Present</div><div class="dev-t" data-key="career7-title">متخصص بازاریابی دیجیتال</div><div class="dev-sub" data-key="career7-desc">بیدستان استیل — لینکدین B2B، اینستاگرام، توییتر/X، ادمین وب</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1055,24 +1116,31 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 <section id="contact" class="sec">
   <div class="wrap two" style="gap:80px;align-items:start">
     <div>
-      <p class="role-badge">بیا صحبت کنیم</p>
-      <h2>تماس</h2>
-      <h2 style="margin-top:20px">یه پروژه در ذهن داری؟</h2>
-      <p>چه بخوای یه سایت بسازی، چه مدیریت شبکه‌های اجتماعیت رو بسپاری — خوشحال میشم بشنوم.</p>
+      <p class="role-badge" data-key="contact-badge">بیا صحبت کنیم</p>
+      <h2 data-key="contact-title-main">تماس</h2>
+      <h2 style="margin-top:20px" data-key="contact-question">یه پروژه در ذهن داری؟</h2>
+      <p data-key="contact-text">چه بخوای یه سایت بسازی، چه مدیریت شبکه‌های اجتماعیت رو بسپاری — خوشحال میشم بشنوم.</p>
       <div class="cms">
-        <a href="mailto:h.mousavi264@gmail.com" class="cm glass"><span class="cm-ico">✉️</span><div><strong>ایمیل</strong><span>h.mousavi264@gmail.com</span></div></a>
-        <a href="tel:09128152648" class="cm glass"><span class="cm-ico">📞</span><div><strong>تلفن</strong><span>۰۹۱۲۸۱۵۲۶۴۸</span></div></a>
+        <a href="mailto:h.mousavi264@gmail.com" class="cm glass"><span class="cm-ico">✉️</span><div><strong data-key="email">ایمیل</strong><span>h.mousavi264@gmail.com</span></div></a>
+        <a href="tel:09128152648" class="cm glass"><span class="cm-ico">📞</span><div><strong data-key="phone">تلفن</strong><span>09128152648</span></div></a>
         <a href="https://github.com/hr2562b" target="_blank" class="cm glass"><span class="cm-ico">💻</span><div><strong>GitHub</strong><span>github.com/hr2562b</span></div></a>
       </div>
     </div>
     <div>
-      <div class="ok-msg" id="okMsg">✅ پیامت رسید! به زودی جواب میدم.</div>
+      <div class="ok-msg" id="okMsg" data-key="ok-msg">✅ پیامت رسید! به زودی جواب میدم.</div>
       <form id="cForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <div class="fg"><label>اسمت</label><input type="text" name="name" placeholder="مثلاً علی احمدی" required/></div>
-        <div class="fg"><label>ایمیل</label><input type="email" name="email" placeholder="ali@example.com" required/></div>
-        <div class="fg"><label>موضوع</label><select name="subject"><option value="web">توسعه وب</option><option value="marketing">بازاریابی دیجیتال</option><option value="design">طراحی گرافیک</option><option value="other">سایر</option></select></div>
-        <div class="fg"><label>پیامت</label><textarea name="message" placeholder="بنویس چه کمکی می‌تونم بکنم..." required></textarea></div>
-        <button type="submit" class="btn solid" style="width:100%;justify-content:center">ارسال پیام →</button>
+        <div class="fg"><label data-key="form-name">اسمت</label><input type="text" name="name" placeholder="مثلاً علی احمدی" required/></div>
+        <div class="fg"><label data-key="form-email">ایمیل</label><input type="email" name="email" placeholder="ali@example.com" required/></div>
+        <div class="fg"><label data-key="form-subject">موضوع</label>
+          <select name="subject">
+            <option value="web" data-key="subject-web">توسعه وب</option>
+            <option value="marketing" data-key="subject-marketing">بازاریابی دیجیتال</option>
+            <option value="design" data-key="subject-design">طراحی گرافیک</option>
+            <option value="other" data-key="subject-other">سایر</option>
+          </select>
+        </div>
+        <div class="fg"><label data-key="form-message">پیامت</label><textarea name="message" placeholder="بنویس چه کمکی می‌تونم بکنم..." required></textarea></div>
+        <button type="submit" class="btn solid" style="width:100%;justify-content:center" data-key="form-submit">ارسال پیام →</button>
       </form>
     </div>
   </div>
@@ -1081,8 +1149,8 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 <!-- ══ FOOTER ══ -->
 <footer>
   <div class="wrap foot">
-    <p>© ۱۴۰۵ هادی موسوی — All rights reserved</p>
-    <div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com">ایمیل</a></div>
+    <p>© 1405 <span data-key="footer-name">هادی موسوی</span> — <span data-key="footer-rights">تمامی حقوق محفوظ است</span></p>
+    <div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com" data-key="footer-email">ایمیل</a></div>
   </div>
 </footer>
 
@@ -1180,14 +1248,211 @@ const themeBtnMob = document.getElementById('themeBtnMob');
 function setTheme(t){
   html.dataset.theme = t;
   localStorage.setItem('theme', t);
-  const icon = t==='dark' ? '🌙' : '☀️';
+  const icon = t === 'dark' ? '☀️' : '🌙';
+  const title = t === 'dark' ? 'Light mode' : 'Dark mode';
   themeBtn.textContent = icon;
   themeBtnMob.textContent = icon;
+  themeBtn.title = title;
+  themeBtnMob.title = title;
 }
-const saved = localStorage.getItem('theme') || 'dark';
-setTheme(saved);
-themeBtn.addEventListener('click', ()=> setTheme(html.dataset.theme==='dark'?'light':'dark'));
-themeBtnMob.addEventListener('click', ()=> setTheme(html.dataset.theme==='dark'?'light':'dark'));
+const savedTheme = localStorage.getItem('theme') || 'dark';
+setTheme(savedTheme);
+themeBtn.addEventListener('click', ()=> setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark'));
+themeBtnMob.addEventListener('click', ()=> setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark'));
+
+/* ── LANGUAGE TOGGLE ── */
+const translations = {
+  fa: {
+    'nav-home': 'خانه', 'nav-about': 'درباره من', 'nav-skills': 'تخصص ها', 'nav-resume': 'رزومه', 'nav-contact': 'تماس',
+    'hero-badge': 'رزومه و معرفی کوتاه', 'hero-name': 'هادی موسوی', 
+    'hero-title': 'توسعه دهنده وب (لاراول) <br>متخصص دیجیتال<br>استراتژیست محتوا',
+    'hero-sub': 'از HTML تا Laravel، از طراحی تا استراتژی محتوا — راه‌حل‌های دیجیتال کامل می‌سازم.',
+    'btn-start': 'شروع ←', 'btn-contact': 'تماس بگیر',
+    'about-badge': 'بیشتر بدون', 'about-title': 'درباره من',
+    'about-text1': 'از سال ۱۳۹۹ وقتی اولین خط HTML نوشتم تا الان که با Laravel، MySQL و Livewire اپلیکیشن می‌سازم، یه مسیر واقعی طی کردم. نه فقط کد — بازاریابی دیجیتال، طراحی گرافیک، تدریس، ترجمه. همه رو تجربه کردم. کارشناسی آموزش زبان انگلیسی از دانشگاه مراغه دارم که کمکم می‌کنه هم با تیم‌های بین‌المللی راحت کار کنم، هم مستندات فنی درست بنویسم.',
+    'timeline1-title': 'بیدستان استیل ← اکنون', 'timeline1-desc': 'بازاریابی دیجیتال + ادمین وب',
+    'timeline2-title': 'MySQL، ORM، Design Patterns', 'timeline2-desc': 'فارغ‌التحصیلی از دانشگاه مراغه',
+    'timeline3-title': 'PHP، Laravel، Livewire', 'timeline3-desc': 'سربازی: تدریس، ترجمه، آموزش دیجیتال',
+    'timeline4-title': 'کار دانشجویی گرافیک', 'timeline4-desc': 'Photoshop، Premiere، کلیپ جشنواره‌های دانشگاه',
+    'timeline5-title': 'HTML, CSS, JavaScript', 'timeline5-desc': 'شروع کدنویسی + ثبت واکسیناسیون کووید',
+    'skills-badge': 'تخصص‌ها', 'skills-title': 'چی بلدم',
+    'skill1': 'Back-End', 'skill2': 'Front-End', 'skill3': 'پایگاه داده', 'skill4': 'دیجیتال مارکتینگ', 'skill5': 'طراحی و رسانه', 'skill6': 'هوش مصنوعی',
+    'resume-badge': 'سوابق حرفه ای', 'resume-title': 'رزومه',
+    'job1-title': 'متخصص بازاریابی دیجیتال و ادمین وب‌سایت', 'job1-company': 'شرکت بیدستان کالای استیل',
+    'job1-bul1': 'طراحی و اجرای استراتژی‌های محتوایی پلتفرم‌محور برای لینکدین، اینستاگرام و توییتر/X با بهره‌گیری از الگوریتم بومی هر پلتفرم',
+    'job1-bul2': 'مدیریت شبکه‌سازی B2B در لینکدین شامل ارتباط‌گیری هدفمند و انتشار محتوای Thought Leadership',
+    'job1-bul3': 'تولید محتوای بصری با Adobe Photoshop و Canva منطبق با هویت بصری برند',
+    'job1-bul4': 'نگارش پست‌های SEO-optimized جهت رشد قابل‌اندازه‌گیری فالوور و Post Impressions',
+    'job1-bul5': 'مدیریت وب‌سایت شرکت و سازماندهی داده در Microsoft Excel و Word',
+    'job2-title': 'توسعه‌دهنده وب Full-Stack (Laravel)', 'job2-company': 'پروژه‌های مستقل / فریلنس — github.com/hr2562b',
+    'job2-bul1': 'آغاز با HTML5، CSS3 و JavaScript (۱۳۹۹) و ارتقاء به PHP، Laravel و Livewire (از ۱۴۰۲)',
+    'job2-bul2': 'توسعه اپلیکیشن‌های وب فول‌استک با معماری MVC و Design Patterns (Repository، Factory، Singleton)',
+    'job2-bul3': 'طراحی پایگاه داده MySQL با نرمال‌سازی 1NF تا 3NF، Foreign Key Constraints و Indexing بهینه',
+    'job2-bul4': 'استفاده از Eloquent ORM برای روابط Many-to-Many و مدیریت Migration و Seeder',
+    'job2-bul5': 'کنترل نسخه با Git و GitHub با استراتژی Feature Branching',
+    'btn-github': 'مشاهده در GitHub',
+    'job3-title': 'مترجم، مدرس زبان انگلیسی و متخصص محتوای دیجیتال', 'job3-company': 'خدمت سربازی – واحد آموزش و ترجمه',
+    'job3-bul1': 'ارائه تدریس رسمی زبان انگلیسی و خدمات ترجمه تخصصی در محیط نظامی',
+    'job3-bul2': 'آموزش مدیریت شبکه‌های اجتماعی (لینکدین، اینستاگرام، توییتر/X) با تمرکز بر الگوریتم‌های پلتفرم‌محور',
+    'job3-bul3': 'تولید جزوات آموزشی برای اینستاگرام، توییتر/X و یوتیوب با ابزارهای هوش مصنوعی مولد',
+    'job3-bul4': 'نگهداری پایگاه داده واژگان ترجمه‌شده در Microsoft Excel',
+    'job4-title': 'گرافیست و تدوینگر ویدیو (کار دانشجویی)', 'job4-company': 'دانشگاه مراغه – اداره امور فرهنگی',
+    'job4-bul1': 'طراحی پوسترهای تبلیغاتی با Adobe Photoshop برای رویدادهای فرهنگی و آکادمیک',
+    'job4-bul2': 'تولید و تدوین کلیپ‌های رسمی جشنواره‌های دانشجویی حرکت و رویش با Premiere Pro، شامل Color Grading و Post-Production',
+    'job4-bul3': 'تهیه و تدوین کلیپ‌های مراسم فارغ‌التحصیلی دانشگاه با Storytelling بصری و تنظیم صدا',
+    'job4-bul4': 'طراحی ۳ جلد کتاب تجاری Print-Ready با تایپوگرافی حرفه‌ای — نمونه‌کار موجود',
+    'btn-sample': 'نمونه‌کار بخواه',
+    'job5-title': 'اپراتور ثبت داده واکسیناسیون', 'job5-company': 'مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان',
+    'job5-bul1': 'ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت',
+    'job5-bul2': 'هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا',
+    'contact-title': 'اطلاعات تماس', 'edu-title': 'تحصیلات', 'skills-side-title': 'مهارت‌ها',
+    'skill-db': 'پایگاه داده', 'skill-marketing': 'دیجیتال مارکتینگ', 'skill-design': 'طراحی و رسانه',
+    'lang-title': 'زبان‌ها', 'lang-english': 'انگلیسی', 'lang-level': 'حرفه‌ای',
+    'career-title': 'مسیر حرفه‌ای',
+    'career1-title': 'Front-End Development', 'career1-desc': 'HTML5، CSS3، JavaScript',
+    'career2-title': 'اپراتور ثبت واکسیناسیون', 'career2-desc': 'سامانه ملی بهداشت — خدابنده، زنجان',
+    'career3-title': 'گرافیست و تدوینگر ویدیو', 'career3-desc': 'Photoshop، Premiere Pro، کلیپ جشنواره حرکت و رویش، طراحی جلد کتاب',
+    'career4-title': 'Back-End Development', 'career4-desc': 'PHP ← Laravel ← Livewire ← MVC ← OOP',
+    'career5-title': 'مترجم و مدرس زبان انگلیسی', 'career5-desc': 'خدمت سربازی — تدریس، ترجمه رسمی، آموزش دیجیتال مارکتینگ',
+    'career6-title': 'Database & Architecture', 'career6-desc': 'MySQL، نرمال‌سازی، ORM، Design Patterns — فارغ‌التحصیلی دانشگاه مراغه',
+    'career7-title': 'متخصص بازاریابی دیجیتال', 'career7-desc': 'بیدستان استیل — لینکدین B2B، اینستاگرام، توییتر/X، ادمین وب',
+    'contact-badge': 'بیا صحبت کنیم', 'contact-title-main': 'تماس', 'contact-question': 'یه پروژه در ذهن داری؟',
+    'contact-text': 'چه بخوای یه سایت بسازی، چه مدیریت شبکه‌های اجتماعیت رو بسپاری — خوشحال میشم بشنوم.',
+    'email': 'ایمیل', 'phone': 'تلفن', 'ok-msg': '✅ پیامت رسید! به زودی جواب میدم.',
+    'form-name': 'اسمت', 'form-email': 'ایمیل', 'form-subject': 'موضوع', 'form-message': 'پیامت', 'form-submit': 'ارسال پیام →',
+    'subject-web': 'توسعه وب', 'subject-marketing': 'بازاریابی دیجیتال', 'subject-design': 'طراحی گرافیک', 'subject-other': 'سایر',
+    'footer-name': 'هادی موسوی', 'footer-rights': 'تمامی حقوق محفوظ است', 'footer-email': 'ایمیل',
+    'edu-degree': 'کارشناسی آموزش زبان انگلیسی', 'edu-univ': 'دانشگاه مراغه'
+  },
+  en: {
+    'nav-home': 'Home', 'nav-about': 'About', 'nav-skills': 'Skills', 'nav-resume': 'Resume', 'nav-contact': 'Contact',
+    'hero-badge': 'Resume & Short Intro', 'hero-name': 'Hadi Mousavi', 
+    'hero-title': 'Laravel Developer <br>Digital Marketing Specialist<br>Content Strategist',
+    'hero-sub': 'From HTML to Laravel, from design to content strategy — I create complete digital solutions.',
+    'btn-start': 'Start →', 'btn-contact': 'Contact Me',
+    'about-badge': 'Learn More', 'about-title': 'About Me',
+    'about-text1': 'Since 2020 when I wrote my first line of HTML until now building applications with Laravel, MySQL, and Livewire, I\'ve come a long way. Not just code — digital marketing, graphic design, teaching, translation. I\'ve experienced it all. I have a Bachelor\'s degree in English Language Teaching from University of Maragheh, which helps me work comfortably with international teams and write proper technical documentation.',
+    'timeline1-title': 'Bidestan Steel ← Present', 'timeline1-desc': 'Digital Marketing + Web Admin',
+    'timeline2-title': 'MySQL, ORM, Design Patterns', 'timeline2-desc': 'Graduated from University of Maragheh',
+    'timeline3-title': 'PHP, Laravel, Livewire', 'timeline3-desc': 'Military Service: Teaching, Translation, Digital Training',
+    'timeline4-title': 'Student Graphic Designer', 'timeline4-desc': 'Photoshop, Premiere, University Festival Videos',
+    'timeline5-title': 'HTML, CSS, JavaScript', 'timeline5-desc': 'Started Coding + COVID Vaccination Data Entry',
+    'skills-badge': 'Expertise', 'skills-title': 'What I Know',
+    'skill1': 'Back-End', 'skill2': 'Front-End', 'skill3': 'Database', 'skill4': 'Digital Marketing', 'skill5': 'Design & Media', 'skill6': 'AI',
+    'resume-badge': 'Professional Experience', 'resume-title': 'Resume',
+    'job1-title': 'Digital Marketing Specialist & Web Admin', 'job1-company': 'Bidestan Steel Company',
+    'job1-bul1': 'Design and implement platform-specific content strategies for LinkedIn, Instagram, and Twitter/X using each platform\'s native algorithms',
+    'job1-bul2': 'Manage B2B networking on LinkedIn including targeted outreach and Thought Leadership content',
+    'job1-bul3': 'Create visual content with Adobe Photoshop and Canva aligned with brand identity',
+    'job1-bul4': 'Write SEO-optimized posts for measurable follower growth and post impressions',
+    'job1-bul5': 'Manage company website and organize data in Microsoft Excel and Word',
+    'job2-title': 'Full-Stack Web Developer (Laravel)', 'job2-company': 'Freelance / Personal Projects — github.com/hr2562b',
+    'job2-bul1': 'Started with HTML5, CSS3, JavaScript (2020) and progressed to PHP, Laravel, Livewire (from 2023)',
+    'job2-bul2': 'Develop full-stack web applications with MVC architecture and Design Patterns (Repository, Factory, Singleton)',
+    'job2-bul3': 'Design MySQL databases with normalization (1NF to 3NF), Foreign Key Constraints, and optimized Indexing',
+    'job2-bul4': 'Use Eloquent ORM for Many-to-Many relationships and manage Migrations & Seeders',
+    'job2-bul5': 'Version control with Git and GitHub using Feature Branching strategy',
+    'btn-github': 'View on GitHub',
+    'job3-title': 'Translator, English Teacher & Digital Content Specialist', 'job3-company': 'Military Service – Education & Translation Unit',
+    'job3-bul1': 'Provide formal English language teaching and specialized translation services in a military environment',
+    'job3-bul2': 'Teach social media management (LinkedIn, Instagram, Twitter/X) focusing on platform-specific algorithms',
+    'job3-bul3': 'Create educational booklets for Instagram, Twitter/X, and YouTube using generative AI tools',
+    'job3-bul4': 'Maintain translated vocabulary database in Microsoft Excel',
+    'job4-title': 'Graphic Designer & Video Editor (Student Job)', 'job4-company': 'University of Maragheh – Cultural Affairs Office',
+    'job4-bul1': 'Design promotional posters with Adobe Photoshop for cultural and academic events',
+    'job4-bul2': 'Produce and edit official videos for Hekmat and Rooyesh student festivals using Premiere Pro, including Color Grading and Post-Production',
+    'job4-bul3': 'Prepare and edit graduation ceremony videos with visual storytelling and audio adjustment',
+    'job4-bul4': 'Design 3 commercial books Print-Ready with professional typography — portfolio available',
+    'btn-sample': 'Request Portfolio',
+    'job5-title': 'Vaccination Data Entry Operator', 'job5-company': 'COVID-19 Vaccination Center – Khodabandeh, Zanjan',
+    'job5-bul1': 'Real-time vaccination data entry into the national health system following Ministry of Health protocols',
+    'job5-bul2': 'Coordinate with medical staff to maintain data processing capacity during peak demand',
+    'contact-title': 'Contact Info', 'edu-title': 'Education', 'skills-side-title': 'Skills',
+    'skill-db': 'Database', 'skill-marketing': 'Digital Marketing', 'skill-design': 'Design & Media',
+    'lang-title': 'Languages', 'lang-english': 'English', 'lang-level': 'Professional',
+    'career-title': 'Career Path',
+    'career1-title': 'Front-End Development', 'career1-desc': 'HTML5, CSS3, JavaScript',
+    'career2-title': 'Vaccination Data Entry Operator', 'career2-desc': 'National Health System — Khodabandeh, Zanjan',
+    'career3-title': 'Graphic Designer & Video Editor', 'career3-desc': 'Photoshop, Premiere Pro, Hekmat & Rooyesh festival videos, Book cover design',
+    'career4-title': 'Back-End Development', 'career4-desc': 'PHP ← Laravel ← Livewire ← MVC ← OOP',
+    'career5-title': 'Translator & English Teacher', 'career5-desc': 'Military Service — Teaching, official translation, digital marketing training',
+    'career6-title': 'Database & Architecture', 'career6-desc': 'MySQL, Normalization, ORM, Design Patterns — Graduated from University of Maragheh',
+    'career7-title': 'Digital Marketing Specialist', 'career7-desc': 'Bidestan Steel — LinkedIn B2B, Instagram, Twitter/X, Web Admin',
+    'contact-badge': 'Let\'s Talk', 'contact-title-main': 'Contact', 'contact-question': 'Have a project in mind?',
+    'contact-text': 'Whether you need a website built, social media management, or digital strategy — I\'d love to hear from you.',
+    'email': 'Email', 'phone': 'Phone', 'ok-msg': '✅ Message received! I\'ll get back to you soon.',
+    'form-name': 'Your Name', 'form-email': 'Email', 'form-subject': 'Subject', 'form-message': 'Your Message', 'form-submit': 'Send Message →',
+    'subject-web': 'Web Development', 'subject-marketing': 'Digital Marketing', 'subject-design': 'Graphic Design', 'subject-other': 'Other',
+    'footer-name': 'Hadi Mousavi', 'footer-rights': 'All rights reserved', 'footer-email': 'Email',
+    'edu-degree': 'Bachelor\'s in English Language Teaching', 'edu-univ': 'University of Maragheh'
+  }
+};
+
+let currentLang = localStorage.getItem('language') || 'fa';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('language', lang);
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.documentElement.lang = lang === 'fa' ? 'fa' : 'en';
+  document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+  
+  // Update placeholder texts
+  const nameInput = document.querySelector('input[name="name"]');
+  const emailInput = document.querySelector('input[name="email"]');
+  const messageTextarea = document.querySelector('textarea[name="message"]');
+  
+  if (lang === 'fa') {
+    if (nameInput) nameInput.placeholder = 'مثلاً علی احمدی';
+    if (emailInput) emailInput.placeholder = 'ali@example.com';
+    if (messageTextarea) messageTextarea.placeholder = 'بنویس چه کمکی می‌تونم بکنم...';
+  } else {
+    if (nameInput) nameInput.placeholder = 'e.g., Ali Ahmadi';
+    if (emailInput) emailInput.placeholder = 'ali@example.com';
+    if (messageTextarea) messageTextarea.placeholder = 'Write how I can help you...';
+  }
+  
+  // Update all elements with data-key attribute
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (translations[lang][key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        if (el.getAttribute('name') !== 'name' && el.getAttribute('name') !== 'email' && el.getAttribute('name') !== 'message') {
+          el.placeholder = translations[lang][key];
+        }
+      } else if (el.tagName === 'OPTION') {
+        el.textContent = translations[lang][key];
+      } else {
+        el.innerHTML = translations[lang][key];
+      }
+    }
+  });
+  
+  // Update button texts
+  const langBtn = document.getElementById('langBtn');
+  const langBtnMob = document.getElementById('langBtnMob');
+  if (lang === 'fa') {
+    langBtn.innerHTML = '🇬🇧 EN';
+    langBtnMob.innerHTML = '🇬🇧';
+    langBtn.title = 'English';
+    langBtnMob.title = 'English';
+  } else {
+    langBtn.innerHTML = '🇮🇷 FA';
+    langBtnMob.innerHTML = '🇮🇷';
+    langBtn.title = 'فارسی';
+    langBtnMob.title = 'فارسی';
+  }
+}
+
+document.getElementById('langBtn').addEventListener('click', () => {
+  setLanguage(currentLang === 'fa' ? 'en' : 'fa');
+});
+document.getElementById('langBtnMob').addEventListener('click', () => {
+  setLanguage(currentLang === 'fa' ? 'en' : 'fa');
+});
+
+// Initialize language
+setLanguage(currentLang);
 
 /* ── SCROLL TO SECTION ── */
 function scrollToSection(id){
@@ -1196,14 +1461,12 @@ function scrollToSection(id){
     const offset = document.getElementById('nav').offsetHeight;
     let sectionTop = section.offsetTop - offset;
     
-    // برای بخش skills کمی بالاتر برو
     if(id === 'skills'){
       sectionTop = section.offsetTop - offset - 20;
     }
     
     window.scrollTo({top: sectionTop, behavior: 'smooth'});
     
-    // آپدیت کلاس active در منو
     document.querySelectorAll('[data-section]').forEach(el => {
       el.classList.toggle('active', el.dataset.section === id);
     });
@@ -1224,7 +1487,6 @@ function openMenu() {
   mobMenu.classList.add('open');
 }
 
-// کلیک روی دکمه همبرگر
 burger.addEventListener('click', function(e) {
   e.stopPropagation();
   if (mobMenu.classList.contains('open')) {
@@ -1234,7 +1496,6 @@ burger.addEventListener('click', function(e) {
   }
 });
 
-// کلیک روی آیتم‌های منوی همبرگری
 const mobMenuItems = document.querySelectorAll('.mob-menu a');
 mobMenuItems.forEach(item => {
   item.addEventListener('click', function(e) {
@@ -1247,9 +1508,7 @@ mobMenuItems.forEach(item => {
   });
 });
 
-// کلیک روی هر جای خارج از منو (روی صفحه)
 document.addEventListener('click', function(e) {
-  // اگر منو باز است و هدف کلیک داخل منو یا روی دکمه همبرگر نباشد
   if (mobMenu.classList.contains('open') && 
       !mobMenu.contains(e.target) && 
       !burger.contains(e.target)) {
@@ -1257,19 +1516,16 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// بستن منو هنگام اسکرول
 window.addEventListener('scroll', function() {
   if (mobMenu.classList.contains('open')) {
     closeMenu();
   }
 });
 
-// جلوگیری از بسته شدن منو هنگام کلیک روی خود منو
 mobMenu.addEventListener('click', function(e) {
   e.stopPropagation();
 });
 
-// کلیک روی دکمه‌های دیگر سایت که data-section دارند (منوی دسکتاپ و دکمه‌های داخل سایت)
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-section]');
   if(el && el.dataset.section && !mobMenu.contains(el)){
@@ -1279,7 +1535,6 @@ document.addEventListener('click', e => {
   }
 });
 
-// اسکرول برای آپدیت کلاس active
 window.addEventListener('scroll', () => {
   const navHeight = document.getElementById('nav').offsetHeight;
   const sections = ['home', 'about', 'skills', 'resume', 'contact'];
@@ -1296,19 +1551,19 @@ window.addEventListener('scroll', () => {
   document.querySelectorAll('[data-section]').forEach(el => {
     el.classList.toggle('active', el.dataset.section === current);
   });
-  
-  // افکت solid برای نوار
   document.getElementById('nav').classList.toggle('solid', scrollY > 10);
 });
 
-// ست کردن کلاس active اولیه
 setTimeout(() => {
   const currentSection = window.location.hash.replace('#', '') || 'home';
   scrollToSection(currentSection);
 }, 100);
 
 /* ── MOBILE THEME BTN VISIBILITY ── */
-function checkMob(){ themeBtnMob.style.display = window.innerWidth<=600?'flex':'none'; }
+function checkMob(){ 
+  themeBtnMob.style.display = window.innerWidth<=600?'flex':'none';
+  langBtnMob.style.display = window.innerWidth<=600?'flex':'none';
+}
 checkMob();
 window.addEventListener('resize', checkMob);
 
@@ -1316,19 +1571,22 @@ window.addEventListener('resize', checkMob);
 document.getElementById('cForm').addEventListener('submit', async e => {
   e.preventDefault();
   const btn = e.target.querySelector('button[type=submit]');
-  btn.textContent = 'در حال ارسال...'; btn.disabled = true;
+  btn.textContent = currentLang === 'fa' ? 'در حال ارسال...' : 'Sending...';
+  btn.disabled = true;
   try{
     const r = await fetch(e.target.action, {method:'POST', body:new FormData(e.target), headers:{'Accept':'application/json'}});
     if(r.ok){ 
       e.target.reset(); 
       document.getElementById('okMsg').classList.add('show'); 
-      btn.textContent = 'ارسال شد ✓';
+      btn.textContent = currentLang === 'fa' ? 'ارسال شد ✓' : 'Sent ✓';
       setTimeout(() => document.getElementById('okMsg').classList.remove('show'), 5000);
     } else { 
-      btn.textContent = 'خطا — دوباره امتحان کن'; btn.disabled = false; 
+      btn.textContent = currentLang === 'fa' ? 'خطا — دوباره امتحان کن' : 'Error — Try again';
+      btn.disabled = false; 
     }
   } catch{ 
-    btn.textContent = 'خطا — دوباره امتحان کن'; btn.disabled = false; 
+    btn.textContent = currentLang === 'fa' ? 'خطا — دوباره امتحان کن' : 'Error — Try again';
+    btn.disabled = false; 
   }
 });
 
