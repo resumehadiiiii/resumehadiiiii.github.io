@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
 /* ═══════════════════════════════════════
-   THEME VARIABLES (همان کدهای قبلی)
+   THEME VARIABLES
 ═══════════════════════════════════════ */
 :root {
   --ease: cubic-bezier(.4,0,.2,1);
@@ -35,6 +35,9 @@
   --glow:     rgba(99,143,255,0.15);
   --glow2:    rgba(99,143,255,0.08);
   --particle: rgba(99,143,255,0.6);
+  /* رنگ‌های گرادیان لوگو در دارک مود - از سفید تا آبی پررنگ */
+  --logo-grad-start: #ffffff;
+  --logo-grad-end: #638fff;
 }
 [data-theme="light"] {
   --bg:       #f0f4ff;
@@ -51,6 +54,9 @@
   --glow:     rgba(61,107,255,0.1);
   --glow2:    rgba(61,107,255,0.05);
   --particle: rgba(61,107,255,0.4);
+  /* رنگ‌های گرادیان لوگو در لایت مود - از آبی تیره تا آبی روشن */
+  --logo-grad-start: #0d1040;
+  --logo-grad-end: #3d6bff;
 }
 
 /* ═══════════════════════════════════════
@@ -129,6 +135,71 @@ body.lang-en .mob-menu a:hover {
 a { color:inherit; text-decoration:none; }
 ::-webkit-scrollbar { width:3px; }
 ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
+
+/* ═══════════════════════════════════════
+   ANIMATED LOGO - گرادیان متحرک + خط زیرین هاور
+═══════════════════════════════════════ */
+.logo {
+  font-family:'Vazirmatn';
+  font-size:1.2rem;
+  font-weight:700;
+  cursor:pointer;
+  position:relative;
+  background: linear-gradient(
+    120deg,
+    var(--logo-grad-start) 0%,
+    var(--logo-grad-start) 25%,
+    var(--logo-grad-end) 50%,
+    var(--logo-grad-end) 75%,
+    var(--logo-grad-start) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientFlow 6s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* خط زیرین لوگو در حالت هاور - برگردونده شد */
+.logo::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .3s var(--ease);
+}
+.logo:hover::before {
+  transform: scaleX(1);
+}
+
+/* برای زبان انگلیسی هم راست‌چین کنیم */
+body.lang-en .logo {
+  direction: ltr;
+  display: inline-block;
+}
+body.lang-en .logo::before {
+  right: auto;
+  left: 0;
+  transform-origin: left;
+}
 
 /* ═══════════════════════════════════════
    ANIMATED BACKGROUND
@@ -245,21 +316,6 @@ nav.solid {
   padding:0 28px; height:100%;
   display:flex; align-items:center; justify-content:space-between;
 }
-.logo {
-  font-family:'Space Mono',monospace;
-  font-size:1.3rem; font-weight:700;
-  color:var(--fg); cursor:pointer;
-  position:relative;
-}
-.logo::before {
-  content:''; position:absolute;
-  bottom:-2px; right:0; left:0; height:2px;
-  background:linear-gradient(90deg, var(--accent), transparent);
-  transform:scaleX(0); transform-origin:right;
-  transition:transform .3s var(--ease);
-}
-.logo:hover::before { transform:scaleX(1); }
-.logo-bracket { color:var(--accent); }
 
 .nav-links { display:flex; gap:8px; list-style:none; align-items:center; }
 .nav-links a {
@@ -304,6 +360,17 @@ nav.solid {
 .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .burger.open span:nth-child(2){opacity:0;}
 .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* دکمه‌های theme و lang در موبایل */
+.mobile-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mobile-actions .theme-btn,
+.mobile-actions .lang-btn {
+  display: flex;
+}
 
 /* منوی همبرگری شیشه‌ای با انیمیشن - برای هر دو تم */
 .mob-menu {
@@ -353,6 +420,13 @@ nav.solid {
   color:var(--accent);
   background:rgba(99,143,255,0.08);
   border-right-color:var(--accent);
+}
+
+/* ═══════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════ */
+section {
+  position:relative; z-index:2;
 }
 
 /* ═══════════════════════════════════════
@@ -449,42 +523,121 @@ p:last-child { margin-bottom:0; }
   padding-top:var(--nav);
   position:relative;
 }
-.hero-in { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+.hero-in { 
+  display:grid; 
+  grid-template-columns:1fr 1fr; 
+  gap: 100px;
+  align-items:center; 
+}
 
 .hero-badge {
-  display:inline-flex; align-items:center; gap:8px;
-  font-size:.78rem; font-weight:600;
+  display:inline-flex; 
+  align-items:center; 
+  gap:8px;
+  font-size:.78rem; 
+  font-weight:600;
   color:var(--accent);
   background:rgba(99,143,255,.08);
   border:1px solid var(--border2);
-  padding:6px 16px; border-radius:100px;
-  margin-bottom:24px;
-}
-.badge-dot {
-  width:7px; height:7px; border-radius:50%;
-  background:var(--accent);
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity:1; transform:scale(1); }
-  50%      { opacity:.5; transform:scale(.8); }
+  padding:6px 16px; 
+  border-radius:100px;
+  margin-bottom: 40px;
 }
 
-.hero h1 { margin-bottom:20px; }
+.badge-dot {
+  display: none;
+}
+
+.hero h1 { 
+  margin-bottom: 35px;
+}
+
 .hero h1 .line2 {
-  display:block;
+  display:inline-block;
   background:linear-gradient(135deg, var(--accent) 0%, #a5c0ff 100%);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
   background-clip:text;
 }
-.hero h2 .line2 {
-  display:block;
-  background:linear-gradient(135deg, var(--accent) 0%, #a5c0ff 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  background-clip:text;
+
+/* اسلایدر */
+.glass-slider {
+  margin-bottom: 45px;
+  display: block;
+  width: 320px;
+  min-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: floatSlider 6s ease-in-out infinite;
+  overflow: hidden;
+  position: relative;
 }
-.hero-sub { font-size:1rem; margin-bottom:36px; max-width:480px; }
-.hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+
+@keyframes floatSlider {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  33%      { transform: translateY(-6px) rotate(0.3deg); }
+  66%      { transform: translateY(-3px) rotate(-0.3deg); }
+}
+
+.slider-container {
+  position: relative;
+  height: 48px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slider-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: clamp(1.5rem, 2.5vw, 1.2rem);
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  white-space: nowrap;
+  width: 100%;
+  transition: none;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.hero-btns { 
+  display:flex; 
+  gap:14px; 
+  flex-wrap:wrap; 
+  justify-content: center; 
+  margin-top: 10px;
+}
+
+/* وسط‌چین کردن hero-badge */
+.hero-in > div:first-child {
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive for slider */
+@media (max-width: 600px) {
+  .glass-slider {
+    width: 320px;
+    min-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .slider-container {
+    height: 44px;
+  }
+  .slider-text {
+    white-space: normal;
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+}
 
 /* Floating card */
 .float-card {
@@ -780,27 +933,78 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 }
 
 /* ═══════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE - تغییریافته برای نمایش همبرگر در تبلت و موبایل
 ═══════════════════════════════════════ */
+/* حداکثر عرض 960px: منوی همبرگر نشان داده شود، منوی اصلی مخفی شود */
+@media(max-width: 960px) {
+  .nav-links {
+    display: none !important;
+  }
+  .burger {
+    display: flex !important;
+  }
+  /* دکمه‌های theme و lang در موبایل داخل همبرگر نیستن، پس اونایی که توی nav-links بود رو مخفی می‌کنیم */
+  .nav-links .theme-btn,
+  .nav-links .lang-btn {
+    display: none;
+  }
+}
+
+/* حداقل عرض 961px: منوی اصلی نشان داده شود، همبرگر مخفی شود */
+@media(min-width: 961px) {
+  .nav-links {
+    display: flex !important;
+  }
+  .burger {
+    display: none !important;
+  }
+  .mobile-actions {
+    display: none !important;
+  }
+  /* دکمه‌های theme و lang در منوی اصلی دسکتاپ نشان داده شوند */
+  .nav-links .theme-btn,
+  .nav-links .lang-btn {
+    display: flex;
+  }
+}
+
+/* ریسپانسیو برای محتوای اصلی */
 @media(max-width:960px){
   .resume-wrap { grid-template-columns:1fr; }
   .two,.hero-in { grid-template-columns:1fr; gap:40px; }
   .cards3 { grid-template-columns:1fr 1fr; }
   .sk-grid { grid-template-columns:1fr 1fr; }
   .stat-grid { grid-template-columns:1fr 1fr; }
+  .logo {
+    white-space: normal;
+    word-break: keep-all;
+    font-size: 1rem;
+  }
 }
 
-/* فقط در حالت عمودی موبایل (portrait) و حداکثر عرض 768px */
-@media(max-width: 768px) and (orientation: portrait) {
-  .nav-links { display:none; }
-  .burger    { display:flex; }
-  .cards3    { grid-template-columns:1fr; }
-  .sk-grid   { grid-template-columns:1fr; }
+@media(max-width: 600px) {
+  .logo {
+    font-size: 0.85rem;
+  }
+  .cards3 { grid-template-columns:1fr; }
+  .sk-grid { grid-template-columns:1fr; }
   .hero-btns { flex-direction:column; }
-  .btn       { width:100%; justify-content:center; }
-  .sec       { padding:64px 0; }
-  .foot      { flex-direction:column; text-align:center; }
-  .job-head  { flex-direction:column; }
+  .btn { width:100%; justify-content:center; }
+  .sec { padding:64px 0; }
+  .foot { flex-direction:column; text-align:center; }
+  .job-head { flex-direction:column; }
+  
+  /* فاصله‌های عمودی در موبایل */
+  .hero-badge {
+    margin-top: 35px;
+    margin-bottom: 35px;
+  }
+  .hero h1 {
+    margin-bottom: 30px;
+  }
+  .glass-slider {
+    margin-bottom: 40px;
+  }
   
   /* وسط‌چین کردن دکمه‌ها در موبایل */
   .job-entry .btn,
@@ -811,25 +1015,46 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
     text-align: center;
   }
   
-  /* ترتیب جدید فقط در حالت عمودی: badge -> دکمه‌ها -> عکس */
+  /* عرض ثابت برای اسلایدر در موبایل */
+  .glass-slider {
+    width: 320px;
+    min-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  
+  /* ترتیب جدید فقط در حالت عمودی: badge -> slider -> دکمه‌ها -> عکس */
   .hero-in {
     display: flex;
     flex-direction: column;
   }
   
-  .hero-in > div:first-child {
+  .hero-in > div:first-child .hero-badge {
     order: 1;
   }
   
-  .hero-visual {
+  .hero-in > div:first-child .glass-slider {
     order: 2;
+  }
+  
+  .hero-in > div:first-child .hero-btns {
+    order: 3;
+  }
+  
+  .hero-in > div:first-child h1 {
+    order: 0;
+  }
+  
+  .hero-visual {
+    order: 4;
     margin-top: 40px;
     margin-bottom: 20px;
   }
 }
 
 /* در حالت افقی موبایل (landscape) یا تبلت، مثل دسکتاپ رفتار کن */
-@media(max-width: 768px) and (orientation: landscape), (min-width: 769px) {
+@media(max-width: 960px) and (orientation: landscape) {
   .hero-in {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -858,13 +1083,18 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   .hero h2 {
     font-size: 1.2rem;
   }
-  .hero-sub {
-    font-size: 0.85rem;
-    margin-bottom: 20px;
-  }
   .hero-btns .btn {
     padding: 8px 16px;
     font-size: 0.75rem;
+  }
+}
+
+/* ریسپانسیو برای لوگو در موبایل */
+@media(max-width: 600px) {
+  .logo {
+    font-size: 1.1rem;
+    white-space: normal;
+    word-break: keep-all;
   }
 }
 </style>
@@ -880,7 +1110,7 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 <nav id="nav">
   <div class="nav-inner">
     <div class="logo" data-section="home">
-      <span class="logo-bracket">[</span>HM<span class="logo-bracket">]</span>
+      وبسایت شخصی هادی موسوی
     </div>
     <ul class="nav-links">
       <li><a data-section="home" class="active" data-key="nav-home">خانه</a></li>
@@ -891,7 +1121,7 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
       <li><button class="lang-btn" id="langBtn" title="English">🇬🇧 EN</button></li>
       <li><button class="theme-btn" id="themeBtn" title="Light mode">☀️</button></li>
     </ul>
-    <div style="display:flex;align-items:center;gap:10px">
+    <div class="mobile-actions" style="display:flex;align-items:center;gap:10px">
       <button class="theme-btn" id="themeBtnMob" title="Light mode" style="display:none">☀️</button>
       <button class="lang-btn" id="langBtnMob" title="English" style="display:none">🇬🇧</button>
       <button class="burger" id="burger"><span></span><span></span><span></span></button>
@@ -915,9 +1145,18 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
           <span class="badge-dot"></span>
           <span data-key="hero-badge">رزومه و معرفی کوتاه</span>
         </div>
+        
         <h1 class="line2"><span data-key="hero-name">هادی موسوی</span></h1>
-        <h2><span class="line2" data-key="hero-title">توسعه دهنده وب (لاراول) <br>متخصص دیجیتال<br>استراتژیست محتوا</span></h2>
-        <p class="hero-sub" data-key="hero-sub">از HTML تا Laravel، از طراحی تا استراتژی محتوا — راه‌حل‌های دیجیتال کامل می‌سازم.</p>
+        
+        <!-- اسلایدر -->
+        <div class="glass-slider">
+          <div class="slider-container">
+            <div class="slider-text active" data-slide="0">توسعه دهنده وب (لاراول)</div>
+            <div class="slider-text" data-slide="1">متخصص دیجیتال</div>
+            <div class="slider-text" data-slide="2">استراتژیست محتوا</div>
+          </div>
+        </div>
+        
         <div class="hero-btns">
           <button class="btn solid" data-section="about" data-key="btn-start">شروع ←</button>
           <button class="btn outline" data-section="contact" data-key="btn-contact">تماس بگیر</button>
@@ -932,6 +1171,7 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   </div>
 </section>
 
+<!-- ادامه کد -->
 <div class="strip-sec"><div class="wrap strip-track">
   <span class="pill">Laravel</span><span class="pill">PHP</span><span class="pill">MySQL</span>
   <span class="pill">Livewire</span><span class="pill">JavaScript</span><span class="pill">Tailwind CSS</span><span class="pill">HTML5</span>
@@ -1108,7 +1348,7 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 </footer>
 
 <script>
-/* ── PARTICLE BACKGROUND ── (همان کد قبلی) */
+/* ── PARTICLE BACKGROUND ── */
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 let W, H, particles = [], mouse = {x:0, y:0};
@@ -1213,13 +1453,70 @@ setTheme(savedTheme);
 themeBtn.addEventListener('click', ()=> setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark'));
 themeBtnMob.addEventListener('click', ()=> setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark'));
 
+/* ── SLIDER ANIMATION ── */
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slider-text');
+const totalSlides = slides.length;
+let isBusy = false;
+const SLIDE_DURATION = 300;
+const SLIDE_PAUSE = 2000;
+
+slides.forEach((slide, i) => {
+  slide.style.cssText = `
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: none;
+    transform: translateX(${i === 0 ? '0' : '-110%'});
+    opacity: ${i === 0 ? '1' : '0'};
+  `;
+});
+
+function goToNext() {
+  if (isBusy) return;
+  isBusy = true;
+
+  const outSlide = slides[currentSlide];
+  const nextIndex = (currentSlide + 1) % totalSlides;
+  const inSlide  = slides[nextIndex];
+
+  outSlide.style.transition = `transform ${SLIDE_DURATION}ms cubic-bezier(0.4,0,0.2,1), opacity ${SLIDE_DURATION}ms`;
+  outSlide.style.transform = 'translateX(110%)';
+  outSlide.style.opacity = '0';
+
+  setTimeout(() => {
+    outSlide.style.transition = 'none';
+    outSlide.style.transform = 'translateX(-110%)';
+
+    inSlide.style.transition = 'none';
+    inSlide.style.transform = 'translateX(-110%)';
+    inSlide.style.opacity = '1';
+
+    void inSlide.offsetWidth;
+
+    inSlide.style.transition = `transform ${SLIDE_DURATION}ms cubic-bezier(0.4,0,0.2,1)`;
+    inSlide.style.transform = 'translateX(0)';
+
+    currentSlide = nextIndex;
+    setTimeout(() => { isBusy = false; }, SLIDE_DURATION);
+  }, SLIDE_DURATION);
+}
+
+let slideInterval = setInterval(goToNext, SLIDE_PAUSE);
+
+const sliderContainer = document.querySelector('.glass-slider');
+if (sliderContainer) {
+  sliderContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
+  sliderContainer.addEventListener('mouseleave', () => { slideInterval = setInterval(goToNext, SLIDE_PAUSE); });
+}
+
 /* ── LANGUAGE TOGGLE ── */
 const translations = {
   fa: {
     'nav-home': 'خانه', 'nav-about': 'درباره من', 'nav-skills': 'تخصص ها', 'nav-resume': 'رزومه', 'nav-contact': 'تماس',
     'hero-badge': 'رزومه و معرفی کوتاه', 'hero-name': 'هادی موسوی', 
-    'hero-title': 'توسعه دهنده وب (لاراول) <br>متخصص دیجیتال<br>استراتژیست محتوا',
-    'hero-sub': 'از HTML تا Laravel، از طراحی تا استراتژی محتوا — راه‌حل‌های دیجیتال کامل می‌سازم.',
     'btn-start': 'شروع ←', 'btn-contact': 'تماس بگیر',
     'about-badge': 'بیشتر بدون', 'about-title': 'درباره من',
     'about-text1': 'از سال ۱۳۹۹ وقتی اولین خط HTML نوشتم تا الان که با Laravel، MySQL و Livewire اپلیکیشن می‌سازم، یه مسیر واقعی طی کردم. نه فقط کد — بازاریابی دیجیتال، طراحی گرافیک، تدریس، ترجمه. همه رو تجربه کردم. کارشناسی آموزش زبان انگلیسی از دانشگاه مراغه دارم که کمکم می‌کنه هم با تیم‌های بین‌المللی راحت کار کنم، هم مستندات فنی درست بنویسم.',
@@ -1282,8 +1579,6 @@ const translations = {
   en: {
     'nav-home': 'Home', 'nav-about': 'About', 'nav-skills': 'Skills', 'nav-resume': 'Resume', 'nav-contact': 'Contact',
     'hero-badge': 'Resume & Short Intro', 'hero-name': 'Hadi Mousavi', 
-    'hero-title': 'Laravel Developer <br>Digital Marketing Specialist<br>Content Strategist',
-    'hero-sub': 'From HTML to Laravel, from design to content strategy — I create complete digital solutions.',
     'btn-start': 'Start →', 'btn-contact': 'Contact Me',
     'about-badge': 'Learn More', 'about-title': 'About Me',
     'about-text1': 'Since 2020 when I wrote my first line of HTML until now building applications with Laravel, MySQL, and Livewire, I\'ve come a long way. Not just code — digital marketing, graphic design, teaching, translation. I\'ve experienced it all. I have a Bachelor\'s degree in English Language Teaching from University of Maragheh, which helps me work comfortably with international teams and write proper technical documentation.',
@@ -1354,7 +1649,16 @@ function setLanguage(lang) {
   document.documentElement.lang = lang === 'fa' ? 'fa' : 'en';
   document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
   
-  // Update placeholder texts
+  if (lang === 'fa') {
+    slides[0].innerHTML = 'توسعه دهنده وب (لاراول)';
+    slides[1].innerHTML = 'متخصص دیجیتال';
+    slides[2].innerHTML = 'استراتژیست محتوا';
+  } else {
+    slides[0].innerHTML = 'Laravel Developer';
+    slides[1].innerHTML = 'Digital Marketing Specialist';
+    slides[2].innerHTML = 'Content Strategist';
+  }
+  
   const nameInput = document.querySelector('input[name="name"]');
   const emailInput = document.querySelector('input[name="email"]');
   const messageTextarea = document.querySelector('textarea[name="message"]');
@@ -1366,10 +1670,9 @@ function setLanguage(lang) {
   } else {
     if (nameInput) nameInput.placeholder = 'e.g., Ali Ahmadi';
     if (emailInput) emailInput.placeholder = 'ali@example.com';
-    if (messageTextarea) messageTextarea.placeholder = '... Write how I can help you';
+    if (messageTextarea) messageTextarea.placeholder = 'Write how I can help you...';
   }
   
-  // Update all elements with data-key attribute
   document.querySelectorAll('[data-key]').forEach(el => {
     const key = el.getAttribute('data-key');
     if (translations[lang][key]) {
@@ -1385,7 +1688,6 @@ function setLanguage(lang) {
     }
   });
   
-  // Update button texts
   const langBtn = document.getElementById('langBtn');
   const langBtnMob = document.getElementById('langBtnMob');
   if (lang === 'fa') {
@@ -1408,7 +1710,6 @@ document.getElementById('langBtnMob').addEventListener('click', () => {
   setLanguage(currentLang === 'fa' ? 'en' : 'fa');
 });
 
-// Initialize language
 setLanguage(currentLang);
 
 /* ── SCROLL TO SECTION ── */
@@ -1430,7 +1731,7 @@ function scrollToSection(id){
   }
 }
 
-/* ── BURGER MENU WITH CLICK OUTSIDE AND SCROLL ── */
+/* ── BURGER MENU ── */
 const burger = document.getElementById('burger');
 const mobMenu = document.getElementById('mobMenu');
 
@@ -1518,8 +1819,8 @@ setTimeout(() => {
 
 /* ── MOBILE THEME BTN VISIBILITY ── */
 function checkMob(){ 
-  themeBtnMob.style.display = window.innerWidth<=600?'flex':'none';
-  langBtnMob.style.display = window.innerWidth<=600?'flex':'none';
+  themeBtnMob.style.display = window.innerWidth<=960?'flex':'none';
+  langBtnMob.style.display = window.innerWidth<=960?'flex':'none';
 }
 checkMob();
 window.addEventListener('resize', checkMob);
