@@ -70,6 +70,66 @@ body {
   overflow-x:hidden; min-height:100vh;
   transition:background .4s var(--ease), color .4s var(--ease);
 }
+body.lang-en {
+  direction: ltr;
+}
+body.lang-en .wrap,
+body.lang-en .hero-in,
+body.lang-en .two {
+  direction: ltr;
+  text-align: left;
+}
+body.lang-en .label::before {
+  margin-left: 10px;
+  margin-right: 0;
+}
+body.lang-en .hero-badge {
+  direction: ltr;
+}
+body.lang-en .btn {
+  flex-direction: row-reverse;
+}
+body.lang-en .tl {
+  grid-template-columns: 76px 1fr;
+}
+body.lang-en .feat li::before {
+  content: '→';
+  right: auto;
+  left: 0;
+}
+body.lang-en .feat li {
+  padding-right: 0;
+  padding-left: 18px;
+}
+body.lang-en .job-buls li::before {
+  right: auto;
+  left: 0;
+}
+body.lang-en .job-buls li {
+  padding-right: 0;
+  padding-left: 16px;
+}
+body.lang-en .dev-tl {
+  border-right: none;
+  border-left: 2px solid var(--border2);
+  margin-right: 0;
+  margin-left: 8px;
+  padding-right: 0;
+  padding-left: 16px;
+}
+body.lang-en .dev-step::before {
+  right: auto;
+  left: -21px;
+}
+body.lang-en .mob-menu a {
+  border-right: none;
+  border-left: 3px solid transparent;
+  text-align: left;
+}
+body.lang-en .mob-menu a:hover {
+  border-left-color: var(--accent);
+  border-right-color: transparent;
+}
 
 a { color:inherit; text-decoration:none; }
 ::-webkit-scrollbar { width:3px; }
@@ -126,6 +186,16 @@ a { color:inherit; text-decoration:none; }
 }
 .logo:hover::before {
   transform: scaleX(1);
+}
+
+body.lang-en .logo {
+  direction: ltr;
+  display: inline-block;
+}
+body.lang-en .logo::before {
+  right: auto;
+  left: 0;
+  transform-origin: left;
 }
 
 /* ═══════════════════════════════════════
@@ -259,7 +329,7 @@ nav.solid {
   border-color:var(--border2);
 }
 
-.theme-btn {
+.theme-btn, .lang-btn {
   width:40px; height:40px;
   border-radius:10px; border:1px solid var(--border);
   background:var(--surface); cursor:pointer;
@@ -267,7 +337,7 @@ nav.solid {
   font-size:1.1rem; transition:all .2s var(--ease);
   color:var(--fg2);
 }
-.theme-btn:hover { border-color:var(--border2); background:var(--glow); color:var(--accent); }
+.theme-btn:hover, .lang-btn:hover { border-color:var(--border2); background:var(--glow); color:var(--accent); }
 
 .burger {
   display:none; flex-direction:column; gap:5px;
@@ -287,7 +357,8 @@ nav.solid {
   align-items: center;
   gap: 8px;
 }
-.mobile-actions .theme-btn {
+.mobile-actions .theme-btn,
+.mobile-actions .lang-btn {
   display: flex;
 }
 
@@ -338,6 +409,15 @@ nav.solid {
   color:var(--accent);
   background:rgba(99,143,255,0.08);
   border-right-color:var(--accent);
+}
+body.lang-en .mob-menu a {
+  border-right: none;
+  border-left: 3px solid transparent;
+  text-align: left;
+}
+body.lang-en .mob-menu a:hover {
+  border-left-color: var(--accent);
+  border-right-color: transparent;
 }
 
 /* ═══════════════════════════════════════
@@ -791,6 +871,19 @@ p:last-child { margin-bottom:0; }
 .dev-step-active .dev-y { color:var(--accent); text-shadow:0 0 4px var(--glow); }
 .dev-step-active .dev-t { color:var(--accent); }
 
+body.lang-en .dev-tl {
+  border-right: none;
+  border-left: 2px solid var(--border2);
+  margin-right: 0;
+  margin-left: 8px;
+  padding-right: 0;
+  padding-left: 16px;
+}
+body.lang-en .dev-step::before {
+  right: auto;
+  left: -21px;
+}
+
 /* ═══════════════════════════════════════
    CONTACT SECTION
 ═══════════════════════════════════════ */
@@ -852,7 +945,8 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   .burger {
     display: flex !important;
   }
-  .nav-links .theme-btn {
+  .nav-links .theme-btn,
+  .nav-links .lang-btn {
     display: none;
   }
 }
@@ -867,7 +961,8 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   .mobile-actions {
     display: none !important;
   }
-  .nav-links .theme-btn {
+  .nav-links .theme-btn,
+  .nav-links .lang-btn {
     display: flex;
   }
 }
@@ -1005,29 +1100,29 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-inner">
-    <div class="logo" data-section="home">
-      وبسایت شخصی هادی موسوی
-    </div>
+    <div class="logo" data-section="home" data-key="logo">وبسایت شخصی هادی موسوی</div>
     <ul class="nav-links">
-      <li><a data-section="home" class="active">خانه</a></li>
-      <li><a data-section="about">درباره من</a></li>
-      <li><a data-section="skills">تخصص ها</a></li>
-      <li><a data-section="resume">رزومه</a></li>
-      <li><a data-section="contact">تماس</a></li>
+      <li><a data-section="home" class="active" data-key="nav-home">خانه</a></li>
+      <li><a data-section="about" data-key="nav-about">درباره من</a></li>
+      <li><a data-section="skills" data-key="nav-skills">تخصص ها</a></li>
+      <li><a data-section="resume" data-key="nav-resume">تجربیات</a></li>
+      <li><a data-section="contact" data-key="nav-contact">تماس</a></li>
+      <li><button class="lang-btn" id="langBtn" title="English">🇬🇧 EN</button></li>
       <li><button class="theme-btn" id="themeBtn" title="حالت روشن">☀️</button></li>
     </ul>
     <div class="mobile-actions" style="display:flex;align-items:center;gap:10px">
       <button class="theme-btn" id="themeBtnMob" title="حالت روشن" style="display:none">☀️</button>
+      <button class="lang-btn" id="langBtnMob" title="English" style="display:none">🇬🇧</button>
       <button class="burger" id="burger"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
 <div class="mob-menu" id="mobMenu">
-  <a data-section="home">خانه</a>
-  <a data-section="about">درباره من</a>
-  <a data-section="skills">تخصص ها</a>
-  <a data-section="resume">رزومه</a>
-  <a data-section="contact">تماس</a>
+  <a data-section="home" data-key="nav-home">خانه</a>
+  <a data-section="about" data-key="nav-about">درباره من</a>
+  <a data-section="skills" data-key="nav-skills">تخصص ها</a>
+  <a data-section="resume" data-key="nav-resume">تجربیات</a>
+  <a data-section="contact" data-key="nav-contact">تماس</a>
 </div>
 
 <!-- ══ SECTION: HOME ══ -->
@@ -1035,31 +1130,24 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   <div class="wrap">
     <div class="hero-in">
       <div>
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          <span>رزومه و معرفی کوتاه</span>
-        </div>
-        
-        <h1 class="line2">هادی موسوی</h1>
-        
-        <!-- اسلایدر -->
+        <div class="hero-badge"><span data-key="hero-badge">رزومه و معرفی کوتاه</span></div>
+        <h1 class="line2" data-key="hero-name">هادی موسوی</h1>
         <div class="glass-slider">
           <div class="slider-container">
-            <div class="slider-text active" data-slide="0">متخصص بازاریابی دیجیتال</div>
-            <div class="slider-text" data-slide="1">ارتباطات برند</div>
-            <div class="slider-text" data-slide="2">طراحی گرافیک</div>
-            <div class="slider-text" data-slide="3">تولید محتوای مبتنی بر AI</div>
+            <div class="slider-text active" data-slide="0" data-key="slide1">متخصص بازاریابی دیجیتال</div>
+            <div class="slider-text" data-slide="1" data-key="slide2">ارتباطات برند</div>
+            <div class="slider-text" data-slide="2" data-key="slide3">طراحی گرافیک</div>
+            <div class="slider-text" data-slide="3" data-key="slide4">تولید محتوای مبتنی بر AI</div>
           </div>
         </div>
-        
         <div class="hero-btns">
-          <button class="btn solid" data-section="about">شروع ←</button>
-          <button class="btn outline" data-section="contact">تماس بگیر</button>
+          <button class="btn solid" data-section="about" data-key="btn-start">شروع ←</button>
+          <button class="btn outline" data-section="contact" data-key="btn-contact">تماس بگیر</button>
         </div>
       </div>
       <div class="hero-visual float-card">
         <div class="profile-image-wrapper">
-          <img src="assets/profile.png" alt="هادی موسوی - توسعه‌دهنده وب" class="profile-image" onerror="this.style.opacity='0'; this.style.visibility='hidden';"/>
+          <img src="assets/profile.png" alt="Hadi Mousavi" class="profile-image" onerror="this.style.opacity='0'; this.style.visibility='hidden';"/>
         </div>
       </div>
     </div>
@@ -1067,7 +1155,12 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 </section>
 
 <div class="strip-sec"><div class="wrap strip-track">
-  <span class="pill">بازاریابی دیجیتال</span><span class="pill">استراتژی محتوا</span><span class="pill">بازاریابی B2B</span><span class="pill">بازاریابی لینکدین</span><span class="pill">طراحی گرافیک</span><span class="pill">هوش مصنوعی</span>
+  <span class="pill" data-key="pill1">بازاریابی دیجیتال</span>
+  <span class="pill" data-key="pill2">استراتژی محتوا</span>
+  <span class="pill" data-key="pill3">بازاریابی B2B</span>
+  <span class="pill" data-key="pill4">بازاریابی لینکدین</span>
+  <span class="pill" data-key="pill5">طراحی گرافیک</span>
+  <span class="pill" data-key="pill6">هوش مصنوعی</span>
 </div></div>
 
 <!-- ══ SECTION: ABOUT ══ -->
@@ -1075,24 +1168,22 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   <div class="wrap">
     <div class="two" style="gap:80px;align-items:start">
       <div>
-        <h2>درباره من</h2>
-<p>مسیر حرفه‌ای من از حوزه زبان و ارتباطات آغاز شد و در ادامه به بازاریابی دیجیتال، طراحی گرافیک و فناوری‌های نوین گسترش پیدا کرد. در سال‌های اخیر در زمینه تولید محتوا، مدیریت رسانه‌های اجتماعی، طراحی گرافیک و توسعه ارتباطات برند فعالیت کرده‌ام و همواره تلاش کرده‌ام با ترکیب خلاقیت، تحلیل و فناوری، راهکارهای مؤثری برای توسعه حضور دیجیتال کسب‌وکارها ارائه دهم.</p>
-
-<p>علاقه جدی من به فناوری و هوش مصنوعی باعث شده است در کنار فعالیت‌های بازاریابی و طراحی، به بهینه‌سازی فرآیندهای تولید محتوا، تحقیق، مستندسازی و مدیریت دانش نیز بپردازم. همچنین آشنایی با توسعه وب و زیرساخت‌های دیجیتال به من کمک می‌کند تا پروژه‌ها را از منظر محتوا، طراحی و فناوری به‌صورت یکپارچه تحلیل و اجرا کنم.</p>
-
-<p>امروز تمرکز اصلی من بر بازاریابی دیجیتال، استراتژی محتوا، ارتباطات برند، طراحی گرافیک و کاربرد هوش مصنوعی در توسعه کسب‌وکارها است.</p>
+        <h2 data-key="about-title">درباره من</h2>
+        <p data-key="about-text1">مسیر حرفه‌ای من از حوزه زبان و ارتباطات آغاز شد و در ادامه به بازاریابی دیجیتال، طراحی گرافیک و فناوری‌های نوین گسترش پیدا کرد. در سال‌های اخیر در زمینه تولید محتوا، مدیریت رسانه‌های اجتماعی، طراحی گرافیک و توسعه ارتباطات برند فعالیت کرده‌ام و همواره تلاش کرده‌ام با ترکیب خلاقیت، تحلیل و فناوری، راهکارهای مؤثری برای توسعه حضور دیجیتال کسب‌وکارها ارائه دهم.</p>
+        <p data-key="about-text2">علاقه جدی من به فناوری و هوش مصنوعی باعث شده است در کنار فعالیت‌های بازاریابی و طراحی، به بهینه‌سازی فرآیندهای تولید محتوا، تحقیق، مستندسازی و مدیریت دانش نیز بپردازم. همچنین آشنایی با توسعه وب و زیرساخت‌های دیجیتال به من کمک می‌کند تا پروژه‌ها را از منظر محتوا، طراحی و فناوری به‌صورت یکپارچه تحلیل و اجرا کنم.</p>
+        <p data-key="about-text3">امروز تمرکز اصلی من بر بازاریابی دیجیتال، استراتژی محتوا، ارتباطات برند، طراحی گرافیک و کاربرد هوش مصنوعی در توسعه کسب‌وکارها است.</p>
         <div class="ctcts">
           <a href="mailto:h.mousavi264@gmail.com">✉️ h.mousavi264@gmail.com</a>
-          <a href="tel:09128152648">📞 ۰۹۱۲۸۱۵۲۶۴۸</a>
+          <a href="tel:09128152648">📞 <span data-key="phone-number">۰۹۱۲۸۱۵۲۶۴۸</span></a>
           <a href="https://github.com/hr2562b" target="_blank">💻 github.com/hr2562b</a>
         </div>
       </div>
       <div class="tl-list glass" style="padding:24px;border-radius:16px">
-        <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid var(--accent); display:inline-block;">مسیر حرفه‌ای در یک نگاه</h3>
-        <div class="tl now"><div class="tl-y">۱۴۰۴ - اکنون</div><div class="tl-c"><strong>متخصص بازاریابی دیجیتال</strong><p>بازاریابی B2B • لینکدین • ارتباطات برند</p></div></div>
-        <div class="tl"><div class="tl-y">۱۴۰۲ - ۱۴۰۴</div><div class="tl-c"><strong>آموزش و تولید محتوا</strong><p>تدریس زبان انگلیسی • توسعه محتوا</p></div></div>
-        <div class="tl"><div class="tl-y">۱۴۰۱ - ۱۴۰۳</div><div class="tl-c"><strong>طراحی گرافیک</strong><p>پوستر • جلد کتاب • ارتباطات بصری</p></div></div>
-        <div class="tl"><div class="tl-y">۱۳۹۹ - ۱۴۰۲</div><div class="tl-c"><strong>فناوری و توسعه وب</strong><p>Laravel • PHP • پروژه‌های دیجیتال</p></div></div>
+        <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:20px; padding-bottom:8px; border-bottom:2px solid var(--accent); display:inline-block;" data-key="timeline-title">مسیر حرفه‌ای در یک نگاه</h3>
+        <div class="tl now"><div class="tl-y" data-key="year1">۱۴۰۴ - اکنون</div><div class="tl-c"><strong data-key="timeline1-title">متخصص بازاریابی دیجیتال</strong><p data-key="timeline1-desc">بازاریابی B2B • لینکدین • ارتباطات برند</p></div></div>
+        <div class="tl"><div class="tl-y" data-key="year2">۱۴۰۲ - ۱۴۰۴</div><div class="tl-c"><strong data-key="timeline2-title">آموزش و تولید محتوا</strong><p data-key="timeline2-desc">تدریس زبان انگلیسی • توسعه محتوا</p></div></div>
+        <div class="tl"><div class="tl-y" data-key="year3">۱۴۰۱ - ۱۴۰۳</div><div class="tl-c"><strong data-key="timeline3-title">طراحی گرافیک</strong><p data-key="timeline3-desc">پوستر • جلد کتاب • ارتباطات بصری</p></div></div>
+        <div class="tl"><div class="tl-y" data-key="year4">۱۳۹۹ - ۱۴۰۲</div><div class="tl-c"><strong data-key="timeline4-title">فناوری و توسعه وب</strong><p data-key="timeline4-desc">Laravel • PHP • پروژه‌های دیجیتال</p></div></div>
       </div>
     </div>
   </div>
@@ -1101,12 +1192,12 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 <!-- ══ SECTION: SKILLS ══ -->
 <section id="skills" class="sec" style="padding-top:0">
   <div class="wrap">
-    <h2>تخصص ها</h2>
+    <h2 data-key="skills-title">تخصص ها</h2>
     <div class="sk-grid">
-      <div class="sk-block glass"><div class="sk-ico">📊</div><h3>بازاریابی دیجیتال</h3><div class="sk-tags"><span class="sk-tag">استراتژی محتوا</span><span class="sk-tag">بازاریابی B2B</span><span class="sk-tag">بازاریابی لینکدین</span><span class="sk-tag">ارتباطات برند</span><span class="sk-tag">بازاریابی محتوایی</span><span class="sk-tag">مدیریت شبکه‌های اجتماعی</span></div></div>
-      <div class="sk-block glass"><div class="sk-ico">🖌️</div><h3>طراحی گرافیک</h3><div class="sk-tags"><span class="sk-tag">طراحی پوستر</span><span class="sk-tag">طراحی محتوای شبکه‌های اجتماعی</span><span class="sk-tag">طراحی جلد کتاب</span><span class="sk-tag">ارتباطات بصری</span><span class="sk-tag">Photoshop</span></div></div>
-      <div class="sk-block glass"><div class="sk-ico">🧠</div><h3>هوش مصنوعی و بهره وری</h3><div class="sk-tags"><span class="sk-tag">تولید محتوا</span><span class="sk-tag">تحقیق</span><span class="sk-tag">ایده پردازی</span><span class="sk-tag">مستند سازی</span><span class="sk-tag">بهینه‌سازی فرایند های کاری و بازاریابی</span></div></div>
-      <div class="sk-block glass"><div class="sk-ico">💻</div><h3>فناوری و توسعه وب</h3><div class="sk-tags"><span class="sk-tag">مدیریت وب‌سایت</span><span class="sk-tag">Laravel</span><span class="sk-tag">PHP</span><span class="sk-tag">JavaScript</span><span class="sk-tag">HTML/CSS</span><span class="sk-tag">Git</span><span class="sk-tag">Github</span><span class="sk-tag">آشنایی با زیرساخت‌های فنی پروژه‌های دیجیتال</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">📊</div><h3 data-key="skill1">بازاریابی دیجیتال</h3><div class="sk-tags"><span class="sk-tag" data-key="skill1-tag1">استراتژی محتوا</span><span class="sk-tag" data-key="skill1-tag2">بازاریابی B2B</span><span class="sk-tag" data-key="skill1-tag3">بازاریابی لینکدین</span><span class="sk-tag" data-key="skill1-tag4">ارتباطات برند</span><span class="sk-tag" data-key="skill1-tag5">بازاریابی محتوایی</span><span class="sk-tag" data-key="skill1-tag6">مدیریت شبکه‌های اجتماعی</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">🖌️</div><h3 data-key="skill2">طراحی گرافیک</h3><div class="sk-tags"><span class="sk-tag" data-key="skill2-tag1">طراحی پوستر</span><span class="sk-tag" data-key="skill2-tag2">طراحی محتوای شبکه‌های اجتماعی</span><span class="sk-tag" data-key="skill2-tag3">طراحی جلد کتاب</span><span class="sk-tag" data-key="skill2-tag4">ارتباطات بصری</span><span class="sk-tag">Photoshop</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">🧠</div><h3 data-key="skill3">هوش مصنوعی و بهره وری</h3><div class="sk-tags"><span class="sk-tag" data-key="skill3-tag1">تولید محتوا</span><span class="sk-tag" data-key="skill3-tag2">تحقیق</span><span class="sk-tag" data-key="skill3-tag3">ایده پردازی</span><span class="sk-tag" data-key="skill3-tag4">مستند سازی</span><span class="sk-tag" data-key="skill3-tag5">بهینه‌سازی فرایند های کاری و بازاریابی</span></div></div>
+      <div class="sk-block glass"><div class="sk-ico">💻</div><h3 data-key="skill4">فناوری و توسعه وب</h3><div class="sk-tags"><span class="sk-tag" data-key="skill4-tag1">مدیریت وب‌سایت</span><span class="sk-tag">Laravel</span><span class="sk-tag">PHP</span><span class="sk-tag">JavaScript</span><span class="sk-tag">HTML/CSS</span><span class="sk-tag">Git</span><span class="sk-tag">Github</span><span class="sk-tag" data-key="skill4-tag2">آشنایی با زیرساخت‌های فنی پروژه‌های دیجیتال</span></div></div>
     </div>
   </div>
 </section>
@@ -1116,113 +1207,119 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   <div class="wrap">
     <div class="resume-wrap">
       <div>
-  <h2>تجربه حرفه ای</h2>
-  
-  <div class="job-entry">
-    <div class="job-head"><span class="job-title-t">متخصص بازاریابی دیجیتال و ارتباطات برند</span><span class="job-date">۱۴۰۴ – اکنون</span></div>
-    <div class="job-co">بیدستان کالای استیل</div>
-    <div class="pj-tags"><span class="tag-pill">B2B Marketing</span><span class="tag-pill">Content Strategy</span><span class="tag-pill">Brand Communication</span></div>
-    <p style="font-size:.82rem; color:var(--fg2); margin-bottom:16px;">مسئول توسعه و مدیریت حضور دیجیتال برند در کانال‌های ارتباطی مختلف با تمرکز بر بازاریابی B2B، تولید محتوای تخصصی و توسعه ارتباطات سازمانی.</p>
-    <ul class="job-buls">
-      <li>برنامه‌ریزی و اجرای استراتژی محتوایی برند</li>
-      <li>مدیریت و توسعه محتوای LinkedIn و X (Twitter)</li>
-      <li>تولید محتوای تخصصی برای مخاطبان صنعتی و B2B</li>
-      <li>تدوین تقویم محتوایی و برنامه‌ریزی انتشار محتوا</li>
-      <li>طراحی و تولید محتوای گرافیکی برای رسانه‌های دیجیتال</li>
-      <li>مدیریت و به‌روزرسانی محتوای وب‌سایت شرکت</li>
-      <li>استفاده از ابزارهای هوش مصنوعی در تحقیق، ایده‌پردازی و تولید محتوا</li>
-      <li>توسعه ارتباطات برند و افزایش انسجام پیام‌های سازمانی</li>
-    </ul>
-  </div>
-  
-  <div class="job-entry">
-  <div class="job-head"><span class="job-title-t">طراح گرافیک</span><span class="job-date">۱۴۰۱ – ۱۴۰۳</span></div>
-  <div class="job-co">دانشگاه مراغه و پروژه‌های فرهنگی</div>
-  <div class="pj-tags"><span class="tag-pill">Graphic Design</span><span class="tag-pill">Poster Design</span><span class="tag-pill">Visual Communication</span></div>
-  <p style="font-size:.82rem; color:var(--fg2); margin-bottom:16px;">همکاری در پروژه‌های فرهنگی، دانشگاهی و رسانه‌ای با تمرکز بر طراحی گرافیک و ارتباطات بصری.</p>
-  <ul class="job-buls">
-    <li>طراحی پوسترهای جشنواره حرکت</li>
-    <li>طراحی پوسترهای جشنواره رویش</li>
-    <li>طراحی جلد کتاب</li>
-    <li>طراحی اقلام تبلیغاتی و اطلاع‌رسانی رویدادهای دانشگاهی</li>
-    <li>تولید محتوای بصری برای رسانه‌ها و کانال‌های ارتباطی دانشگاه</li>
-  </ul>
-  <button class="btn outline" data-section="portfolio" style="justify-content: center; margin-top: 20px;" onclick="alert('نمونه کارها به زودی اضافه می‌شود')">مشاهده نمونه کارها ←</button>
-</div>
-  
-  <div class="job-entry">
-    <div class="job-head"><span class="job-title-t">مدرس و مترجم زبان انگلیسی</span><span class="job-date">۱۴۰۲ – ۱۴۰۴</span></div>
-    <div class="job-co">خدمت سربازی – واحد آموزش و ترجمه</div>
-    <div class="pj-tags"><span class="tag-pill">Education</span><span class="tag-pill">Translation</span><span class="tag-pill">Content Development</span></div>
-    <ul class="job-buls">
-      <li>تدریس زبان انگلیسی</li>
-      <li>تولید و توسعه محتوای آموزشی</li>
-      <li>ترجمه متون عمومی و تخصصی</li>
-      <li>مستندسازی و تدوین محتوای آموزشی</li>
-      <li>استفاده از ابزارهای دیجیتال و هوش مصنوعی در فرآیند آموزش و تولید محتوا</li>
-    </ul>
-  </div>
-  
-  <div class="job-entry">
-    <div class="job-head"><span class="job-title-t">توسعه‌دهنده وب Full-Stack (Laravel)</span><span class="job-date">۱۳۹۹ – اکنون</span></div>
-    <div class="job-co">پروژه‌های مستقل / فریلنس — github.com/hr2562b</div>
-    <div class="pj-tags"><span class="tag-pill">Laravel / PHP</span><span class="tag-pill">MySQL</span><span class="tag-pill">MVC</span><span class="tag-pill">Livewire</span></div>
-    <ul class="job-buls">
-      <li>آغاز با HTML5، CSS3 و JavaScript (۱۳۹۹) و ارتقاء به PHP، Laravel و Livewire (از ۱۴۰۲)</li>
-      <li>توسعه اپلیکیشن‌های وب فول‌استک با معماری MVC و Design Patterns</li>
-      <li>طراحی پایگاه داده MySQL با نرمال‌سازی و بهینه‌سازی</li>
-      <li>استفاده از Eloquent ORM و مدیریت Migration و Seeder</li>
-      <li>کنترل نسخه با Git و GitHub</li>
-    </ul>
-    <a href="https://github.com/hr2562b" class="btn outline" target="_blank" style="justify-content: center;">مشاهده در GitHub ←</a>
-  </div>
-  
-  <div class="job-entry">
-    <div class="job-head"><span class="job-title-t">اپراتور ثبت داده واکسیناسیون</span><span class="job-date">۱۳۹۹ – ۱۴۰۰</span></div>
-    <div class="job-co">مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان</div>
-    <div class="pj-tags"><span class="tag-pill">Data Entry</span><span class="tag-pill">Excel</span><span class="tag-pill">Word</span></div>
-    <ul class="job-buls">
-      <li>ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت</li>
-      <li>هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا</li>
-    </ul>
-  </div>
-</div>
+        <h2 data-key="resume-title">تجربه حرفه ای</h2>
+        
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t" data-key="job1-title">متخصص بازاریابی دیجیتال و ارتباطات برند</span><span class="job-date" data-key="job1-date">۱۴۰۴ – اکنون</span></div>
+          <div class="job-co" data-key="job1-company">بیدستان کالای استیل</div>
+          <div class="pj-tags"><span class="tag-pill">B2B Marketing</span><span class="tag-pill">Content Strategy</span><span class="tag-pill">Brand Communication</span></div>
+          <p style="font-size:.82rem; color:var(--fg2); margin-bottom:16px;" data-key="job1-desc">مسئول توسعه و مدیریت حضور دیجیتال برند در کانال‌های ارتباطی مختلف با تمرکز بر بازاریابی B2B، تولید محتوای تخصصی و توسعه ارتباطات سازمانی.</p>
+          <ul class="job-buls">
+            <li data-key="job1-bul1">برنامه‌ریزی و اجرای استراتژی محتوایی برند</li>
+            <li data-key="job1-bul2">مدیریت و توسعه محتوای LinkedIn و X (Twitter)</li>
+            <li data-key="job1-bul3">تولید محتوای تخصصی برای مخاطبان صنعتی و B2B</li>
+            <li data-key="job1-bul4">تدوین تقویم محتوایی و برنامه‌ریزی انتشار محتوا</li>
+            <li data-key="job1-bul5">طراحی و تولید محتوای گرافیکی برای رسانه‌های دیجیتال</li>
+            <li data-key="job1-bul6">مدیریت و به‌روزرسانی محتوای وب‌سایت شرکت</li>
+            <li data-key="job1-bul7">استفاده از ابزارهای هوش مصنوعی در تحقیق، ایده‌پردازی و تولید محتوا</li>
+            <li data-key="job1-bul8">توسعه ارتباطات برند و افزایش انسجام پیام‌های سازمانی</li>
+          </ul>
+        </div>
+        
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t" data-key="job2-title">طراح گرافیک</span><span class="job-date" data-key="job2-date">۱۴۰۱ – ۱۴۰۳</span></div>
+          <div class="job-co" data-key="job2-company">دانشگاه مراغه و پروژه‌های فرهنگی</div>
+          <div class="pj-tags"><span class="tag-pill">Graphic Design</span><span class="tag-pill">Poster Design</span><span class="tag-pill">Visual Communication</span></div>
+          <p style="font-size:.82rem; color:var(--fg2); margin-bottom:16px;" data-key="job2-desc">همکاری در پروژه‌های فرهنگی، دانشگاهی و رسانه‌ای با تمرکز بر طراحی گرافیک و ارتباطات بصری.</p>
+          <ul class="job-buls">
+            <li data-key="job2-bul1">طراحی پوسترهای جشنواره حرکت</li>
+            <li data-key="job2-bul2">طراحی پوسترهای جشنواره رویش</li>
+            <li data-key="job2-bul3">طراحی جلد کتاب</li>
+            <li data-key="job2-bul4">طراحی اقلام تبلیغاتی و اطلاع‌رسانی رویدادهای دانشگاهی</li>
+            <li data-key="job2-bul5">تولید محتوای بصری برای رسانه‌ها و کانال‌های ارتباطی دانشگاه</li>
+          </ul>
+          <button class="btn outline" data-section="portfolio" style="justify-content: center; margin-top: 20px;" onclick="alert('نمونه کارها به زودی اضافه می‌شود')" data-key="btn-portfolio">مشاهده نمونه کارها ←</button>
+        </div>
+        
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t" data-key="job3-title">مدرس و مترجم زبان انگلیسی</span><span class="job-date" data-key="job3-date">۱۴۰۲ – ۱۴۰۴</span></div>
+          <div class="job-co" data-key="job3-company">خدمت سربازی – واحد آموزش و ترجمه</div>
+          <div class="pj-tags"><span class="tag-pill">Education</span><span class="tag-pill">Translation</span><span class="tag-pill">Content Development</span></div>
+          <ul class="job-buls">
+            <li data-key="job3-bul1">تدریس زبان انگلیسی</li>
+            <li data-key="job3-bul2">تولید و توسعه محتوای آموزشی</li>
+            <li data-key="job3-bul3">ترجمه متون عمومی و تخصصی</li>
+            <li data-key="job3-bul4">مستندسازی و تدوین محتوای آموزشی</li>
+            <li data-key="job3-bul5">استفاده از ابزارهای دیجیتال و هوش مصنوعی در فرآیند آموزش و تولید محتوا</li>
+          </ul>
+        </div>
+        
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t" data-key="job4-title">توسعه‌دهنده وب Full-Stack (Laravel)</span><span class="job-date" data-key="job4-date">۱۳۹۹ – اکنون</span></div>
+          <div class="job-co" data-key="job4-company">پروژه‌های مستقل / فریلنس — github.com/hr2562b</div>
+          <div class="pj-tags"><span class="tag-pill">Laravel / PHP</span><span class="tag-pill">MySQL</span><span class="tag-pill">MVC</span><span class="tag-pill">Livewire</span></div>
+          <ul class="job-buls">
+            <li data-key="job4-bul1">آغاز با HTML5، CSS3 و JavaScript (۱۳۹۹) و ارتقاء به PHP، Laravel و Livewire (از ۱۴۰۲)</li>
+            <li data-key="job4-bul2">توسعه اپلیکیشن‌های وب فول‌استک با معماری MVC و Design Patterns</li>
+            <li data-key="job4-bul3">طراحی پایگاه داده MySQL با نرمال‌سازی و بهینه‌سازی</li>
+            <li data-key="job4-bul4">استفاده از Eloquent ORM و مدیریت Migration و Seeder</li>
+            <li data-key="job4-bul5">کنترل نسخه با Git و GitHub</li>
+          </ul>
+          <a href="https://github.com/hr2562b" class="btn outline" target="_blank" style="justify-content: center;" data-key="btn-github">مشاهده در GitHub ←</a>
+        </div>
+        
+        <div class="job-entry">
+          <div class="job-head"><span class="job-title-t" data-key="job5-title">اپراتور ثبت داده واکسیناسیون</span><span class="job-date" data-key="job5-date">۱۳۹۹ – ۱۴۰۰</span></div>
+          <div class="job-co" data-key="job5-company">مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان</div>
+          <div class="pj-tags"><span class="tag-pill">Data Entry</span><span class="tag-pill">Excel</span><span class="tag-pill">Word</span></div>
+          <ul class="job-buls">
+            <li data-key="job5-bul1">ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت</li>
+            <li data-key="job5-bul2">هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا</li>
+          </ul>
+        </div>
+      </div>
       
       <div>
-        <div class="side-box glass"><div class="side-title">اطلاعات تماس</div>
+        <div class="side-box glass"><div class="side-title" data-key="contact-side-title">اطلاعات تماس</div>
           <div style="display:flex;flex-direction:column;gap:10px">
-            <a href="tel:09128152648" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px">📞 ۰۹۱۲۸۱۵۲۶۴۸</a>
+            <a href="tel:09128152648" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px">📞 <span data-key="phone-number">۰۹۱۲۸۱۵۲۶۴۸</span></a>
             <a href="mailto:h.mousavi264@gmail.com" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px">✉️ h.mousavi264@gmail.com</a>
             <a href="https://github.com/hr2562b" target="_blank" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px">💻 github.com/hr2562b</a>
           </div>
         </div>
-    <div class="side-box glass"><div class="side-title">تحصیلات</div>
-  <div class="edu-d">کارشناسی آموزش زبان انگلیسی</div>
-  <div class="edu-u">دانشگاه مراغه</div>
-  <div style="font-size:.78rem; color:var(--fg3); margin:4px 0;">📍 مراغه، ایران</div>
-  <div style="font-size:.78rem; color:var(--accent); margin:4px 0 12px 0;">🎓 فارغ‌التحصیل ۱۴۰۳</div>
-  <p style="font-size:.75rem; color:var(--fg2); line-height:1.6; margin-top:10px; padding-top:10px; border-top:1px solid var(--border);">در طول دوران تحصیل علاوه بر حوزه آموزش زبان، در پروژه‌های طراحی گرافیک، تولید محتوا و فعالیت‌های فرهنگی و دانشگاهی مشارکت داشتم که زمینه‌ساز ورود حرفه‌ای من به حوزه ارتباطات، بازاریابی و رسانه‌های دیجیتال شد.</p>
-</div>
-<div class="side-box glass"><div class="side-title">مهارت‌ها</div>
-  <div class="side-skill-g"><div class="side-cat">بازاریابی و ارتباطات</div><div class="side-tags"><span class="side-tag">استراتژی محتوا</span><span class="side-tag">برنامه‌ریزی محتوا</span><span class="side-tag">ارتباطات برند</span><span class="side-tag">بازاریابی B2B</span><span class="side-tag">بازاریابی لینکدین</span><span class="side-tag">X (Twitter)</span></div></div>
-  <div class="side-skill-g"><div class="side-cat">طراحی گرافیک</div><div class="side-tags"><span class="side-tag">Photoshop</span><span class="side-tag">طراحی پوستر</span><span class="side-tag">طراحی محتوای شبکه‌های اجتماعی</span><span class="side-tag">ارتباطات بصری</span><span class="side-tag">طراحی جلد کتاب</span></div></div>
-  <div class="side-skill-g"><div class="side-cat">هوش مصنوعی و بهره‌وری</div><div class="side-tags"><span class="side-tag">ChatGPT</span><span class="side-tag">Claude</span><span class="side-tag">Gemini</span><span class="side-tag">مهندسی پرامپت</span><span class="side-tag">تحقیق با هوش مصنوعی</span><span class="side-tag">تولید محتوا با هوش مصنوعی</span></div></div>
-  <div class="side-skill-g"><div class="side-cat">وب و فناوری</div><div class="side-tags"><span class="side-tag">Laravel</span><span class="side-tag">PHP</span><span class="side-tag">Livewire</span><span class="side-tag">MySQL</span><span class="side-tag">GitHub</span><span class="side-tag">مدیریت وب‌سایت</span></div></div>
-</div>
-        <div class="side-box glass"><div class="side-title">زبان‌ها</div>
-          <div class="lang-r"><span class="lang-n">انگلیسی</span><span class="lang-v">حرفه‌ای</span></div>
+        
+        <div class="side-box glass"><div class="side-title" data-key="edu-title">تحصیلات</div>
+          <div class="edu-d" data-key="edu-degree">کارشناسی آموزش زبان انگلیسی</div>
+          <div class="edu-u" data-key="edu-univ">دانشگاه مراغه</div>
+          <div style="font-size:.78rem; color:var(--fg3); margin:4px 0;" data-key="edu-location">📍 مراغه، ایران</div>
+          <div style="font-size:.78rem; color:var(--accent); margin:4px 0 12px 0;" data-key="edu-grad">🎓 فارغ‌التحصیل ۱۴۰۳</div>
+          <p style="font-size:.75rem; color:var(--fg2); line-height:1.6; margin-top:10px; padding-top:10px; border-top:1px solid var(--border);" data-key="edu-desc">در طول دوران تحصیل علاوه بر حوزه آموزش زبان، در پروژه‌های طراحی گرافیک، تولید محتوا و فعالیت‌های فرهنگی و دانشگاهی مشارکت داشتم که زمینه‌ساز ورود حرفه‌ای من به حوزه ارتباطات، بازاریابی و رسانه‌های دیجیتال شد.</p>
         </div>
-        <div class="side-box glass"><div class="side-title">مسیر حرفه‌ای</div>
-         <div class="dev-tl">
-  <div class="dev-step dev-step-active"><div class="dev-y">۱۴۰۴ – اکنون</div><div class="dev-t">بازاریابی دیجیتال و ارتباطات برند</div><div class="dev-sub">تمرکز حرفه‌ای خود را بر بازاریابی دیجیتال، استراتژی محتوا، بازاریابی B2B، مدیریت رسانه‌های اجتماعی و ارتباطات برند قرار دادم و در بیدستان کالای استیل در توسعه حضور دیجیتال و تولید محتوای تخصصی فعالیت می‌کنم.</div></div>
-  <div class="dev-step"><div class="dev-y">۱۴۰۴</div><div class="dev-t">ورود حرفه‌ای به هوش مصنوعی</div><div class="dev-sub">استفاده از ابزارهای هوش مصنوعی را به بخشی از فرآیندهای روزانه خود تبدیل کردم و از آن‌ها در تحقیق، ایده‌پردازی، تولید محتوا، مستندسازی و بهینه‌سازی گردش‌کارهای حرفه‌ای بهره گرفتم.</div></div>
-  <div class="dev-step"><div class="dev-y">۱۴۰۳</div><div class="dev-t">توسعه مهارت‌های بین‌رشته‌ای</div><div class="dev-sub">با فارغ‌التحصیلی در رشته آموزش زبان انگلیسی، توانستم دانش زبان، ارتباطات، محتوا و فناوری را در مسیر حرفه‌ای خود با یکدیگر ترکیب کنم.</div></div>
-  <div class="dev-step"><div class="dev-y">۱۴۰۲</div><div class="dev-t">توسعه دانش فنی و معماری نرم‌افزار</div><div class="dev-sub">با هدف درک بهتر زیرساخت‌های دیجیتال، یادگیری PHP، Laravel، Livewire و مفاهیم معماری نرم‌افزار را دنبال کردم و در پروژه‌های شخصی توسعه وب فعالیت داشتم.</div></div>
-  <div class="dev-step"><div class="dev-y">۱۴۰۱ – ۱۴۰۳</div><div class="dev-t">همکاری در پروژه‌های فرهنگی و دانشگاهی</div><div class="dev-sub">در طراحی پوسترهای جشنواره‌های حرکت و رویش، طراحی جلد کتاب و تولید محتوای گرافیکی برای رویدادهای مختلف دانشگاهی مشارکت داشتم و تجربه عملی ارزشمندی در حوزه ارتباطات بصری کسب کردم.</div></div>
-  <div class="dev-step"><div class="dev-y">۱۴۰۱</div><div class="dev-t">ورود به حوزه طراحی گرافیک</div><div class="dev-sub">همزمان با فعالیت‌های دانشگاهی، طراحی گرافیک را به‌صورت جدی دنبال کردم و در زمینه طراحی پوستر، تبلیغات و ارتباطات بصری فعالیت خود را آغاز کردم.</div></div>
-  <div class="dev-step"><div class="dev-y">۱۴۰۰</div><div class="dev-t">تجربه همکاری در پروژه ملی واکسیناسیون</div><div class="dev-sub">به عنوان اپراتور سامانه ثبت واکسیناسیون فعالیت کردم و تجربه ارزشمندی در کار با سامانه‌های اطلاعاتی، مدیریت داده و فرآیندهای سازمانی به دست آوردم.</div></div>
-  <div class="dev-step"><div class="dev-y">۱۳۹۹</div><div class="dev-t">ورود به دنیای فناوری و توسعه وب</div><div class="dev-sub">فعالیت حرفه‌ای خود را با یادگیری HTML، CSS و JavaScript آغاز کردم. این مسیر باعث شد با مفاهیم طراحی، توسعه وب و تفکر حل مسئله در پروژه‌های دیجیتال آشنا شوم.</div></div>
-</div>
+        
+        <div class="side-box glass"><div class="side-title" data-key="skills-side-title">مهارت‌ها</div>
+          <div class="side-skill-g"><div class="side-cat" data-key="skill-cat1">بازاریابی و ارتباطات</div><div class="side-tags"><span class="side-tag" data-key="skill-cat1-tag1">استراتژی محتوا</span><span class="side-tag" data-key="skill-cat1-tag2">برنامه‌ریزی محتوا</span><span class="side-tag" data-key="skill-cat1-tag3">ارتباطات برند</span><span class="side-tag" data-key="skill-cat1-tag4">بازاریابی B2B</span><span class="side-tag" data-key="skill-cat1-tag5">بازاریابی لینکدین</span><span class="side-tag">X (Twitter)</span></div></div>
+          <div class="side-skill-g"><div class="side-cat" data-key="skill-cat2">طراحی گرافیک</div><div class="side-tags"><span class="side-tag">Photoshop</span><span class="side-tag" data-key="skill-cat2-tag1">طراحی پوستر</span><span class="side-tag" data-key="skill-cat2-tag2">طراحی محتوای شبکه‌های اجتماعی</span><span class="side-tag" data-key="skill-cat2-tag3">ارتباطات بصری</span><span class="side-tag" data-key="skill-cat2-tag4">طراحی جلد کتاب</span></div></div>
+          <div class="side-skill-g"><div class="side-cat" data-key="skill-cat3">هوش مصنوعی و بهره‌وری</div><div class="side-tags"><span class="side-tag">ChatGPT</span><span class="side-tag">Claude</span><span class="side-tag">Gemini</span><span class="side-tag" data-key="skill-cat3-tag1">مهندسی پرامپت</span><span class="side-tag" data-key="skill-cat3-tag2">تحقیق با هوش مصنوعی</span><span class="side-tag" data-key="skill-cat3-tag3">تولید محتوا با هوش مصنوعی</span></div></div>
+          <div class="side-skill-g"><div class="side-cat" data-key="skill-cat4">وب و فناوری</div><div class="side-tags"><span class="side-tag">Laravel</span><span class="side-tag">PHP</span><span class="side-tag">Livewire</span><span class="side-tag">MySQL</span><span class="side-tag">GitHub</span><span class="side-tag" data-key="skill-cat4-tag1">مدیریت وب‌سایت</span></div></div>
+        </div>
+        
+        <div class="side-box glass"><div class="side-title" data-key="lang-title">زبان‌ها</div>
+          <div class="lang-r"><span class="lang-n" data-key="lang-fa">فارسی</span><span class="lang-v" data-key="lang-fa-level">زبان مادری</span></div>
+          <div class="lang-r"><span class="lang-n" data-key="lang-az">ترکی آذربایجانی</span><span class="lang-v" data-key="lang-az-level">زبان مادری</span></div>
+          <div class="lang-r"><span class="lang-n" data-key="lang-en">انگلیسی</span><span class="lang-v" data-key="lang-en-level">مهارت کاری حرفه‌ای</span></div>
+        </div>
+        
+        <div class="side-box glass"><div class="side-title" data-key="career-title">مسیر حرفه‌ای</div>
+          <div class="dev-tl">
+            <div class="dev-step dev-step-active"><div class="dev-y" data-key="career-year1">۱۴۰۴ – اکنون</div><div class="dev-t" data-key="career-title1">بازاریابی دیجیتال و ارتباطات برند</div><div class="dev-sub" data-key="career-desc1">تمرکز حرفه‌ای خود را بر بازاریابی دیجیتال، استراتژی محتوا، بازاریابی B2B، مدیریت رسانه‌های اجتماعی و ارتباطات برند قرار دادم و در بیدستان کالای استیل در توسعه حضور دیجیتال و تولید محتوای تخصصی فعالیت می‌کنم.</div></div>
+            <div class="dev-step"><div class="dev-y" data-key="career-year2">۱۴۰۴</div><div class="dev-t" data-key="career-title2">ورود حرفه‌ای به هوش مصنوعی</div><div class="dev-sub" data-key="career-desc2">استفاده از ابزارهای هوش مصنوعی را به بخشی از فرآیندهای روزانه خود تبدیل کردم و از آن‌ها در تحقیق، ایده‌پردازی، تولید محتوا، مستندسازی و بهینه‌سازی گردش‌کارهای حرفه‌ای بهره گرفتم.</div></div>
+            <div class="dev-step"><div class="dev-y" data-key="career-year3">۱۴۰۳</div><div class="dev-t" data-key="career-title3">توسعه مهارت‌های بین‌رشته‌ای</div><div class="dev-sub" data-key="career-desc3">با فارغ‌التحصیلی در رشته آموزش زبان انگلیسی، توانستم دانش زبان، ارتباطات، محتوا و فناوری را در مسیر حرفه‌ای خود با یکدیگر ترکیب کنم.</div></div>
+            <div class="dev-step"><div class="dev-y" data-key="career-year4">۱۴۰۲</div><div class="dev-t" data-key="career-title4">توسعه دانش فنی و معماری نرم‌افزار</div><div class="dev-sub" data-key="career-desc4">با هدف درک بهتر زیرساخت‌های دیجیتال، یادگیری PHP، Laravel، Livewire و مفاهیم معماری نرم‌افزار را دنبال کردم و در پروژه‌های شخصی توسعه وب فعالیت داشتم.</div></div>
+            <div class="dev-step"><div class="dev-y" data-key="career-year5">۱۴۰۱ – ۱۴۰۳</div><div class="dev-t" data-key="career-title5">همکاری در پروژه‌های فرهنگی و دانشگاهی</div><div class="dev-sub" data-key="career-desc5">در طراحی پوسترهای جشنواره‌های حرکت و رویش، طراحی جلد کتاب و تولید محتوای گرافیکی برای رویدادهای مختلف دانشگاهی مشارکت داشتم و تجربه عملی ارزشمندی در حوزه ارتباطات بصری کسب کردم.</div></div>
+            <div class="dev-step"><div class="dev-y" data-key="career-year6">۱۴۰۱</div><div class="dev-t" data-key="career-title6">ورود به حوزه طراحی گرافیک</div><div class="dev-sub" data-key="career-desc6">همزمان با فعالیت‌های دانشگاهی، طراحی گرافیک را به‌صورت جدی دنبال کردم و در زمینه طراحی پوستر، تبلیغات و ارتباطات بصری فعالیت خود را آغاز کردم.</div></div>
+            <div class="dev-step"><div class="dev-y" data-key="career-year7">۱۴۰۰</div><div class="dev-t" data-key="career-title7">تجربه همکاری در پروژه ملی واکسیناسیون</div><div class="dev-sub" data-key="career-desc7">به عنوان اپراتور سامانه ثبت واکسیناسیون فعالیت کردم و تجربه ارزشمندی در کار با سامانه‌های اطلاعاتی، مدیریت داده و فرآیندهای سازمانی به دست آوردم.</div></div>
+            <div class="dev-step"><div class="dev-y" data-key="career-year8">۱۳۹۹</div><div class="dev-t" data-key="career-title8">ورود به دنیای فناوری و توسعه وب</div><div class="dev-sub" data-key="career-desc8">فعالیت حرفه‌ای خود را با یادگیری HTML، CSS و JavaScript آغاز کردم. این مسیر باعث شد با مفاهیم طراحی، توسعه وب و تفکر حل مسئله در پروژه‌های دیجیتال آشنا شوم.</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1233,33 +1330,33 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 <section id="contact" class="sec">
   <div class="wrap two" style="gap:80px;align-items:start">
     <div>
-      <p class="role-badge">بیایید در ارتباط باشیم</p>
-      <h2>تماس</h2>
-      <h2 style="margin-top:20px">همکاری، ایده، پروژه</h2>
-      <p>اگر به دنبال همکاری در حوزه بازاریابی دیجیتال، استراتژی محتوا، ارتباطات برند، طراحی گرافیک یا پروژه‌های مبتنی بر هوش مصنوعی هستید، خوشحال می‌شوم در ارتباط باشیم.</p>
-      <p style="margin-top:16px">همیشه از گفتگو درباره ایده‌های جدید، فرصت‌های همکاری و پروژه‌های خلاقانه استقبال می‌کنم.</p>
+      <p class="role-badge" data-key="contact-badge">بیایید در ارتباط باشیم</p>
+      <h2 data-key="contact-title">تماس</h2>
+      <h2 style="margin-top:20px" data-key="contact-subtitle">همکاری، ایده، پروژه</h2>
+      <p data-key="contact-text1">اگر به دنبال همکاری در حوزه بازاریابی دیجیتال، استراتژی محتوا، ارتباطات برند، طراحی گرافیک یا پروژه‌های مبتنی بر هوش مصنوعی هستید، خوشحال می‌شوم در ارتباط باشیم.</p>
+      <p style="margin-top:16px" data-key="contact-text2">همیشه از گفتگو درباره ایده‌های جدید، فرصت‌های همکاری و پروژه‌های خلاقانه استقبال می‌کنم.</p>
       <div class="cms">
-        <a href="mailto:h.mousavi264@gmail.com" class="cm glass"><span class="cm-ico">✉️</span><div><strong>ایمیل</strong><span>h.mousavi264@gmail.com</span></div></a>
-        <a href="tel:09128152648" class="cm glass"><span class="cm-ico">📞</span><div><strong>تلفن</strong><span>۰۹۱۲۸۱۵۲۶۴۸</span></div></a>
+        <a href="mailto:h.mousavi264@gmail.com" class="cm glass"><span class="cm-ico">✉️</span><div><strong data-key="email">ایمیل</strong><span>h.mousavi264@gmail.com</span></div></a>
+        <a href="tel:09128152648" class="cm glass"><span class="cm-ico">📞</span><div><strong data-key="phone">تلفن</strong><span data-key="phone-number">۰۹۱۲۸۱۵۲۶۴۸</span></div></a>
         <a href="https://github.com/hr2562b" target="_blank" class="cm glass"><span class="cm-ico">💻</span><div><strong>GitHub</strong><span>github.com/hr2562b</span></div></a>
       </div>
     </div>
     <div>
-      <div class="ok-msg" id="okMsg">✅ پیامت رسید! به زودی جواب میدم.</div>
+      <div class="ok-msg" id="okMsg" data-key="ok-msg">✅ پیامت رسید! به زودی جواب میدم.</div>
       <form id="cForm" action="https://formspree.io/f/xbdejqna" method="POST">
-        <div class="fg"><label>اسمت</label><input type="text" name="name" placeholder="مثلاً علی احمدی" required/></div>
-        <div class="fg"><label>ایمیل</label><input type="email" name="email" placeholder="ali@example.com" required/></div>
-        <div class="fg"><label>موضوع</label>
+        <div class="fg"><label data-key="form-name">اسمت</label><input type="text" name="name" placeholder="مثلاً علی احمدی" required/></div>
+        <div class="fg"><label data-key="form-email">ایمیل</label><input type="email" name="email" placeholder="ali@example.com" required/></div>
+        <div class="fg"><label data-key="form-subject">موضوع</label>
           <select name="subject">
-            <option value="web">توسعه وب</option>
-            <option value="marketing">بازاریابی دیجیتال</option>
-            <option value="design">طراحی گرافیک</option>
-            <option value="ai">هوش مصنوعی</option>
-            <option value="other">سایر</option>
+            <option value="web" data-key="subject-web">توسعه وب</option>
+            <option value="marketing" data-key="subject-marketing">بازاریابی دیجیتال</option>
+            <option value="design" data-key="subject-design">طراحی گرافیک</option>
+            <option value="ai" data-key="subject-ai">هوش مصنوعی</option>
+            <option value="other" data-key="subject-other">سایر</option>
           </select>
         </div>
-        <div class="fg"><label>پیامت</label><textarea name="message" placeholder="بنویس چه کمکی می‌تونم بکنم..." required></textarea></div>
-        <button type="submit" class="btn solid" style="width:100%;justify-content:center">ارسال پیام →</button>
+        <div class="fg"><label data-key="form-message">پیامت</label><textarea name="message" placeholder="بنویس چه کمکی می‌تونم بکنم..." required></textarea></div>
+        <button type="submit" class="btn solid" style="width:100%;justify-content:center" data-key="form-submit">ارسال پیام →</button>
       </form>
     </div>
   </div>
@@ -1268,8 +1365,8 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 <!-- ══ FOOTER ══ -->
 <footer>
   <div class="wrap foot">
-    <p>© ۱۴۰۵ هادی موسوی — تمامی حقوق محفوظ است</p>
-    <div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com">ایمیل</a></div>
+    <p>© <span data-key="year">۱۴۰۵</span> <span data-key="footer-name">هادی موسوی</span> — <span data-key="footer-rights">تمامی حقوق محفوظ است</span></p>
+    <div class="foot-lnks"><a href="https://github.com/hr2562b" target="_blank">GitHub</a><a href="mailto:h.mousavi264@gmail.com" data-key="footer-email">ایمیل</a></div>
   </div>
 </footer>
 
@@ -1438,6 +1535,227 @@ if (sliderContainer) {
   sliderContainer.addEventListener('mouseleave', () => { slideInterval = setInterval(goToNext, SLIDE_PAUSE); });
 }
 
+/* ── LANGUAGE TOGGLE ── */
+const translations = {
+  fa: {
+    'nav-home': 'خانه', 'nav-about': 'درباره من', 'nav-skills': 'تخصص ها', 'nav-resume': 'تجربیات', 'nav-contact': 'تماس',
+    'hero-badge': 'رزومه و معرفی کوتاه', 'hero-name': 'هادی موسوی',
+    'btn-start': 'شروع ←', 'btn-contact': 'تماس بگیر',
+    'slide1': 'متخصص بازاریابی دیجیتال', 'slide2': 'ارتباطات برند', 'slide3': 'طراحی گرافیک', 'slide4': 'تولید محتوای مبتنی بر AI',
+    'pill1': 'بازاریابی دیجیتال', 'pill2': 'استراتژی محتوا', 'pill3': 'بازاریابی B2B', 'pill4': 'بازاریابی لینکدین', 'pill5': 'طراحی گرافیک', 'pill6': 'هوش مصنوعی',
+    'about-title': 'درباره من',
+    'about-text1': 'مسیر حرفه‌ای من از حوزه زبان و ارتباطات آغاز شد و در ادامه به بازاریابی دیجیتال، طراحی گرافیک و فناوری‌های نوین گسترش پیدا کرد. در سال‌های اخیر در زمینه تولید محتوا، مدیریت رسانه‌های اجتماعی، طراحی گرافیک و توسعه ارتباطات برند فعالیت کرده‌ام و همواره تلاش کرده‌ام با ترکیب خلاقیت، تحلیل و فناوری، راهکارهای مؤثری برای توسعه حضور دیجیتال کسب‌وکارها ارائه دهم.',
+    'about-text2': 'علاقه جدی من به فناوری و هوش مصنوعی باعث شده است در کنار فعالیت‌های بازاریابی و طراحی، به بهینه‌سازی فرآیندهای تولید محتوا، تحقیق، مستندسازی و مدیریت دانش نیز بپردازم. همچنین آشنایی با توسعه وب و زیرساخت‌های دیجیتال به من کمک می‌کند تا پروژه‌ها را از منظر محتوا، طراحی و فناوری به‌صورت یکپارچه تحلیل و اجرا کنم.',
+    'about-text3': 'امروز تمرکز اصلی من بر بازاریابی دیجیتال، استراتژی محتوا، ارتباطات برند، طراحی گرافیک و کاربرد هوش مصنوعی در توسعه کسب‌وکارها است.',
+    'timeline-title': 'مسیر حرفه‌ای در یک نگاه',
+    'year1': '۱۴۰۴ - اکنون', 'year2': '۱۴۰۲ - ۱۴۰۴', 'year3': '۱۴۰۱ - ۱۴۰۳', 'year4': '۱۳۹۹ - ۱۴۰۲',
+    'timeline1-title': 'متخصص بازاریابی دیجیتال', 'timeline1-desc': 'بازاریابی B2B • لینکدین • ارتباطات برند',
+    'timeline2-title': 'آموزش و تولید محتوا', 'timeline2-desc': 'تدریس زبان انگلیسی • توسعه محتوا',
+    'timeline3-title': 'طراحی گرافیک', 'timeline3-desc': 'پوستر • جلد کتاب • ارتباطات بصری',
+    'timeline4-title': 'فناوری و توسعه وب', 'timeline4-desc': 'Laravel • PHP • پروژه‌های دیجیتال',
+    'skills-title': 'تخصص ها',
+    'skill1': 'بازاریابی دیجیتال', 'skill2': 'طراحی گرافیک', 'skill3': 'هوش مصنوعی و بهره وری', 'skill4': 'فناوری و توسعه وب',
+    'skill1-tag1': 'استراتژی محتوا', 'skill1-tag2': 'بازاریابی B2B', 'skill1-tag3': 'بازاریابی لینکدین', 'skill1-tag4': 'ارتباطات برند', 'skill1-tag5': 'بازاریابی محتوایی', 'skill1-tag6': 'مدیریت شبکه‌های اجتماعی',
+    'skill2-tag1': 'طراحی پوستر', 'skill2-tag2': 'طراحی محتوای شبکه‌های اجتماعی', 'skill2-tag3': 'طراحی جلد کتاب', 'skill2-tag4': 'ارتباطات بصری',
+    'skill3-tag1': 'تولید محتوا', 'skill3-tag2': 'تحقیق', 'skill3-tag3': 'ایده پردازی', 'skill3-tag4': 'مستند سازی', 'skill3-tag5': 'بهینه‌سازی فرایند های کاری و بازاریابی',
+    'skill4-tag1': 'مدیریت وب‌سایت', 'skill4-tag2': 'آشنایی با زیرساخت‌های فنی پروژه‌های دیجیتال',
+    'resume-title': 'تجربه حرفه ای',
+    'job1-title': 'متخصص بازاریابی دیجیتال و ارتباطات برند', 'job1-date': '۱۴۰۴ – اکنون', 'job1-company': 'بیدستان کالای استیل',
+    'job1-desc': 'مسئول توسعه و مدیریت حضور دیجیتال برند در کانال‌های ارتباطی مختلف با تمرکز بر بازاریابی B2B، تولید محتوای تخصصی و توسعه ارتباطات سازمانی.',
+    'job1-bul1': 'برنامه‌ریزی و اجرای استراتژی محتوایی برند', 'job1-bul2': 'مدیریت و توسعه محتوای LinkedIn و X (Twitter)',
+    'job1-bul3': 'تولید محتوای تخصصی برای مخاطبان صنعتی و B2B', 'job1-bul4': 'تدوین تقویم محتوایی و برنامه‌ریزی انتشار محتوا',
+    'job1-bul5': 'طراحی و تولید محتوای گرافیکی برای رسانه‌های دیجیتال', 'job1-bul6': 'مدیریت و به‌روزرسانی محتوای وب‌سایت شرکت',
+    'job1-bul7': 'استفاده از ابزارهای هوش مصنوعی در تحقیق، ایده‌پردازی و تولید محتوا', 'job1-bul8': 'توسعه ارتباطات برند و افزایش انسجام پیام‌های سازمانی',
+    'job2-title': 'طراح گرافیک', 'job2-date': '۱۴۰۱ – ۱۴۰۳', 'job2-company': 'دانشگاه مراغه و پروژه‌های فرهنگی',
+    'job2-desc': 'همکاری در پروژه‌های فرهنگی، دانشگاهی و رسانه‌ای با تمرکز بر طراحی گرافیک و ارتباطات بصری.',
+    'job2-bul1': 'طراحی پوسترهای جشنواره حرکت', 'job2-bul2': 'طراحی پوسترهای جشنواره رویش',
+    'job2-bul3': 'طراحی جلد کتاب', 'job2-bul4': 'طراحی اقلام تبلیغاتی و اطلاع‌رسانی رویدادهای دانشگاهی',
+    'job2-bul5': 'تولید محتوای بصری برای رسانه‌ها و کانال‌های ارتباطی دانشگاه',
+    'btn-portfolio': 'مشاهده نمونه کارها ←',
+    'job3-title': 'مدرس و مترجم زبان انگلیسی', 'job3-date': '۱۴۰۲ – ۱۴۰۴', 'job3-company': 'خدمت سربازی – واحد آموزش و ترجمه',
+    'job3-bul1': 'تدریس زبان انگلیسی', 'job3-bul2': 'تولید و توسعه محتوای آموزشی',
+    'job3-bul3': 'ترجمه متون عمومی و تخصصی', 'job3-bul4': 'مستندسازی و تدوین محتوای آموزشی',
+    'job3-bul5': 'استفاده از ابزارهای دیجیتال و هوش مصنوعی در فرآیند آموزش و تولید محتوا',
+    'job4-title': 'توسعه‌دهنده وب Full-Stack (Laravel)', 'job4-date': '۱۳۹۹ – اکنون', 'job4-company': 'پروژه‌های مستقل / فریلنس — github.com/hr2562b',
+    'job4-bul1': 'آغاز با HTML5، CSS3 و JavaScript (۱۳۹۹) و ارتقاء به PHP، Laravel و Livewire (از ۱۴۰۲)',
+    'job4-bul2': 'توسعه اپلیکیشن‌های وب فول‌استک با معماری MVC و Design Patterns',
+    'job4-bul3': 'طراحی پایگاه داده MySQL با نرمال‌سازی و بهینه‌سازی',
+    'job4-bul4': 'استفاده از Eloquent ORM و مدیریت Migration و Seeder',
+    'job4-bul5': 'کنترل نسخه با Git و GitHub',
+    'btn-github': 'مشاهده در GitHub ←',
+    'job5-title': 'اپراتور ثبت داده واکسیناسیون', 'job5-date': '۱۳۹۹ – ۱۴۰۰', 'job5-company': 'مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان',
+    'job5-bul1': 'ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت',
+    'job5-bul2': 'هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا',
+    'contact-side-title': 'اطلاعات تماس', 'edu-title': 'تحصیلات', 'skills-side-title': 'مهارت‌ها',
+    'skill-cat1': 'بازاریابی و ارتباطات', 'skill-cat2': 'طراحی گرافیک', 'skill-cat3': 'هوش مصنوعی و بهره‌وری', 'skill-cat4': 'وب و فناوری',
+    'skill-cat1-tag1': 'استراتژی محتوا', 'skill-cat1-tag2': 'برنامه‌ریزی محتوا', 'skill-cat1-tag3': 'ارتباطات برند', 'skill-cat1-tag4': 'بازاریابی B2B', 'skill-cat1-tag5': 'بازاریابی لینکدین',
+    'skill-cat2-tag1': 'طراحی پوستر', 'skill-cat2-tag2': 'طراحی محتوای شبکه‌های اجتماعی', 'skill-cat2-tag3': 'ارتباطات بصری', 'skill-cat2-tag4': 'طراحی جلد کتاب',
+    'skill-cat3-tag1': 'مهندسی پرامپت', 'skill-cat3-tag2': 'تحقیق با هوش مصنوعی', 'skill-cat3-tag3': 'تولید محتوا با هوش مصنوعی',
+    'skill-cat4-tag1': 'مدیریت وب‌سایت',
+    'lang-title': 'زبان‌ها', 'lang-fa': 'فارسی', 'lang-fa-level': 'زبان مادری', 'lang-az': 'ترکی آذربایجانی', 'lang-az-level': 'زبان مادری', 'lang-en': 'انگلیسی', 'lang-en-level': 'مهارت کاری حرفه‌ای',
+    'career-title': 'مسیر حرفه‌ای',
+    'career-year1': '۱۴۰۴ – اکنون', 'career-title1': 'بازاریابی دیجیتال و ارتباطات برند', 'career-desc1': 'تمرکز حرفه‌ای خود را بر بازاریابی دیجیتال، استراتژی محتوا، بازاریابی B2B، مدیریت رسانه‌های اجتماعی و ارتباطات برند قرار دادم و در بیدستان کالای استیل در توسعه حضور دیجیتال و تولید محتوای تخصصی فعالیت می‌کنم.',
+    'career-year2': '۱۴۰۴', 'career-title2': 'ورود حرفه‌ای به هوش مصنوعی', 'career-desc2': 'استفاده از ابزارهای هوش مصنوعی را به بخشی از فرآیندهای روزانه خود تبدیل کردم و از آن‌ها در تحقیق، ایده‌پردازی، تولید محتوا، مستندسازی و بهینه‌سازی گردش‌کارهای حرفه‌ای بهره گرفتم.',
+    'career-year3': '۱۴۰۳', 'career-title3': 'توسعه مهارت‌های بین‌رشته‌ای', 'career-desc3': 'با فارغ‌التحصیلی در رشته آموزش زبان انگلیسی، توانستم دانش زبان، ارتباطات، محتوا و فناوری را در مسیر حرفه‌ای خود با یکدیگر ترکیب کنم.',
+    'career-year4': '۱۴۰۲', 'career-title4': 'توسعه دانش فنی و معماری نرم‌افزار', 'career-desc4': 'با هدف درک بهتر زیرساخت‌های دیجیتال، یادگیری PHP، Laravel، Livewire و مفاهیم معماری نرم‌افزار را دنبال کردم و در پروژه‌های شخصی توسعه وب فعالیت داشتم.',
+    'career-year5': '۱۴۰۱ – ۱۴۰۳', 'career-title5': 'همکاری در پروژه‌های فرهنگی و دانشگاهی', 'career-desc5': 'در طراحی پوسترهای جشنواره‌های حرکت و رویش، طراحی جلد کتاب و تولید محتوای گرافیکی برای رویدادهای مختلف دانشگاهی مشارکت داشتم و تجربه عملی ارزشمندی در حوزه ارتباطات بصری کسب کردم.',
+    'career-year6': '۱۴۰۱', 'career-title6': 'ورود به حوزه طراحی گرافیک', 'career-desc6': 'همزمان با فعالیت‌های دانشگاهی، طراحی گرافیک را به‌صورت جدی دنبال کردم و در زمینه طراحی پوستر، تبلیغات و ارتباطات بصری فعالیت خود را آغاز کردم.',
+    'career-year7': '۱۴۰۰', 'career-title7': 'تجربه همکاری در پروژه ملی واکسیناسیون', 'career-desc7': 'به عنوان اپراتور سامانه ثبت واکسیناسیون فعالیت کردم و تجربه ارزشمندی در کار با سامانه‌های اطلاعاتی، مدیریت داده و فرآیندهای سازمانی به دست آوردم.',
+    'career-year8': '۱۳۹۹', 'career-title8': 'ورود به دنیای فناوری و توسعه وب', 'career-desc8': 'فعالیت حرفه‌ای خود را با یادگیری HTML، CSS و JavaScript آغاز کردم. این مسیر باعث شد با مفاهیم طراحی، توسعه وب و تفکر حل مسئله در پروژه‌های دیجیتال آشنا شوم.',
+    'contact-badge': 'بیایید در ارتباط باشیم', 'contact-title': 'تماس', 'contact-subtitle': 'همکاری، ایده، پروژه',
+    'contact-text1': 'اگر به دنبال همکاری در حوزه بازاریابی دیجیتال، استراتژی محتوا، ارتباطات برند، طراحی گرافیک یا پروژه‌های مبتنی بر هوش مصنوعی هستید، خوشحال می‌شوم در ارتباط باشیم.',
+    'contact-text2': 'همیشه از گفتگو درباره ایده‌های جدید، فرصت‌های همکاری و پروژه‌های خلاقانه استقبال می‌کنم.',
+    'email': 'ایمیل', 'phone': 'تلفن', 'ok-msg': '✅ پیامت رسید! به زودی جواب میدم.',
+    'form-name': 'اسمت', 'form-email': 'ایمیل', 'form-subject': 'موضوع', 'form-message': 'پیامت', 'form-submit': 'ارسال پیام →',
+    'subject-web': 'توسعه وب', 'subject-marketing': 'بازاریابی دیجیتال', 'subject-design': 'طراحی گرافیک', 'subject-ai': 'هوش مصنوعی', 'subject-other': 'سایر',
+    'footer-name': 'هادی موسوی', 'footer-rights': 'تمامی حقوق محفوظ است', 'footer-email': 'ایمیل', 'year': '۱۴۰۵',
+    'edu-degree': 'کارشناسی آموزش زبان انگلیسی', 'edu-univ': 'دانشگاه مراغه', 'edu-location': '📍 مراغه، ایران', 'edu-grad': '🎓 فارغ‌التحصیل ۱۴۰۳',
+    'edu-desc': 'در طول دوران تحصیل علاوه بر حوزه آموزش زبان، در پروژه‌های طراحی گرافیک، تولید محتوا و فعالیت‌های فرهنگی و دانشگاهی مشارکت داشتم که زمینه‌ساز ورود حرفه‌ای من به حوزه ارتباطات، بازاریابی و رسانه‌های دیجیتال شد.',
+    'phone-number': '۰۹۱۲۸۱۵۲۶۴۸',
+    'logo': 'وبسایت شخصی هادی موسوی',
+  },
+  en: {
+    'nav-home': 'Home', 'nav-about': 'About', 'nav-skills': 'Skills', 'nav-resume': 'Experience', 'nav-contact': 'Contact',
+    'hero-badge': 'Resume & Short Intro', 'hero-name': 'Hadi Mousavi',
+    'btn-start': 'Start →', 'btn-contact': 'Contact Me',
+    'slide1': 'Digital Marketing Specialist', 'slide2': 'Brand Communication', 'slide3': 'Graphic Designer', 'slide4': 'AI-Powered Content',
+    'pill1': 'Digital Marketing', 'pill2': 'Content Strategy', 'pill3': 'B2B Marketing', 'pill4': 'LinkedIn Marketing', 'pill5': 'Graphic Design', 'pill6': 'Artificial Intelligence',
+    'about-title': 'About Me',
+    'about-text1': 'My professional journey began in the field of language and communication and gradually expanded into digital marketing, graphic design, and emerging technologies. Over the years, I have worked in content creation, social media management, graphic design, and brand communication, combining creativity, analytical thinking, and technology to help businesses strengthen their digital presence.',
+    'about-text2': 'My strong interest in technology and artificial intelligence has also led me to optimize content creation workflows, research processes, documentation practices, and knowledge management systems. In addition, my background in web technologies allows me to approach projects from the combined perspectives of content, design, and technology.',
+    'about-text3': 'Today, my primary focus is on digital marketing, content strategy, brand communication, graphic design, and the practical application of AI to support business growth.',
+    'timeline-title': 'Career at a Glance',
+    'year1': '2025 - Present', 'year2': '2023 - 2025', 'year3': '2022 - 2024', 'year4': '2020 - 2023',
+    'timeline1-title': 'Digital Marketing Specialist', 'timeline1-desc': 'B2B Marketing • LinkedIn • Brand Communication',
+    'timeline2-title': 'Content Development & Education', 'timeline2-desc': 'English Instruction • Content Development',
+    'timeline3-title': 'Graphic Design', 'timeline3-desc': 'Posters • Book Covers • Visual Communication',
+    'timeline4-title': 'Web Technologies', 'timeline4-desc': 'Laravel • PHP • Digital Projects',
+    'skills-title': 'Skills',
+    'skill1': 'Digital Marketing', 'skill2': 'Graphic Design', 'skill3': 'AI & Productivity', 'skill4': 'Web & Technology',
+    'skill1-tag1': 'Content Strategy', 'skill1-tag2': 'B2B Marketing', 'skill1-tag3': 'LinkedIn Marketing', 'skill1-tag4': 'Brand Communication', 'skill1-tag5': 'Content Marketing', 'skill1-tag6': 'Social Media Management',
+    'skill2-tag1': 'Poster Design', 'skill2-tag2': 'Social Media Design', 'skill2-tag3': 'Book Cover Design', 'skill2-tag4': 'Visual Communication',
+    'skill3-tag1': 'Content Creation', 'skill3-tag2': 'Research', 'skill3-tag3': 'Ideation', 'skill3-tag4': 'Documentation', 'skill3-tag5': 'Workflow & Marketing Optimization',
+    'skill4-tag1': 'Website Management', 'skill4-tag2': 'Understanding of Digital Project Technical Infrastructure',
+    'resume-title': 'Professional Experience',
+    'job1-title': 'Digital Marketing & Brand Communication Specialist', 'job1-date': '2025 – Present', 'job1-company': 'Bidestan Steel Company',
+    'job1-desc': 'Responsible for developing and managing the brand\'s digital presence across various communication channels, focusing on B2B marketing, specialized content production, and organizational communication development.',
+    'job1-bul1': 'Planning and executing brand content strategy', 'job1-bul2': 'Managing and developing LinkedIn and X (Twitter) content',
+    'job1-bul3': 'Creating specialized content for industrial and B2B audiences', 'job1-bul4': 'Developing content calendar and scheduling',
+    'job1-bul5': 'Designing and producing graphic content for digital media', 'job1-bul6': 'Managing and updating company website content',
+    'job1-bul7': 'Using AI tools for research, ideation, and content creation', 'job1-bul8': 'Brand communication development and increasing organizational message coherence',
+    'job2-title': 'Graphic Designer', 'job2-date': '2022 – 2024', 'job2-company': 'University of Maragheh & Cultural Projects',
+    'job2-desc': 'Collaboration on cultural, academic, and media projects focusing on graphic design and visual communication.',
+    'job2-bul1': 'Designing posters for Hekmat Festival', 'job2-bul2': 'Designing posters for Rooyesh Festival',
+    'job2-bul3': 'Book cover design', 'job2-bul4': 'Designing promotional materials for university events',
+    'job2-bul5': 'Creating visual content for university media and communication channels',
+    'btn-portfolio': 'View Portfolio →',
+    'job3-title': 'English Teacher & Translator', 'job3-date': '2023 – 2025', 'job3-company': 'Military Service – Education & Translation Unit',
+    'job3-bul1': 'Teaching English language', 'job3-bul2': 'Developing educational content',
+    'job3-bul3': 'Translating general and specialized texts', 'job3-bul4': 'Documenting and compiling educational content',
+    'job3-bul5': 'Using digital tools and AI in education and content production',
+    'job4-title': 'Full-Stack Web Developer (Laravel)', 'job4-date': '2020 – Present', 'job4-company': 'Freelance / Personal Projects — github.com/hr2562b',
+    'job4-bul1': 'Started with HTML5, CSS3, JavaScript (2020) and progressed to PHP, Laravel, Livewire (from 2023)',
+    'job4-bul2': 'Developing full-stack web applications with MVC architecture and Design Patterns',
+    'job4-bul3': 'Designing MySQL databases with normalization and optimization',
+    'job4-bul4': 'Using Eloquent ORM and managing Migrations & Seeders',
+    'job4-bul5': 'Version control with Git and GitHub',
+    'btn-github': 'View on GitHub →',
+    'job5-title': 'Vaccination Data Entry Operator', 'job5-date': '2020 – 2021', 'job5-company': 'COVID-19 Vaccination Center – Khodabandeh, Zanjan',
+    'job5-bul1': 'Real-time vaccination data entry into the national health system following Ministry of Health protocols',
+    'job5-bul2': 'Coordinating with medical staff to maintain data processing capacity during peak demand',
+    'contact-side-title': 'Contact Info', 'edu-title': 'Education', 'skills-side-title': 'Skills',
+    'skill-cat1': 'Marketing & Communication', 'skill-cat2': 'Graphic Design', 'skill-cat3': 'AI & Productivity', 'skill-cat4': 'Web & Technology',
+    'skill-cat1-tag1': 'Content Strategy', 'skill-cat1-tag2': 'Content Planning', 'skill-cat1-tag3': 'Brand Communication', 'skill-cat1-tag4': 'B2B Marketing', 'skill-cat1-tag5': 'LinkedIn Marketing',
+    'skill-cat2-tag1': 'Poster Design', 'skill-cat2-tag2': 'Social Media Design', 'skill-cat2-tag3': 'Visual Communication', 'skill-cat2-tag4': 'Book Cover Design',
+    'skill-cat3-tag1': 'Prompt Engineering', 'skill-cat3-tag2': 'AI Research', 'skill-cat3-tag3': 'AI Content Creation',
+    'skill-cat4-tag1': 'Website Management',
+    'lang-title': 'Languages', 'lang-fa': 'Persian', 'lang-fa-level': 'Native', 'lang-az': 'Azerbaijani Turkish', 'lang-az-level': 'Native', 'lang-en': 'English', 'lang-en-level': 'Professional Working Proficiency',
+    'career-title': 'Career Path',
+    'career-year1': '2025 – Present', 'career-title1': 'Digital Marketing & Brand Communication', 'career-desc1': 'I have focused my career on digital marketing, content strategy, B2B marketing, social media management, and brand communication, currently working at Bidestan Steel Company on digital presence development and specialized content production.',
+    'career-year2': '2025', 'career-title2': 'Professional Entry into AI', 'career-desc2': 'I incorporated AI tools into my daily workflows, using them for research, ideation, content creation, documentation, and optimization of professional processes.',
+    'career-year3': '2024', 'career-title3': 'Development of Interdisciplinary Skills', 'career-desc3': 'After graduating in English Language Teaching, I combined knowledge of language, communication, content, and technology in my professional path.',
+    'career-year4': '2023', 'career-title4': 'Technical Knowledge & Software Architecture', 'career-desc4': 'To better understand digital infrastructure, I pursued learning PHP, Laravel, Livewire, and software architecture concepts, working on personal web development projects.',
+    'career-year5': '2022 – 2024', 'career-title5': 'Collaboration on Cultural & Academic Projects', 'career-desc5': 'I participated in designing posters for Hekmat and Rooyesh festivals, book covers, and graphic content for various university events, gaining valuable practical experience in visual communication.',
+    'career-year6': '2022', 'career-title6': 'Entry into Graphic Design', 'career-desc6': 'Alongside academic activities, I seriously pursued graphic design, starting my work in poster design, advertising, and visual communication.',
+    'career-year7': '2021', 'career-title7': 'Experience in National Vaccination Project', 'career-desc7': 'I worked as a vaccination data entry operator, gaining valuable experience with information systems, data management, and organizational processes.',
+    'career-year8': '2020', 'career-title8': 'Entry into Technology & Web Development', 'career-desc8': 'I started my professional journey by learning HTML, CSS, and JavaScript, becoming familiar with design concepts, web development, and problem-solving in digital projects.',
+    'contact-badge': 'Let\'s Talk', 'contact-title': 'Contact', 'contact-subtitle': 'Collaboration, Ideas, Projects',
+    'contact-text1': 'If you are looking for collaboration in digital marketing, content strategy, brand communication, graphic design, or AI-based projects, I would be happy to connect.',
+    'contact-text2': 'I always welcome conversations about new ideas, collaboration opportunities, and creative projects.',
+    'email': 'Email', 'phone': 'Phone', 'ok-msg': '✅ Message received! I\'ll get back to you soon.',
+    'form-name': 'Your Name', 'form-email': 'Email', 'form-subject': 'Subject', 'form-message': 'Your Message', 'form-submit': 'Send Message →',
+    'subject-web': 'Web Development', 'subject-marketing': 'Digital Marketing', 'subject-design': 'Graphic Design', 'subject-ai': 'Artificial Intelligence', 'subject-other': 'Other',
+    'footer-name': 'Hadi Mousavi', 'footer-rights': 'All rights reserved', 'footer-email': 'Email', 'year': '2026',
+    'edu-degree': 'Bachelor\'s in English Language Teaching', 'edu-univ': 'University of Maragheh', 'edu-location': '📍 Maragheh, Iran', 'edu-grad': '🎓 Graduated 2024',
+    'edu-desc': 'During my studies, in addition to language education, I participated in graphic design projects, content production, and cultural and academic activities, which laid the foundation for my professional entry into communication, marketing, and digital media.',
+    'phone-number': '+98 912 815 2648',
+    'logo': 'Hadi Mousavi\'s Personal Website',
+  }
+};
+
+let currentLang = localStorage.getItem('language') || 'fa';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('language', lang);
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.documentElement.lang = lang === 'fa' ? 'fa' : 'en';
+  document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+  
+  // ترجمه placeholder های فرم
+  const nameInput = document.querySelector('input[name="name"]');
+  const emailInput = document.querySelector('input[name="email"]');
+  const messageTextarea = document.querySelector('textarea[name="message"]');
+  
+  if (lang === 'fa') {
+    if (nameInput) nameInput.placeholder = 'مثلاً علی احمدی';
+    if (emailInput) emailInput.placeholder = 'ali@example.com';
+    if (messageTextarea) messageTextarea.placeholder = 'بنویس چه کمکی می‌تونم بکنم...';
+  } else {
+    if (nameInput) nameInput.placeholder = 'e.g., Ali Ahmadi';
+    if (emailInput) emailInput.placeholder = 'ali@example.com';
+    if (messageTextarea) messageTextarea.placeholder = '...Write how I can help you';
+  }
+  
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (translations[lang][key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        // اسکیپ کردن input های name و email و message که قبلاً هندل شدند
+        if (el.getAttribute('name') !== 'name' && el.getAttribute('name') !== 'email' && el.getAttribute('name') !== 'message') {
+          el.placeholder = translations[lang][key];
+        }
+      } else if (el.tagName === 'OPTION') {
+        el.textContent = translations[lang][key];
+      } else {
+        el.innerHTML = translations[lang][key];
+      }
+    }
+  });
+  
+  const langBtn = document.getElementById('langBtn');
+  const langBtnMob = document.getElementById('langBtnMob');
+  if (lang === 'fa') {
+    langBtn.innerHTML = '🇬🇧 EN';
+    langBtnMob.innerHTML = '🇬🇧';
+    langBtn.title = 'English';
+    langBtnMob.title = 'English';
+  } else {
+    langBtn.innerHTML = '🇮🇷 FA';
+    langBtnMob.innerHTML = '🇮🇷';
+    langBtn.title = 'فارسی';
+    langBtnMob.title = 'فارسی';
+  }
+}
+document.getElementById('langBtn').addEventListener('click', () => {
+  setLanguage(currentLang === 'fa' ? 'en' : 'fa');
+});
+document.getElementById('langBtnMob').addEventListener('click', () => {
+  setLanguage(currentLang === 'fa' ? 'en' : 'fa');
+});
+
+setLanguage(currentLang);
+
 /* ── SCROLL TO SECTION ── */
 function scrollToSection(id){
   const section = document.getElementById(id);
@@ -1546,6 +1864,7 @@ setTimeout(() => {
 /* ── MOBILE THEME BTN VISIBILITY ── */
 function checkMob(){ 
   themeBtnMob.style.display = window.innerWidth<=960?'flex':'none';
+  langBtnMob.style.display = window.innerWidth<=960?'flex':'none';
 }
 checkMob();
 window.addEventListener('resize', checkMob);
@@ -1554,21 +1873,23 @@ window.addEventListener('resize', checkMob);
 document.getElementById('cForm').addEventListener('submit', async e => {
   e.preventDefault();
   const btn = e.target.querySelector('button[type=submit]');
-  btn.textContent = 'در حال ارسال...';
+  const originalText = btn.textContent;
+  btn.textContent = currentLang === 'fa' ? 'در حال ارسال...' : 'Sending...';
   btn.disabled = true;
   try{
     const r = await fetch(e.target.action, {method:'POST', body:new FormData(e.target), headers:{'Accept':'application/json'}});
     if(r.ok){ 
       e.target.reset(); 
       document.getElementById('okMsg').classList.add('show'); 
-      btn.textContent = 'ارسال شد ✓';
+      btn.textContent = currentLang === 'fa' ? 'ارسال شد ✓' : 'Sent ✓';
       setTimeout(() => document.getElementById('okMsg').classList.remove('show'), 5000);
+      setTimeout(() => { btn.textContent = originalText; btn.disabled = false; }, 3000);
     } else { 
-      btn.textContent = 'خطا — دوباره امتحان کن';
+      btn.textContent = currentLang === 'fa' ? 'خطا — دوباره امتحان کن' : 'Error — Try again';
       btn.disabled = false; 
     }
   } catch{ 
-    btn.textContent = 'خطا — دوباره امتحان کن';
+    btn.textContent = currentLang === 'fa' ? 'خطا — دوباره امتحان کن' : 'Error — Try again';
     btn.disabled = false; 
   }
 });
