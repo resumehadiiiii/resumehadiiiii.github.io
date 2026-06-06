@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hadimousavi.ir/sitemap.xml
