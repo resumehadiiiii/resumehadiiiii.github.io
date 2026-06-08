@@ -1578,6 +1578,222 @@ if (sliderContainer) {
   sliderContainer.addEventListener('mouseleave', () => { slideInterval = setInterval(goToNext, SLIDE_PAUSE); });
 }
 
+/* ── TRANSLATIONS ── */
+const translations = {
+  fa: {
+    'logo': 'وبسایت شخصی هادی موسوی',
+    'nav-home': 'خانه', 'nav-about': 'درباره من', 'nav-skills': 'تخصص ها', 'nav-resume': 'تجربیات', 'nav-contact': 'تماس',
+    'hero-badge': 'رزومه و معرفی کوتاه', 'hero-name': 'هادی موسوی',
+    'btn-start': 'شروع ←', 'btn-contact': 'تماس بگیر', 'btn-portfolio-hero': 'مشاهده نمونه کارها ←',
+    'slide1': 'متخصص بازاریابی دیجیتال', 'slide2': 'ارتباطات برند', 'slide3': 'طراحی گرافیک', 'slide4': 'تولید محتوای مبتنی بر AI',
+    'pill1': 'بازاریابی دیجیتال', 'pill2': 'استراتژی محتوا', 'pill3': 'بازاریابی B2B', 'pill4': 'بازاریابی لینکدین', 'pill5': 'طراحی گرافیک', 'pill6': 'هوش مصنوعی',
+    'about-title': 'درباره من',
+    'about-text1': 'فارغ‌التحصیل کارشناسی آموزش زبان انگلیسی و فعال در حوزه تولید محتوا، ارتباطات برند، طراحی گرافیک و رسانه‌های دیجیتال. دارای تجربه در مدیریت محتوا، توسعه حضور دیجیتال برندها و تولید محتوای تخصصی. علاقه‌مند به فناوری و هوش مصنوعی و بهره‌گیری از ابزارهای AI در فرآیندهای تحقیق، ایده‌پردازی و تولید محتوا. همچنین دارای پیش‌زمینه فنی در توسعه وب که امکان درک بهتر نیازهای کسب‌وکار و تعامل مؤثر با تیم‌های فنی را فراهم می‌کند.',
+    'timeline-title': 'مسیر حرفه‌ای در یک نگاه',
+    'year1': '۱۴۰۴ - اکنون', 'year2': '۱۴۰۲ - ۱۴۰۴', 'year3': '۱۴۰۱ - ۱۴۰۳', 'year4': '۱۳۹۹ - ۱۴۰۲',
+    'timeline1-title': 'متخصص بازاریابی دیجیتال', 'timeline1-desc': 'بازاریابی B2B • لینکدین • ارتباطات برند',
+    'timeline2-title': 'آموزش و تولید محتوا', 'timeline2-desc': 'تدریس زبان انگلیسی • توسعه محتوا',
+    'timeline3-title': 'طراحی گرافیک', 'timeline3-desc': 'پوستر • جلد کتاب • ارتباطات بصری',
+    'timeline4-title': 'فناوری و توسعه وب', 'timeline4-desc': 'Laravel • PHP • پروژه‌های دیجیتال',
+    'skills-title': 'تخصص ها',
+    'skill1': 'بازاریابی دیجیتال', 'skill2': 'طراحی گرافیک', 'skill3': 'هوش مصنوعی و بهره وری', 'skill4': 'فناوری و توسعه وب',
+    'skill1-tag1': 'استراتژی محتوا', 'skill1-tag2': 'بازاریابی B2B', 'skill1-tag3': 'بازاریابی لینکدین', 'skill1-tag4': 'ارتباطات برند', 'skill1-tag5': 'بازاریابی محتوایی', 'skill1-tag6': 'مدیریت شبکه‌های اجتماعی',
+    'skill2-tag1': 'طراحی پوستر', 'skill2-tag2': 'طراحی محتوای شبکه‌های اجتماعی', 'skill2-tag3': 'طراحی جلد کتاب', 'skill2-tag4': 'ارتباطات بصری',
+    'skill3-tag1': 'تولید محتوا', 'skill3-tag2': 'تحقیق', 'skill3-tag3': 'ایده پردازی', 'skill3-tag4': 'مستند سازی', 'skill3-tag5': 'بهینه‌سازی فرایند های کاری و بازاریابی',
+    'skill4-tag1': 'مدیریت وب‌سایت', 'skill4-tag2': 'آشنایی با زیرساخت‌های فنی پروژه‌های دیجیتال',
+    'resume-title': 'تجربه حرفه ای',
+    'job1-title': 'متخصص بازاریابی دیجیتال و ارتباطات برند', 'job1-date': '۱۴۰۴ – اکنون', 'job1-company': 'بیدستان کالای استیل',
+    'job1-desc': 'مسئول توسعه و مدیریت حضور دیجیتال برند در کانال‌های ارتباطی مختلف با تمرکز بر بازاریابی B2B، تولید محتوای تخصصی و توسعه ارتباطات سازمانی.',
+    'job1-bul1': 'برنامه‌ریزی و اجرای استراتژی محتوایی برند', 'job1-bul2': 'مدیریت و توسعه محتوای LinkedIn و X (Twitter)',
+    'job1-bul3': 'تولید محتوای تخصصی برای مخاطبان صنعتی و B2B', 'job1-bul4': 'تدوین تقویم محتوایی و برنامه‌ریزی انتشار محتوا',
+    'job1-bul5': 'طراحی و تولید محتوای گرافیکی برای رسانه‌های دیجیتال', 'job1-bul6': 'مدیریت و به‌روزرسانی محتوای وب‌سایت شرکت',
+    'job1-bul7': 'استفاده از ابزارهای هوش مصنوعی در تحقیق، ایده‌پردازی و تولید محتوا', 'job1-bul8': 'توسعه ارتباطات برند و افزایش انسجام پیام‌های سازمانی',
+    'job2-title': 'طراح گرافیک', 'job2-date': '۱۴۰۱ – ۱۴۰۳', 'job2-company': 'دانشگاه سراسری مراغه و پروژه‌های فرهنگی',
+    'job2-desc': 'همکاری در پروژه‌های فرهنگی، دانشگاهی و رسانه‌ای با تمرکز بر طراحی گرافیک و ارتباطات بصری.',
+    'job2-bul1': 'طراحی پوسترهای جشنواره حرکت', 'job2-bul2': 'طراحی پوسترهای جشنواره رویش',
+    'job2-bul3': 'طراحی جلد کتاب', 'job2-bul4': 'طراحی اقلام تبلیغاتی و اطلاع‌رسانی رویدادهای دانشگاهی',
+    'job2-bul5': 'تولید محتوای بصری برای رسانه‌ها و کانال‌های ارتباطی دانشگاه',
+    'btn-portfolio': 'مشاهده نمونه کارها ←',
+    'job3-title': 'مدرس و مترجم زبان انگلیسی', 'job3-date': '۱۴۰۲ – ۱۴۰۴', 'job3-company': 'خدمت سربازی – واحد آموزش و ترجمه',
+    'job3-bul1': 'تدریس زبان انگلیسی', 'job3-bul2': 'تولید و توسعه محتوای آموزشی',
+    'job3-bul3': 'ترجمه متون عمومی و تخصصی', 'job3-bul4': 'مستندسازی و تدوین محتوای آموزشی',
+    'job3-bul5': 'استفاده از ابزارهای دیجیتال و هوش مصنوعی در فرآیند آموزش و تولید محتوا',
+    'job4-title': 'توسعه‌دهنده وب Full-Stack (Laravel)', 'job4-date': '۱۳۹۹ – اکنون', 'job4-company': 'پروژه‌های مستقل / فریلنس — github.com/hr2562b',
+    'job4-bul1': 'آغاز با HTML5، CSS3 و JavaScript (۱۳۹۹) و ارتقاء به PHP، Laravel و Livewire (از ۱۴۰۲)',
+    'job4-bul2': 'توسعه اپلیکیشن‌های وب فول‌استک با معماری MVC و Design Patterns',
+    'job4-bul3': 'طراحی پایگاه داده MySQL با نرمال‌سازی و بهینه‌سازی',
+    'job4-bul4': 'استفاده از Eloquent ORM و مدیریت Migration و Seeder',
+    'job4-bul5': 'کنترل نسخه با Git و GitHub',
+    'btn-github': 'مشاهده در GitHub ←',
+    'job5-title': 'اپراتور ثبت داده واکسیناسیون', 'job5-date': '۱۳۹۹ – ۱۴۰۰', 'job5-company': 'مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان',
+    'job5-bul1': 'ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت',
+    'job5-bul2': 'هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا',
+    'contact-side-title': 'اطلاعات تماس', 'edu-title': 'تحصیلات', 'skills-side-title': 'مهارت‌ها',
+    'skill-cat1': 'بازاریابی و ارتباطات', 'skill-cat2': 'طراحی گرافیک', 'skill-cat3': 'هوش مصنوعی و بهره‌وری', 'skill-cat4': 'وب و فناوری',
+    'skill-cat1-tag1': 'استراتژی محتوا', 'skill-cat1-tag2': 'برنامه‌ریزی محتوا', 'skill-cat1-tag3': 'ارتباطات برند', 'skill-cat1-tag4': 'بازاریابی B2B', 'skill-cat1-tag5': 'بازاریابی لینکدین',
+    'skill-cat2-tag1': 'طراحی پوستر', 'skill-cat2-tag2': 'طراحی محتوای شبکه‌های اجتماعی', 'skill-cat2-tag3': 'ارتباطات بصری', 'skill-cat2-tag4': 'طراحی جلد کتاب',
+    'skill-cat3-tag1': 'مهندسی پرامپت', 'skill-cat3-tag2': 'تحقیق با هوش مصنوعی', 'skill-cat3-tag3': 'تولید محتوا با هوش مصنوعی',
+    'skill-cat4-tag1': 'مدیریت وب‌سایت',
+    'lang-title': 'زبان‌ها', 'lang-fa': 'فارسی', 'lang-fa-level': 'زبان مادری', 'lang-az': 'ترکی آذربایجانی', 'lang-az-level': 'زبان مادری', 'lang-en': 'انگلیسی', 'lang-en-level': 'مهارت کاری حرفه‌ای',
+    'career-title': 'مسیر حرفه‌ای',
+    'career-year1': '۱۴۰۴ – اکنون', 'career-title1': 'بازاریابی دیجیتال و ارتباطات برند', 'career-desc1': 'تمرکز حرفه‌ای خود را بر بازاریابی دیجیتال، استراتژی محتوا، بازاریابی B2B، مدیریت رسانه‌های اجتماعی و ارتباطات برند قرار دادم و در بیدستان کالای استیل در توسعه حضور دیجیتال و تولید محتوای تخصصی فعالیت می‌کنم.',
+    'career-year2': '۱۴۰۴', 'career-title2': 'ورود حرفه‌ای به هوش مصنوعی', 'career-desc2': 'استفاده از ابزارهای هوش مصنوعی را به بخشی از فرآیندهای روزانه خود تبدیل کردم و از آن‌ها در تحقیق، ایده‌پردازی، تولید محتوا، مستندسازی و بهینه‌سازی گردش‌کارهای حرفه‌ای بهره گرفتم.',
+    'career-year3': '۱۴۰۳', 'career-title3': 'توسعه مهارت‌های بین‌رشته‌ای', 'career-desc3': 'با فارغ‌التحصیلی در رشته آموزش زبان انگلیسی، توانستم دانش زبان، ارتباطات، محتوا و فناوری را در مسیر حرفه‌ای خود با یکدیگر ترکیب کنم.',
+    'career-year4': '۱۴۰۲', 'career-title4': 'توسعه دانش فنی و معماری نرم‌افزار', 'career-desc4': 'با هدف درک بهتر زیرساخت‌های دیجیتال، یادگیری PHP، Laravel، Livewire و مفاهیم معماری نرم‌افزار را دنبال کردم و در پروژه‌های شخصی توسعه وب فعالیت داشتم.',
+    'career-year5': '۱۴۰۱ – ۱۴۰۳', 'career-title5': 'همکاری در پروژه‌های فرهنگی و دانشگاهی', 'career-desc5': 'در طراحی پوسترهای جشنواره‌های حرکت و رویش، طراحی جلد کتاب و تولید محتوای گرافیکی برای رویدادهای مختلف دانشگاهی مشارکت داشتم و تجربه عملی ارزشمندی در حوزه ارتباطات بصری کسب کردم.',
+    'career-year6': '۱۴۰۱', 'career-title6': 'ورود به حوزه طراحی گرافیک', 'career-desc6': 'همزمان با فعالیت‌های دانشگاهی، طراحی گرافیک را به‌صورت جدی دنبال کردم و در زمینه طراحی پوستر، تبلیغات و ارتباطات بصری فعالیت خود را آغاز کردم.',
+    'career-year7': '۱۴۰۰', 'career-title7': 'تجربه همکاری در پروژه ملی واکسیناسیون', 'career-desc7': 'به عنوان اپراتور سامانه ثبت واکسیناسیون فعالیت کردم و تجربه ارزشمندی در کار با سامانه‌های اطلاعاتی، مدیریت داده و فرآیندهای سازمانی به دست آوردم.',
+    'career-year8': '۱۳۹۹', 'career-title8': 'ورود به دنیای فناوری و توسعه وب', 'career-desc8': 'فعالیت حرفه‌ای خود را با یادگیری HTML، CSS و JavaScript آغاز کردم. این مسیر باعث شد با مفاهیم طراحی، توسعه وب و تفکر حل مسئله در پروژه‌های دیجیتال آشنا شوم.',
+    'contact-badge': 'بیایید در ارتباط باشیم', 'contact-title': 'تماس', 'contact-subtitle': 'همکاری، ایده، پروژه',
+    'contact-text1': 'اگر به دنبال همکاری در حوزه بازاریابی دیجیتال، استراتژی محتوا، ارتباطات برند، طراحی گرافیک یا پروژه‌های مبتنی بر هوش مصنوعی هستید، خوشحال می‌شوم در ارتباط باشیم.',
+    'contact-text2': 'همیشه از گفتگو درباره ایده‌های جدید، فرصت‌های همکاری و پروژه‌های خلاقانه استقبال می‌کنم.',
+    'email': 'ایمیل', 'phone': 'تلفن', 'ok-msg': '✅ پیامت رسید! به زودی جواب میدم.',
+    'form-name': 'اسمت', 'form-email': 'ایمیل', 'form-subject': 'موضوع', 'form-message': 'پیامت', 'form-submit': 'ارسال پیام →',
+    'subject-web': 'توسعه وب', 'subject-marketing': 'بازاریابی دیجیتال', 'subject-design': 'طراحی گرافیک', 'subject-ai': 'هوش مصنوعی', 'subject-other': 'سایر',
+    'footer-name': 'هادی موسوی', 'footer-rights': 'تمامی حقوق محفوظ است', 'footer-email': 'ایمیل', 'year': '۱۴۰۵',
+    'edu-degree': 'کارشناسی آموزش زبان انگلیسی', 'edu-univ': 'دانشگاه سراسری مراغه', 'edu-location': '📍 مراغه، ایران', 'edu-grad': '🎓 فارغ‌التحصیل ۱۴۰۳',
+    'edu-desc': 'در طول دوران تحصیل علاوه بر حوزه آموزش زبان، در پروژه‌های طراحی گرافیک، تولید محتوا و فعالیت‌های فرهنگی و دانشگاهی مشارکت داشتم که زمینه‌ساز ورود حرفه‌ای من به حوزه ارتباطات، بازاریابی و رسانه‌های دیجیتال شد.',
+    'phone-number': '۰۹۱۲۸۱۵۲۶۴۸'
+  },
+  en: {
+    'logo': 'Hadi Mousavi\'s Personal Website',
+    'nav-home': 'Home', 'nav-about': 'About', 'nav-skills': 'Skills', 'nav-resume': 'Experience', 'nav-contact': 'Contact',
+    'hero-badge': 'Resume & Short Intro', 'hero-name': 'Hadi Mousavi',
+    'btn-start': 'Start →', 'btn-contact': 'Contact Me', 'btn-portfolio-hero': 'View Portfolio →',
+    'slide1': 'Digital Marketing Specialist', 'slide2': 'Brand Communication', 'slide3': 'Graphic Designer', 'slide4': 'AI-Powered Content',
+    'pill1': 'Digital Marketing', 'pill2': 'Content Strategy', 'pill3': 'B2B Marketing', 'pill4': 'LinkedIn Marketing', 'pill5': 'Graphic Design', 'pill6': 'Artificial Intelligence',
+    'about-title': 'About Me',
+    'about-text1': `Bachelor's graduate in English Language Teaching with experience in content creation, brand communication, graphic design, and digital media. Experienced in content management, strengthening brands' digital presence, and producing specialized content. Passionate about technology and artificial intelligence, with hands-on experience using AI tools for research, ideation, and content creation. Additionally, equipped with a technical background in web development, enabling effective collaboration with technical teams and a deeper understanding of digital business needs.`,
+    'timeline-title': 'Career at a Glance',
+    'year1': '2025 - Present', 'year2': '2023 - 2025', 'year3': '2022 - 2024', 'year4': '2020 - 2023',
+    'timeline1-title': 'Digital Marketing Specialist', 'timeline1-desc': 'B2B Marketing • LinkedIn • Brand Communication',
+    'timeline2-title': 'Content Development & Education', 'timeline2-desc': 'English Instruction • Content Development',
+    'timeline3-title': 'Graphic Design', 'timeline3-desc': 'Posters • Book Covers • Visual Communication',
+    'timeline4-title': 'Web Technologies', 'timeline4-desc': 'Laravel • PHP • Digital Projects',
+    'skills-title': 'Skills',
+    'skill1': 'Digital Marketing', 'skill2': 'Graphic Design', 'skill3': 'AI & Productivity', 'skill4': 'Web & Technology',
+    'skill1-tag1': 'Content Strategy', 'skill1-tag2': 'B2B Marketing', 'skill1-tag3': 'LinkedIn Marketing', 'skill1-tag4': 'Brand Communication', 'skill1-tag5': 'Content Marketing', 'skill1-tag6': 'Social Media Management',
+    'skill2-tag1': 'Poster Design', 'skill2-tag2': 'Social Media Design', 'skill2-tag3': 'Book Cover Design', 'skill2-tag4': 'Visual Communication',
+    'skill3-tag1': 'Content Creation', 'skill3-tag2': 'Research', 'skill3-tag3': 'Ideation', 'skill3-tag4': 'Documentation', 'skill3-tag5': 'Workflow & Marketing Optimization',
+    'skill4-tag1': 'Website Management', 'skill4-tag2': 'Understanding of Digital Project Technical Infrastructure',
+    'resume-title': 'Professional Experience',
+    'job1-title': 'Digital Marketing & Brand Communication Specialist', 'job1-date': '2025 – Present', 'job1-company': 'Bidestan Steel Company',
+    'job1-desc': 'Responsible for developing and managing the brand\'s digital presence across various communication channels, focusing on B2B marketing, specialized content production, and organizational communication development.',
+    'job1-bul1': 'Planning and executing brand content strategy', 'job1-bul2': 'Managing and developing LinkedIn and X (Twitter) content',
+    'job1-bul3': 'Creating specialized content for industrial and B2B audiences', 'job1-bul4': 'Developing content calendar and scheduling',
+    'job1-bul5': 'Designing and producing graphic content for digital media', 'job1-bul6': 'Managing and updating company website content',
+    'job1-bul7': 'Using AI tools for research, ideation, and content creation', 'job1-bul8': 'Brand communication development and increasing organizational message coherence',
+    'job2-title': 'Graphic Designer', 'job2-date': '2022 – 2024', 'job2-company': 'University of Maragheh & Cultural Projects',
+    'job2-desc': 'Collaboration on cultural, academic, and media projects focusing on graphic design and visual communication.',
+    'job2-bul1': 'Designing posters for Hekmat Festival', 'job2-bul2': 'Designing posters for Rooyesh Festival',
+    'job2-bul3': 'Book cover design', 'job2-bul4': 'Designing promotional materials for university events',
+    'job2-bul5': 'Creating visual content for university media and communication channels',
+    'btn-portfolio': 'View Portfolio →',
+    'job3-title': 'English Teacher & Translator', 'job3-date': '2023 – 2025', 'job3-company': 'Military Service – Education & Translation Unit',
+    'job3-bul1': 'Teaching English language', 'job3-bul2': 'Developing educational content',
+    'job3-bul3': 'Translating general and specialized texts', 'job3-bul4': 'Documenting and compiling educational content',
+    'job3-bul5': 'Using digital tools and AI in education and content production',
+    'job4-title': 'Full-Stack Web Developer (Laravel)', 'job4-date': '2020 – Present', 'job4-company': 'Freelance / Personal Projects — github.com/hr2562b',
+    'job4-bul1': 'Started with HTML5, CSS3, JavaScript (2020) and progressed to PHP, Laravel, Livewire (from 2023)',
+    'job4-bul2': 'Developing full-stack web applications with MVC architecture and Design Patterns',
+    'job4-bul3': 'Designing MySQL databases with normalization and optimization',
+    'job4-bul4': 'Using Eloquent ORM and managing Migrations & Seeders',
+    'job4-bul5': 'Version control with Git and GitHub',
+    'btn-github': 'View on GitHub →',
+    'job5-title': 'Vaccination Data Entry Operator', 'job5-date': '2020 – 2021', 'job5-company': 'COVID-19 Vaccination Center – Khodabandeh, Zanjan',
+    'job5-bul1': 'Real-time vaccination data entry into the national health system following Ministry of Health protocols',
+    'job5-bul2': 'Coordinating with medical staff to maintain data processing capacity during peak demand',
+    'contact-side-title': 'Contact Info', 'edu-title': 'Education', 'skills-side-title': 'Skills',
+    'skill-cat1': 'Marketing & Communication', 'skill-cat2': 'Graphic Design', 'skill-cat3': 'AI & Productivity', 'skill-cat4': 'Web & Technology',
+    'skill-cat1-tag1': 'Content Strategy', 'skill-cat1-tag2': 'Content Planning', 'skill-cat1-tag3': 'Brand Communication', 'skill-cat1-tag4': 'B2B Marketing', 'skill-cat1-tag5': 'LinkedIn Marketing',
+    'skill-cat2-tag1': 'Poster Design', 'skill-cat2-tag2': 'Social Media Design', 'skill-cat2-tag3': 'Visual Communication', 'skill-cat2-tag4': 'Book Cover Design',
+    'skill-cat3-tag1': 'Prompt Engineering', 'skill-cat3-tag2': 'AI Research', 'skill-cat3-tag3': 'AI Content Creation',
+    'skill-cat4-tag1': 'Website Management',
+    'lang-title': 'Languages', 'lang-fa': 'Persian', 'lang-fa-level': 'Native', 'lang-az': 'Azerbaijani Turkish', 'lang-az-level': 'Native', 'lang-en': 'English', 'lang-en-level': 'Professional Working Proficiency',
+    'career-title': 'Career Path',
+    'career-year1': '2025 – Present', 'career-title1': 'Digital Marketing & Brand Communication', 'career-desc1': 'I have focused my career on digital marketing, content strategy, B2B marketing, social media management, and brand communication, currently working at Bidestan Steel Company on digital presence development and specialized content production.',
+    'career-year2': '2025', 'career-title2': 'Professional Entry into AI', 'career-desc2': 'I incorporated AI tools into my daily workflows, using them for research, ideation, content creation, documentation, and optimization of professional processes.',
+    'career-year3': '2024', 'career-title3': 'Development of Interdisciplinary Skills', 'career-desc3': 'After graduating in English Language Teaching, I combined knowledge of language, communication, content, and technology in my professional path.',
+    'career-year4': '2023', 'career-title4': 'Technical Knowledge & Software Architecture', 'career-desc4': 'To better understand digital infrastructure, I pursued learning PHP, Laravel, Livewire, and software architecture concepts, working on personal web development projects.',
+    'career-year5': '2022 – 2024', 'career-title5': 'Collaboration on Cultural & Academic Projects', 'career-desc5': 'I participated in designing posters for Hekmat and Rooyesh festivals, book covers, and graphic content for various university events, gaining valuable practical experience in visual communication.',
+    'career-year6': '2022', 'career-title6': 'Entry into Graphic Design', 'career-desc6': 'Alongside academic activities, I seriously pursued graphic design, starting my work in poster design, advertising, and visual communication.',
+    'career-year7': '2021', 'career-title7': 'Experience in National Vaccination Project', 'career-desc7': 'I worked as a vaccination data entry operator, gaining valuable experience with information systems, data management, and organizational processes.',
+    'career-year8': '2020', 'career-title8': 'Entry into Technology & Web Development', 'career-desc8': 'I started my professional journey by learning HTML, CSS, and JavaScript, becoming familiar with design concepts, web development, and problem-solving in digital projects.',
+    'contact-badge': 'Let\'s Talk', 'contact-title': 'Contact', 'contact-subtitle': 'Collaboration, Ideas, Projects',
+    'contact-text1': 'If you are looking for collaboration in digital marketing, content strategy, brand communication, graphic design, or AI-based projects, I would be happy to connect.',
+    'contact-text2': 'I always welcome conversations about new ideas, collaboration opportunities, and creative projects.',
+    'email': 'Email', 'phone': 'Phone', 'ok-msg': '✅ Message received! I\'ll get back to you soon.',
+    'form-name': 'Your Name', 'form-email': 'Email', 'form-subject': 'Subject', 'form-message': 'Your Message', 'form-submit': 'Send Message →',
+    'subject-web': 'Web Development', 'subject-marketing': 'Digital Marketing', 'subject-design': 'Graphic Design', 'subject-ai': 'Artificial Intelligence', 'subject-other': 'Other',
+    'footer-name': 'Hadi Mousavi', 'footer-rights': 'All rights reserved', 'footer-email': 'Email', 'year': '2026',
+    'edu-degree': 'Bachelor\'s in English Language Teaching', 'edu-univ': 'University of Maragheh', 'edu-location': '📍 Maragheh, Iran', 'edu-grad': '🎓 Graduated 2024',
+    'edu-desc': 'During my studies, in addition to language education, I participated in graphic design projects, content production, and cultural and academic activities, which laid the foundation for my professional entry into communication, marketing, and digital media.',
+    'phone-number': '+98 912 815 2648'
+  }
+};
+
+let currentLang = localStorage.getItem('language') || 'fa';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('language', lang);
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.documentElement.lang = lang === 'fa' ? 'fa' : 'en';
+  document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+  
+  const nameInput = document.querySelector('input[name="name"]');
+  const emailInput = document.querySelector('input[name="email"]');
+  const messageTextarea = document.querySelector('textarea[name="message"]');
+  
+  if (lang === 'fa') {
+    if (nameInput) nameInput.placeholder = 'مثلاً علی احمدی';
+    if (emailInput) emailInput.placeholder = 'ali@example.com';
+    if (messageTextarea) messageTextarea.placeholder = 'بنویس چه کمکی می‌تونم بکنم...';
+  } else {
+    if (nameInput) nameInput.placeholder = 'e.g., Ali Ahmadi';
+    if (emailInput) emailInput.placeholder = 'ali@example.com';
+    if (messageTextarea) messageTextarea.placeholder = 'Write how I can help you...';
+  }
+  
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (translations[lang][key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        if (el.getAttribute('name') !== 'name' && el.getAttribute('name') !== 'email' && el.getAttribute('name') !== 'message') {
+          el.placeholder = translations[lang][key];
+        }
+      } else if (el.tagName === 'OPTION') {
+        el.textContent = translations[lang][key];
+      } else {
+        el.innerHTML = translations[lang][key];
+      }
+    }
+  });
+  
+  const langBtn = document.getElementById('langBtn');
+  const langBtnMob = document.getElementById('langBtnMob');
+  if (lang === 'fa') {
+    langBtn.innerHTML = '🇬🇧 EN';
+    langBtnMob.innerHTML = '🇬🇧';
+    langBtn.title = 'English';
+    langBtnMob.title = 'English';
+  } else {
+    langBtn.innerHTML = '🇮🇷 FA';
+    langBtnMob.innerHTML = '🇮🇷';
+    langBtn.title = 'فارسی';
+    langBtnMob.title = 'فارسی';
+  }
+}
+
+document.getElementById('langBtn').addEventListener('click', () => {
+  setLanguage(currentLang === 'fa' ? 'en' : 'fa');
+});
+document.getElementById('langBtnMob').addEventListener('click', () => {
+  setLanguage(currentLang === 'fa' ? 'en' : 'fa');
+});
+
+setLanguage(currentLang);
+
 /* ── SCROLL TO SECTION (with offset for nav) ── */
 function scrollToSection(id){
   const section = document.getElementById(id);
