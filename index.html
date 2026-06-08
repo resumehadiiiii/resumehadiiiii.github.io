@@ -1502,10 +1502,9 @@ body.lang-en .lightbox-nav-next {
   right: 24px;
 }
 @media (max-width: 768px) {
-  .lightbox-nav-prev { right: 12px; left: auto; }
-  .lightbox-nav-next { left: 12px; right: auto; }
-  body.lang-en .lightbox-nav-prev { right: auto; left: 12px; }
-  body.lang-en .lightbox-nav-next { left: auto; right: 12px; }
+  .lightbox-nav-prev, .lightbox-nav-next {
+    display: none;
+  }
 }
 @media (max-width: 768px) {
   .lightbox-nav-btn {
