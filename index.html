@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>هادی موسوی | پورتفولیو حرفه‌ای</title>
   <meta name="description" content="هادی موسوی - متخصص بازاریابی دیجیتال، ارتباطات برند و طراحی گرافیک. سابقه همکاری با بیدستان کالای استیل و دانشگاه سراسری مراغه. جهت مشاوره و همکاری با info@hadimousavi.ir تماس بگیرید."/>
   <meta name="google-site-verification" content="680Y2LZx4ErP6SYqTR9Io2BMIHUh-lcfdXVDNzhee_0" />
@@ -305,139 +305,239 @@ body.lang-en .logo::before {
 }
 
 /* ═══════════════════════════════════════
-   LIGHTBOX GALLERY STYLES
+   MODERN GLASS MODAL STYLES (شیشه‌ای)
 ═══════════════════════════════════════ */
-.lightbox {
+.portfolio-modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.96);
-  backdrop-filter: blur(20px);
-  z-index: 2000;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(24px) saturate(180%);
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
   visibility: hidden;
   opacity: 0;
-  transition: all 0.3s var(--ease);
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  padding: 20px;
 }
-.lightbox.open {
+[data-theme="light"] .portfolio-modal {
+  background: rgba(240, 244, 255, 0.85);
+  backdrop-filter: blur(24px) saturate(180%);
+}
+.portfolio-modal.open {
   visibility: visible;
   opacity: 1;
 }
-.lightbox-content {
-  position: relative;
-  width: 90%;
-  height: 90%;
+.modal-content {
+  width: 100%;
+  max-width: 1100px;
+  max-height: 85vh;
+  background: rgba(7, 8, 21, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 143, 255, 0.3);
+  border-radius: 32px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
-.lightbox-image {
-  max-width: 90%;
-  max-height: 80%;
-  object-fit: contain;
-  cursor: zoom-in;
-  transition: transform 0.2s ease;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+[data-theme="light"] .modal-content {
+  background: rgba(232, 238, 255, 0.8);
+  border-color: rgba(61, 107, 255, 0.3);
 }
-.lightbox-image.zoomed {
-  cursor: zoom-out;
-  transform: scale(1.8);
+.portfolio-modal.open .modal-content {
+  transform: scale(1) translateY(0);
 }
-.lightbox-controls {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+.modal-header {
   display: flex;
-  gap: 12px;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(12px);
-  padding: 10px 20px;
-  border-radius: 60px;
-  flex-wrap: wrap;
-  justify-content: center;
-  z-index: 2002;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
 }
-.lightbox-controls button {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
-  padding: 6px 14px;
-  border-radius: 40px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-family: 'Vazirmatn', sans-serif;
-  transition: all 0.2s;
+.modal-header h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  background: linear-gradient(135deg, var(--accent), #a5c0ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-.lightbox-controls button:hover {
-  background: var(--accent);
-  transform: scale(1.05);
-}
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  background: rgba(0,0,0,0.6);
-  border: none;
-  color: white;
-  font-size: 32px;
-  cursor: pointer;
-  width: 48px;
-  height: 48px;
+.modal-close {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--fg2);
+  transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
-  z-index: 2002;
 }
-.lightbox-close:hover {
+.modal-close:hover {
   background: var(--accent);
+  color: white;
   transform: rotate(90deg);
+  border-color: var(--accent);
 }
-.lightbox-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: none;
-  color: white;
-  font-size: 32px;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  z-index: 2002;
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
 }
-.lightbox-nav:hover {
+.modal-body::-webkit-scrollbar {
+  width: 4px;
+}
+.modal-body::-webkit-scrollbar-track {
+  background: var(--border);
+  border-radius: 4px;
+}
+.modal-body::-webkit-scrollbar-thumb {
   background: var(--accent);
-  transform: translateY(-50%) scale(1.1);
+  border-radius: 4px;
 }
-.lightbox-prev { left: 20px; }
-.lightbox-next { right: 20px; }
-.lightbox-counter {
+
+/* ========== گالری نمونه کارها - بهینه برای موبایل ========== */
+.portfolio-grid-modal {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 600px) {
+  .portfolio-grid-modal {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 960px) {
+  .portfolio-grid-modal {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+.portfolio-item-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  cursor: pointer;
+  position: relative;
+  backdrop-filter: blur(4px);
+}
+.portfolio-item-modal::before {
+  content: '';
   position: absolute;
-  top: 20px;
-  left: 30px;
-  background: rgba(0,0,0,0.6);
-  padding: 6px 14px;
-  border-radius: 30px;
-  color: white;
-  font-size: 0.85rem;
-  font-family: monospace;
-  z-index: 2002;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, var(--accent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
 }
-body.lightbox-open { overflow: hidden; }
+.portfolio-item-modal:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+.portfolio-item-modal:hover::before {
+  opacity: 0.15;
+}
+.portfolio-img-modal {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.portfolio-item-modal:hover .portfolio-img-modal {
+  transform: scale(1.03);
+}
+.portfolio-info-modal {
+  padding: 12px 14px 16px;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+}
+.portfolio-title-modal {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+.portfolio-cat-modal {
+  font-size: 0.6rem;
+  color: var(--accent);
+  background: rgba(99, 143, 255, 0.2);
+  backdrop-filter: blur(4px);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 30px;
+  border: 1px solid rgba(99, 143, 255, 0.3);
+}
+
+/* موبایل خیلی کوچیک */
+@media (max-width: 480px) {
+  .modal-body {
+    padding: 12px;
+  }
+  .portfolio-grid-modal {
+    gap: 8px;
+  }
+  .portfolio-info-modal {
+    padding: 8px 10px 12px;
+  }
+  .portfolio-title-modal {
+    font-size: 0.65rem;
+  }
+  .portfolio-cat-modal {
+    font-size: 0.5rem;
+    padding: 2px 6px;
+  }
+}
+
+.empty-portfolio {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--fg2);
+  grid-column: 1/-1;
+}
+.empty-portfolio p {
+  margin-bottom: 12px;
+}
+.empty-portfolio small {
+  font-size: 0.7rem;
+  color: var(--fg3);
+  background: var(--surface);
+  padding: 8px 16px;
+  border-radius: 30px;
+  display: inline-block;
+}
+@media (max-width: 600px) {
+  .modal-body { 
+    padding: 16px; 
+  }
+  .modal-header h3 { 
+    font-size: 1rem; 
+  }
+}
+body.modal-open { 
+  overflow: hidden; 
+}
 
 /* ═══════════════════════════════════════
    NAV
@@ -1095,191 +1195,6 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
 }
 
 /* ═══════════════════════════════════════
-   PORTFOLIO MODAL - درست شده با 2 ستون در موبایل
-═══════════════════════════════════════ */
-.portfolio-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(3,4,13,0.96);
-  backdrop-filter: blur(24px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.3s var(--ease);
-  padding: 20px;
-}
-[data-theme="light"] .portfolio-modal {
-  background: rgba(240,244,255,0.96);
-}
-.portfolio-modal.open {
-  visibility: visible;
-  opacity: 1;
-}
-.modal-content {
-  width: 100%;
-  max-width: 1100px;
-  max-height: 85vh;
-  background: var(--bg2);
-  border: 1px solid var(--border2);
-  border-radius: 28px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transform: scale(0.95);
-  transition: transform 0.3s var(--ease);
-}
-.portfolio-modal.open .modal-content {
-  transform: scale(1);
-}
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 24px;
-  border-bottom: 1px solid var(--border);
-}
-.modal-header h3 {
-  font-size: 1.2rem;
-  margin: 0;
-  color: var(--accent);
-}
-.modal-close {
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: var(--fg2);
-  transition: all 0.2s;
-  line-height: 1;
-  padding: 0 8px;
-}
-.modal-close:hover {
-  color: var(--accent);
-  transform: rotate(90deg);
-}
-.modal-body {
-  padding: 24px;
-  overflow-y: auto;
-  flex: 1;
-}
-
-/* ========== گریید نمونه کارها - موبایل 2 ستون ========== */
-.portfolio-grid-modal {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-/* تبلت 3 ستون */
-@media (min-width: 600px) {
-  .portfolio-grid-modal {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-}
-
-/* دسکتاپ 4 ستون */
-@media (min-width: 960px) {
-  .portfolio-grid-modal {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
-}
-
-.portfolio-item-modal {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s var(--ease);
-  cursor: pointer;
-}
-.portfolio-item-modal:hover {
-  transform: translateY(-6px);
-  border-color: var(--border2);
-  box-shadow: 0 12px 32px var(--glow);
-}
-.portfolio-img-modal {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  display: block;
-}
-.portfolio-info-modal {
-  padding: 12px 14px 16px;
-}
-.portfolio-title-modal {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--fg);
-  margin-bottom: 6px;
-  word-break: break-word;
-}
-.portfolio-cat-modal {
-  font-size: 0.6rem;
-  color: var(--accent);
-  background: rgba(99,143,255,0.12);
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 20px;
-}
-
-/* موبایل خیلی کوچیک */
-@media (max-width: 480px) {
-  .modal-body {
-    padding: 12px;
-  }
-  .portfolio-grid-modal {
-    gap: 8px;
-  }
-  .portfolio-info-modal {
-    padding: 8px 10px 12px;
-  }
-  .portfolio-title-modal {
-    font-size: 0.65rem;
-  }
-  .portfolio-cat-modal {
-    font-size: 0.5rem;
-    padding: 2px 6px;
-  }
-}
-
-.empty-portfolio {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--fg2);
-  grid-column: 1/-1;
-}
-.empty-portfolio p {
-  margin-bottom: 12px;
-}
-.empty-portfolio small {
-  font-size: 0.7rem;
-  color: var(--fg3);
-  background: var(--surface);
-  padding: 8px 16px;
-  border-radius: 30px;
-  display: inline-block;
-}
-@media (max-width: 600px) {
-  .modal-body { 
-    padding: 16px; 
-  }
-  .modal-header h3 { 
-    font-size: 1rem; 
-  }
-}
-body.modal-open { 
-  overflow: hidden; 
-}
-
-/* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
 @media(max-width: 960px) {
@@ -1455,6 +1370,152 @@ body.lang-en .logo {
     white-space: normal;
     word-break: keep-all;
   }
+}
+
+/* ===== گالری پیشرفته با دکمه‌های چپ/راست و سوایپ لمسی ===== */
+.custom-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.96);
+  backdrop-filter: blur(24px);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+.custom-lightbox.open {
+  visibility: visible;
+  opacity: 1;
+}
+.custom-lightbox-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  z-index: 10002;
+  background: transparent;
+}
+.custom-lightbox-counter {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 30px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.8rem;
+  font-family: monospace;
+  letter-spacing: 0.5px;
+}
+.custom-lightbox-actions {
+  display: flex;
+  gap: 12px;
+}
+.custom-lightbox-close {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  border: none;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-size: 18px;
+  font-weight: 300;
+}
+.custom-lightbox-close:hover {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  transform: scale(1.05);
+}
+.custom-lightbox-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y pinch-zoom;
+}
+.custom-lightbox-image {
+  max-width: 90%;
+  max-height: 85%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  transition: opacity 0.2s ease;
+  pointer-events: auto;
+}
+/* دکمه‌های ناوبری پیشرفته - شیشه‌ای */
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  color: white;
+  font-size: 32px;
+  font-weight: 300;
+  font-family: monospace;
+}
+.lightbox-nav-btn:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-50%) scale(1.08);
+  border-color: rgba(255,255,255,0.5);
+}
+.lightbox-nav-prev {
+  right: 24px;
+  left: auto;
+}
+.lightbox-nav-next {
+  left: 24px;
+  right: auto;
+}
+body.lang-en .lightbox-nav-prev {
+  right: auto;
+  left: 24px;
+}
+body.lang-en .lightbox-nav-next {
+  left: auto;
+  right: 24px;
+}
+@media (max-width: 768px) {
+  .lightbox-nav-prev { right: 12px; left: auto; }
+  .lightbox-nav-next { left: 12px; right: auto; }
+  body.lang-en .lightbox-nav-prev { right: auto; left: 12px; }
+  body.lang-en .lightbox-nav-next { left: auto; right: 12px; }
+}
+@media (max-width: 768px) {
+  .lightbox-nav-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+  .lightbox-nav-prev { left: 12px; }
+  .lightbox-nav-next { right: 12px; }
+  .custom-lightbox-close { width: 34px; height: 34px; font-size: 16px; }
 }
 </style>
 </head>
@@ -1725,7 +1786,7 @@ body.lang-en .logo {
   </div>
 </section>
 
-<!-- ══ PORTFOLIO MODAL ══ -->
+<!-- ══ PORTFOLIO MODAL (شیشه‌ای با گالری پیشرفته) ══ -->
 <div class="portfolio-modal" id="portfolioModal">
   <div class="modal-content">
     <div class="modal-header">
@@ -1734,25 +1795,6 @@ body.lang-en .logo {
     </div>
     <div class="modal-body">
       <div class="portfolio-grid-modal" id="portfolioGridModal"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ LIGHTBOX GALLERY (نمایش کامل با دانلود، چاپ، زوم، چرخش) ══ -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightboxClose">×</button>
-  <button class="lightbox-nav lightbox-prev" id="lightboxPrev">❮</button>
-  <button class="lightbox-nav lightbox-next" id="lightboxNext">❯</button>
-  <div class="lightbox-counter" id="lightboxCounter">1 / 10</div>
-  <div class="lightbox-content">
-    <img class="lightbox-image" id="lightboxImage" alt="نمایش نمونه کار">
-    <div class="lightbox-controls">
-      <button id="lightboxDownload">📥 دانلود</button>
-      <button id="lightboxPrint">🖨️ چاپ</button>
-      <button id="lightboxZoom">🔍 زوم</button>
-      <button id="lightboxRotateLeft">↺ چرخش چپ</button>
-      <button id="lightboxRotateRight">↻ چرخش راست</button>
-      <button id="lightboxFullscreen">⛶ تمام صفحه</button>
     </div>
   </div>
 </div>
@@ -1929,141 +1971,6 @@ if (sliderContainer) {
   sliderContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
   sliderContainer.addEventListener('mouseleave', () => { slideInterval = setInterval(goToNext, SLIDE_PAUSE); });
 }
-
-/* ── LIGHTBOX GALLERY FUNCTIONS ── */
-let currentLightboxIndex = 0;
-let isZoomed = false;
-let currentRotation = 0;
-let lightboxImagesList = [];
-
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImage');
-const lightboxCounter = document.getElementById('lightboxCounter');
-const lightboxClose = document.getElementById('lightboxClose');
-const lightboxPrev = document.getElementById('lightboxPrev');
-const lightboxNext = document.getElementById('lightboxNext');
-const lightboxDownload = document.getElementById('lightboxDownload');
-const lightboxPrint = document.getElementById('lightboxPrint');
-const lightboxZoom = document.getElementById('lightboxZoom');
-const lightboxRotateLeft = document.getElementById('lightboxRotateLeft');
-const lightboxRotateRight = document.getElementById('lightboxRotateRight');
-const lightboxFullscreen = document.getElementById('lightboxFullscreen');
-
-function openLightbox(index) {
-  currentLightboxIndex = index;
-  isZoomed = false;
-  currentRotation = 0;
-  updateLightboxImage();
-  lightbox.classList.add('open');
-  document.body.classList.add('lightbox-open');
-  resetTransform();
-}
-
-function closeLightbox() {
-  lightbox.classList.remove('open');
-  document.body.classList.remove('lightbox-open');
-}
-
-function updateLightboxImage() {
-  if (lightboxImagesList[currentLightboxIndex]) {
-    lightboxImg.src = lightboxImagesList[currentLightboxIndex];
-    lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${lightboxImagesList.length}`;
-  }
-  resetTransform();
-}
-
-function resetTransform() {
-  isZoomed = false;
-  currentRotation = 0;
-  lightboxImg.style.transform = `scale(1) rotate(0deg)`;
-  lightboxImg.style.cursor = 'zoom-in';
-}
-
-function nextImage() {
-  if (lightboxImagesList.length === 0) return;
-  currentLightboxIndex = (currentLightboxIndex + 1) % lightboxImagesList.length;
-  updateLightboxImage();
-}
-
-function prevImage() {
-  if (lightboxImagesList.length === 0) return;
-  currentLightboxIndex = (currentLightboxIndex - 1 + lightboxImagesList.length) % lightboxImagesList.length;
-  updateLightboxImage();
-}
-
-function downloadImage() {
-  if (!lightboxImg.src) return;
-  const link = document.createElement('a');
-  link.href = lightboxImg.src;
-  const fileName = lightboxImg.src.split('/').pop() || 'portfolio-image.jpg';
-  link.download = fileName;
-  link.click();
-}
-
-function printImage() {
-  if (!lightboxImg.src) return;
-  const printWindow = window.open('', '_blank');
-  printWindow.document.write(`
-    <html>
-      <head><title>چاپ تصویر</title></head>
-      <body style="display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:#000;">
-        <img src="${lightboxImg.src}" style="max-width:100%;max-height:100%;object-fit:contain;">
-      </body>
-    </html>
-  `);
-  printWindow.document.close();
-  printWindow.print();
-}
-
-function toggleZoom() {
-  isZoomed = !isZoomed;
-  if (isZoomed) {
-    lightboxImg.style.transform = `scale(2.2) rotate(${currentRotation}deg)`;
-    lightboxImg.style.cursor = 'zoom-out';
-  } else {
-    lightboxImg.style.transform = `scale(1) rotate(${currentRotation}deg)`;
-    lightboxImg.style.cursor = 'zoom-in';
-  }
-}
-
-function rotateLeft() {
-  currentRotation -= 90;
-  lightboxImg.style.transform = `scale(${isZoomed ? 2.2 : 1}) rotate(${currentRotation}deg)`;
-}
-
-function rotateRight() {
-  currentRotation += 90;
-  lightboxImg.style.transform = `scale(${isZoomed ? 2.2 : 1}) rotate(${currentRotation}deg)`;
-}
-
-function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-  } else {
-    document.exitFullscreen();
-  }
-}
-
-// Lightbox event listeners
-lightboxClose.addEventListener('click', closeLightbox);
-lightboxPrev.addEventListener('click', prevImage);
-lightboxNext.addEventListener('click', nextImage);
-lightboxDownload.addEventListener('click', downloadImage);
-lightboxPrint.addEventListener('click', printImage);
-lightboxZoom.addEventListener('click', toggleZoom);
-lightboxRotateLeft.addEventListener('click', rotateLeft);
-lightboxRotateRight.addEventListener('click', rotateRight);
-lightboxFullscreen.addEventListener('click', toggleFullscreen);
-lightboxImg.addEventListener('click', (e) => { e.stopPropagation(); toggleZoom(); });
-
-// Keyboard navigation for lightbox
-document.addEventListener('keydown', (e) => {
-  if (!lightbox.classList.contains('open')) return;
-  if (e.key === 'ArrowRight') nextImage();
-  if (e.key === 'ArrowLeft') prevImage();
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === '+' || e.key === '=') toggleZoom();
-});
 
 /* ── TRANSLATIONS ── */
 const translations = {
@@ -2322,7 +2229,7 @@ document.querySelectorAll('.tl-c strong').forEach(strong => {
   });
 });
 
-/* ── PORTFOLIO MODAL ── */
+/* ── گالری پیشرفته با دکمه‌های چپ/راست و سوایپ لمسی (بدون دکمه دانلود) ── */
 const portfolioModal = document.getElementById('portfolioModal');
 const closeModalBtn = document.getElementById('closeModalBtn');
 const portfolioGridModal = document.getElementById('portfolioGridModal');
@@ -2334,14 +2241,122 @@ const portfolioImagesList = [
   'sedaye-hekmat-back.png', 'sedaye-hekmat-cover.png', 'certificate-of-appreciation-design.png'
 ];
 
+const imagePaths = portfolioImagesList.map(img => `assets/${img}`);
+let currentImageIndex = 0;
+let isLightboxOpen = false;
+let touchStartX = 0;
+let currentLightbox = null;
+let currentLightboxImg = null;
+let currentCounter = null;
+
+function createLightboxElements() {
+  if (document.getElementById('advancedLightbox')) return;
+  
+  const lightboxHTML = `
+    <div id="advancedLightbox" class="custom-lightbox">
+      <div class="custom-lightbox-header">
+        <div class="custom-lightbox-counter" id="lightboxCounter">1 / ${imagePaths.length}</div>
+        <button class="custom-lightbox-close" id="lightboxCloseBtn">✕</button>
+      </div>
+      <button class="lightbox-nav-btn lightbox-nav-prev" id="lightboxPrevBtn">‹</button>
+      <button class="lightbox-nav-btn lightbox-nav-next" id="lightboxNextBtn">›</button>
+      <div class="custom-lightbox-content" id="lightboxContent">
+        <img class="custom-lightbox-image" id="lightboxImage" alt="نمایش نمونه کار">
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', lightboxHTML);
+}
+
+function updateLightboxImage() {
+  if (currentLightboxImg) {
+    currentLightboxImg.style.opacity = '0';
+    setTimeout(() => {
+      currentLightboxImg.src = imagePaths[currentImageIndex];
+      currentLightboxImg.style.opacity = '1';
+      if (currentCounter) currentCounter.textContent = `${currentImageIndex + 1} / ${imagePaths.length}`;
+    }, 150);
+  }
+}
+
+function prevImage() {
+  currentImageIndex = (currentImageIndex - 1 + imagePaths.length) % imagePaths.length;
+  updateLightboxImage();
+}
+
+function nextImage() {
+  currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
+  updateLightboxImage();
+}
+
+function closeLightbox() {
+  if (currentLightbox) {
+    currentLightbox.classList.remove('open');
+    isLightboxOpen = false;
+    portfolioModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.removeEventListener('keydown', keydownHandler);
+  }
+}
+
+function keydownHandler(e) {
+  if (!currentLightbox || !currentLightbox.classList.contains('open')) return;
+  if (e.key === 'ArrowLeft') prevImage();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'Escape') closeLightbox();
+}
+
+function openLightbox(index) {
+  createLightboxElements();
+  
+  currentLightbox = document.getElementById('advancedLightbox');
+  currentLightboxImg = document.getElementById('lightboxImage');
+  currentCounter = document.getElementById('lightboxCounter');
+  const prevBtn = document.getElementById('lightboxPrevBtn');
+  const nextBtn = document.getElementById('lightboxNextBtn');
+  const closeBtn = document.getElementById('lightboxCloseBtn');
+  const contentArea = document.getElementById('lightboxContent');
+  
+  currentImageIndex = index;
+  currentLightboxImg.src = imagePaths[currentImageIndex];
+  currentLightboxImg.style.opacity = '1';
+  currentCounter.textContent = `${currentImageIndex + 1} / ${imagePaths.length}`;
+  
+  prevBtn.onclick = nextImage;
+  nextBtn.onclick = prevImage;
+  closeBtn.onclick = closeLightbox;
+  
+  // سوایپ لمسی برای موبایل
+  if (contentArea) {
+    contentArea.ontouchstart = (e) => { touchStartX = e.touches[0].clientX; };
+    contentArea.ontouchend = (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) prevImage();
+        else nextImage();
+      }
+    };
+  }
+  
+  document.removeEventListener('keydown', keydownHandler);
+  document.addEventListener('keydown', keydownHandler);
+  
+  portfolioModal.classList.remove('open');
+  isLightboxOpen = true;
+  currentLightbox.classList.add('open');
+}
+
 function openPortfolioModal() {
   portfolioModal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closePortfolioModal() {
-  portfolioModal.classList.remove('open');
-  document.body.style.overflow = '';
+  if (!isLightboxOpen) {
+    portfolioModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
 }
 
 function loadPortfolioImages() {
@@ -2350,41 +2365,30 @@ function loadPortfolioImages() {
     return;
   }
   
-  // ذخیره لیست آدرس تصاویر برای لایت‌باکس
-  lightboxImagesList = portfolioImagesList.map(img => `assets/${img}`);
-  
   portfolioGridModal.innerHTML = '';
   portfolioImagesList.forEach((imgName, idx) => {
     let title = imgName.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-    if (title === 'Aristotle') title = 'ارسطو';
-    else if (title === 'Chomsky') title = 'چامسکی';
-    else if (title === 'Socrates') title = 'سقراط';
-    else if (title === 'poster ad vpn service') title = 'پوستر تبلیغاتی سرویس VPN';
-    else if (title === 'psychology conference') title = 'پوستر همایش روانشناسی';
-    else if (title === 'ohadi tomb visit') title = 'بازدید از آرامگاه اوحدی';
-    else if (title === 'condolence banner') title = 'بنر تسلیت';
-    else if (title === 'partoye khial back') title = 'پشت جلد پرتو خیال';
-    else if (title === 'partoye khial cover') title = 'جلد پرتو خیال';
-    else if (title === 'razhaye nimehshab back') title = 'پشت جلد رازهای نیمه شب';
-    else if (title === 'razhaye nimehshab cover') title = 'جلد رازهای نیمه شب';
-    else if (title === 'sedaye hekmat back') title = 'پشت جلد صدای حکمت';
-    else if (title === 'sedaye hekmat cover') title = 'جلد صدای حکمت';
-    else if (title === 'certificate of appreciation design') title = 'طراحی لوح تقدیر';
+    const titlesMap = {
+      'Aristotle': 'ارسطو', 'Chomsky': 'چامسکی', 'Socrates': 'سقراط',
+      'poster ad vpn service': 'پوستر تبلیغاتی سرویس VPN', 'psychology conference': 'پوستر همایش روانشناسی',
+      'ohadi tomb visit': 'بازدید از آرامگاه اوحدی', 'condolence banner': 'بنر تسلیت',
+      'partoye khial back': 'پشت جلد پرتو خیال', 'partoye khial cover': 'جلد پرتو خیال',
+      'razhaye nimehshab back': 'پشت جلد رازهای نیمه شب', 'razhaye nimehshab cover': 'جلد رازهای نیمه شب',
+      'sedaye hekmat back': 'پشت جلد صدای حکمت', 'sedaye hekmat cover': 'جلد صدای حکمت',
+      'certificate of appreciation design': 'طراحی لوح تقدیر'
+    };
+    title = titlesMap[title] || title;
     
     const item = document.createElement('div');
     item.className = 'portfolio-item-modal';
     item.innerHTML = `
-      <img src="assets/${imgName}" alt="${title}" class="portfolio-img-modal" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23222\'/%3E%3Ctext x=\'50\' y=\'55\' text-anchor=\'middle\' fill=\'%23666\' font-size=\'12\'%3E❌%3C/text%3E%3C/svg%3E'">
+      <img src="assets/${imgName}" alt="${title}" class="portfolio-img-modal" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23333\'/%3E%3Ctext x=\'50\' y=\'55\' text-anchor=\'middle\' fill=\'%23666\' font-size=\'12\'%3E📷%3C/text%3E%3C/svg%3E'">
       <div class="portfolio-info-modal">
         <div class="portfolio-title-modal">${title}</div>
         <div class="portfolio-cat-modal">طراحی گرافیک</div>
       </div>
     `;
-    item.addEventListener('click', () => {
-      portfolioModal.classList.remove('open');
-      document.body.style.overflow = '';
-      openLightbox(idx);
-    });
+    item.addEventListener('click', () => { openLightbox(idx); });
     portfolioGridModal.appendChild(item);
   });
 }
@@ -2392,8 +2396,8 @@ function loadPortfolioImages() {
 document.getElementById('portfolioBtnHero')?.addEventListener('click', (e) => { e.preventDefault(); openPortfolioModal(); });
 document.getElementById('portfolioBtnResume')?.addEventListener('click', (e) => { e.preventDefault(); openPortfolioModal(); });
 closeModalBtn?.addEventListener('click', closePortfolioModal);
-portfolioModal?.addEventListener('click', (e) => { if (e.target === portfolioModal) closePortfolioModal(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && portfolioModal?.classList.contains('open')) closePortfolioModal(); });
+portfolioModal?.addEventListener('click', (e) => { if (e.target === portfolioModal && !isLightboxOpen) closePortfolioModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && portfolioModal?.classList.contains('open') && !isLightboxOpen) closePortfolioModal(); });
 
 /* ── BURGER MENU ── */
 const burger = document.getElementById('burger');
@@ -2487,7 +2491,6 @@ document.querySelectorAll('.p-card,.stat-card,.sk-block,.tl,.pj,.cm,.job-entry,.
   obs.observe(el);
 });
 
-// بارگذاری گالری نمونه کارها
 loadPortfolioImages();
 </script>
 </body>
