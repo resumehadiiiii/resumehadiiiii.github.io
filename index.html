@@ -1003,6 +1003,7 @@ p:last-child { margin-bottom:0; }
   background-clip:text;
 }
 
+/* استایل‌های اسلایدر با انیمیشن */
 .glass-slider {
   margin-bottom: 45px;
   display: block;
@@ -1013,6 +1014,7 @@ p:last-child { margin-bottom:0; }
   animation: floatSlider 6s ease-in-out infinite;
   overflow: hidden;
   position: relative;
+  height: 70px;
 }
 
 @keyframes floatSlider {
@@ -1023,7 +1025,7 @@ p:last-child { margin-bottom:0; }
 
 .slider-container {
   position: relative;
-  height: 48px;
+  height: 100%;
   width: 100%;
   overflow: hidden;
 }
@@ -1039,9 +1041,22 @@ p:last-child { margin-bottom:0; }
   text-align: center;
   white-space: nowrap;
   width: 100%;
-  transition: none;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 0.5s ease-in-out;
   pointer-events: none;
+  line-height: 1.4;
+}
+body.lang-en .slider-text {
+  white-space: normal;
+  font-size: 1.1rem;
+}
+.slider-text.active {
   opacity: 1;
+  transform: translateX(0);
+}
+.slider-text.prev {
+  transform: translateX(100%);
 }
 
 .hero-btns { 
@@ -1069,13 +1084,14 @@ p:last-child { margin-bottom:0; }
     min-width: 320px;
     margin-left: auto;
     margin-right: auto;
+    height: 60px;
   }
   .slider-container {
-    height: 44px;
+    height: 60px;
   }
   .slider-text {
     white-space: normal;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 1.4;
   }
 }
@@ -1918,12 +1934,12 @@ const categoriesData = {
     { file: "partoye-khial-back.webp", title: { fa: "پشت جلد پرتو خیال", en: "Partoye Khial Back Cover" } },
     { file: "razhaye-nimehshab-cover.webp", title: { fa: "جلد رازهای نیمه شب", en: "Razhaye Nimehshab Cover" } },
     { file: "razhaye-nimehshab-back.webp", title: { fa: "پشت جلد رازهای نیمه شب", en: "Razhaye Nimehshab Back Cover" } },
-    { file: "sedaye-hekmat-cover.webp", title: { fa: "جلد صدای حکمت", en: "Sedaye Hekmat Cover" } },
-    { file: "sedaye-hekmat-back.webp", title: { fa: "پشت جلد صدای حکمت", en: "Sedaye Hekmat Back Cover" } }
+    { file: "sedaye-hekmat-cover.png", title: { fa: "جلد صدای حکمت", en: "Sedaye Hekmat Cover" } },
+    { file: "sedaye-hekmat-back.png", title: { fa: "پشت جلد صدای حکمت", en: "Sedaye Hekmat Back Cover" } }
   ] },
   illustrations: { name: { fa: "تصویرسازی (برچسب)", en: "Illustration (Sticker)" }, images: [
     { file: "Aristotle.webp", title: { fa: "ارسطو", en: "Aristotle" } },
-    { file: "Socrates.webp", title: { fa: "سقراط", en: "Socrates" } },
+    { file: "Socrates.png", title: { fa: "سقراط", en: "Socrates" } },
     { file: "Chomsky.webp", title: { fa: "چامسکی", en: "Chomsky" } }
   ] }
 };
@@ -1958,6 +1974,33 @@ lightboxClose.addEventListener('click', closeLightbox);
 lightboxPrev.addEventListener('click', prevImage);
 lightboxNext.addEventListener('click', nextImage);
 document.addEventListener('keydown', (e) => { if (!lightbox.classList.contains('open')) return; if (e.key === 'Escape') closeLightbox(); if (e.key === 'ArrowLeft') prevImage(); if (e.key === 'ArrowRight') nextImage(); });
+
+// اسلایدر با انیمیشن
+const sliderTexts = document.querySelectorAll('.slider-text');
+let currentIndex = 0;
+
+function showSlide(index) {
+    sliderTexts.forEach((text, i) => {
+        text.classList.remove('active', 'prev');
+        if (i === index) {
+            text.classList.add('active');
+        } else if (i === (index - 1 + sliderTexts.length) % sliderTexts.length) {
+            text.classList.add('prev');
+        }
+    });
+}
+
+function nextSlide() {
+    currentIndex = (currentIndex + 1) % sliderTexts.length;
+    showSlide(currentIndex);
+}
+
+// نمایش اسلاید اول
+if (sliderTexts.length > 0) {
+    showSlide(0);
+    // تغییر اسلاید هر 2.5 ثانیه
+    setInterval(nextSlide, 2500);
+}
 
 const translations = {
   fa: {
@@ -2090,6 +2133,15 @@ function updateModalLanguage(lang) {
     if (tabIllustrations) tabIllustrations.textContent = "تصویرسازی (برچسب)";
   }
   if (subGallery.classList.contains('active')) { const activeCat = document.querySelector('.cat-tab.active')?.getAttribute('data-cat'); if (activeCat) showCategory(activeCat); }
+  // به‌روزرسانی متن اسلایدرها بعد از تغییر زبان
+  if (translations[lang]) {
+    sliderTexts.forEach((text, i) => {
+      const key = `slide${i+1}`;
+      if (translations[lang][key]) {
+        text.textContent = translations[lang][key];
+      }
+    });
+  }
 }
 
 function setLanguage(lang) {
@@ -2102,6 +2154,12 @@ function setLanguage(lang) {
   updateModalLanguage(lang);
   document.querySelectorAll('[data-key]').forEach(el => { const key = el.getAttribute('data-key'); if (translations[lang] && translations[lang][key]) { if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') { el.placeholder = translations[lang][key]; } else if (el.tagName === 'OPTION') el.textContent = translations[lang][key]; else el.innerHTML = translations[lang][key]; } });
   document.querySelectorAll('[data-placeholder-key]').forEach(el => { const key = el.getAttribute('data-placeholder-key'); if (translations[lang] && translations[lang][key]) el.placeholder = translations[lang][key]; });
+  // به‌روزرسانی شماره تلفن
+  document.querySelectorAll('.phone-number').forEach(el => {
+    if (translations[lang] && translations[lang]['phone-number']) {
+      el.textContent = translations[lang]['phone-number'];
+    }
+  });
 }
 
 const savedLang = localStorage.getItem('language') || 'fa';
@@ -2123,7 +2181,6 @@ function resizeCanvas() { W = canvas.width = window.innerWidth; H = canvas.heigh
 function isDark() { return document.documentElement.dataset.theme === 'dark'; }
 for (let i = 0; i < 80; i++) particles.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * 0.3, vy: (Math.random() - .5) * 0.3, r: Math.random() * 2 + 0.5, alpha: Math.random() * 0.5 + 0.2, pulse: Math.random() * Math.PI * 2 });
 function animateParticles() { ctx.clearRect(0, 0, W, H); particles.forEach(p => { p.pulse += 0.02; p.x += p.vx; p.y += p.vy; const dx = mouse.x - p.x, dy = mouse.y - p.y; if (Math.sqrt(dx * dx + dy * dy) < 150) { p.x += dx * 0.003; p.y += dy * 0.003; } if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = isDark() ? `rgba(99,143,255,${p.alpha * (0.7 + 0.3 * Math.sin(p.pulse))})` : `rgba(61,107,255,${p.alpha * 0.5})`; ctx.fill(); }); requestAnimationFrame(animateParticles); } animateParticles(); window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-let currentSlideIdx = 0; const slides = document.querySelectorAll('.slider-text'); slides.forEach((s, i) => { if (i !== 0) s.style.display = 'none'; else s.style.display = 'block'; }); setInterval(() => { slides[currentSlideIdx].style.display = 'none'; currentSlideIdx = (currentSlideIdx + 1) % slides.length; slides[currentSlideIdx].style.display = 'block'; }, 2500);
 const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; observer.unobserve(e.target); } }); }, { threshold: 0.08 }); document.querySelectorAll('.p-card,.stat-card,.sk-block,.tl,.pj,.cm,.job-entry,.side-box,.float-card').forEach(el => { if (el.dataset.rev) return; el.dataset.rev = '1'; el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = 'opacity .5s ease, transform .5s ease'; observer.observe(el); });
 function checkMob() { const themeBtnMobEl = document.getElementById('themeBtnMob'), langBtnMobEl = document.getElementById('langBtnMob'); if (themeBtnMobEl) themeBtnMobEl.style.display = window.innerWidth <= 960 ? 'flex' : 'none'; if (langBtnMobEl) langBtnMobEl.style.display = window.innerWidth <= 960 ? 'flex' : 'none'; document.querySelectorAll('.job-date').forEach(el => { if (window.innerWidth <= 600) { el.style.whiteSpace = 'normal'; el.style.wordBreak = 'break-word'; el.style.lineHeight = '1.4'; } else { el.style.whiteSpace = 'nowrap'; el.style.wordBreak = 'normal'; el.style.lineHeight = 'normal'; } }); } checkMob(); window.addEventListener('resize', checkMob);
 const htmlEl = document.documentElement, themeBtnEl = document.getElementById('themeBtn'), themeBtnMob = document.getElementById('themeBtnMob');
