@@ -26,7 +26,7 @@
     "image": "https://hadimousavi.ir/assets/profile.webp",
     "sameAs": [
       "https://github.com/hr2562b",
-      "https://www.linkedin.com/in/hr2562b"
+      "https://www.linkedin.com/in/hadimousavi/"
     ],
     "jobTitle": "متخصص بازاریابی دیجیتال و ارتباطات برند",
     "worksFor": {
@@ -1219,19 +1219,28 @@ p:last-child { margin-bottom:0; }
 }
 .tl-c p { font-size:.8rem; margin:0; }
 
-.sk-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:40px; }
-.sk-block { padding:24px; }
+/* SKILLS GRID - 2 COLUMNS ON DESKTOP */
+.sk-grid { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 24px; 
+  margin-top: 40px; 
+}
+.sk-block { 
+  padding: 28px; 
+}
 .sk-block:hover {
   transform: translateY(-4px);
 }
-.sk-ico { font-size:1.5rem; margin-bottom:10px; }
-.sk-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; }
+.sk-ico { font-size: 1.8rem; margin-bottom: 12px; }
+.sk-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .sk-tag {
-  font-size:.68rem; font-weight:600;
-  background:rgba(99,143,255,.08);
-  color:var(--accent);
-  border:1px solid var(--border);
-  padding:2px 9px; border-radius:5px;
+  font-size: .7rem; font-weight: 600;
+  background: rgba(99,143,255,.1);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  padding: 4px 12px; 
+  border-radius: 30px;
 }
 
 /* ═══════════════════════════════════════
@@ -1423,7 +1432,7 @@ footer p { font-size:.8rem; color:var(--fg3); margin:0; }
   .resume-wrap { grid-template-columns:1fr; }
   .two,.hero-in { grid-template-columns:1fr; gap:40px; }
   .cards3 { grid-template-columns:1fr 1fr; }
-  .sk-grid { grid-template-columns:1fr 1fr; }
+  .sk-grid { grid-template-columns:1fr; }
   .stat-grid { grid-template-columns:1fr 1fr; }
   .logo {
     white-space: normal;
@@ -1659,7 +1668,7 @@ body.lang-en .logo {
   </div>
 </section>
 
-<!-- ══ SECTION: SKILLS ══ -->
+<!-- ══ SECTION: SKILLS (2 COLUMNS) ══ -->
 <section id="skills" class="sec" style="padding-top:0">
   <div class="wrap">
     <h2 data-key="skills-title">تخصص ها</h2>
@@ -1754,7 +1763,7 @@ body.lang-en .logo {
           <div style="display:flex;flex-direction:column;gap:10px">
             <a href="tel:+989128152648" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px">📞 <span class="phone-number" data-key="phone-number">۰۹۱۲۸۱۵۲۶۴۸</span></a>
             <a href="mailto:info@hadimousavi.ir" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px">✉️ info@hadimousavi.ir</a>
-            <a href="https://github.com/hr2562b" target="_blank" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px">💻 github.com/hr2562b</a>
+            <a href="https://www.linkedin.com/in/hadimousavi/" target="_blank" style="font-size:.82rem;color:var(--fg2);transition:color .2s;display:flex;align-items:center;gap:8px">🔗 linkedin.com/in/hadimousavi</a>
           </div>
         </div>
         
@@ -1808,7 +1817,7 @@ body.lang-en .logo {
       <div class="cms">
         <a href="mailto:info@hadimousavi.ir" class="cm glass"><span class="cm-ico">✉️</span><div><strong data-key="email">ایمیل</strong><span>info@hadimousavi.ir</span></div></a>
         <a href="tel:+989128152648" class="cm glass"><span class="cm-ico">📞</span><div><strong data-key="phone">تلفن</strong><span class="phone-number" data-key="phone-number">۰۹۱۲۸۱۵۲۶۴۸</span></div></a>
-        <a href="https://github.com/hr2562b" target="_blank" class="cm glass"><span class="cm-ico">💻</span><div><strong>GitHub</strong><span>github.com/hr2562b</span></div></a>
+        <a href="https://www.linkedin.com/in/hadimousavi/" target="_blank" class="cm glass"><span class="cm-ico">🔗</span><div><strong>LinkedIn</strong><span>linkedin.com/in/hadimousavi</span></div></a>
       </div>
     </div>
     <div>
@@ -1832,7 +1841,7 @@ body.lang-en .logo {
   </div>
 </section>
 
-<!-- ══ PORTFOLIO MODAL ══ -->
+<!-- ══ PORTFOLIO MODAL (GitHub stays here) ══ -->
 <div class="portfolio-modal" id="portfolioModal">
   <div class="modal-content">
     <div class="modal-header">
@@ -1891,7 +1900,7 @@ body.lang-en .logo {
 <footer>
   <div class="wrap foot">
     <p data-key="footer-copyright">© ۱۴۰۵ هادی موسوی — تمامی حقوق محفوظ است</p>
-    <div class="foot-lnks"><a href="https://github.com/hr2562b" data-key="footer-github">GitHub</a><a href="mailto:info@hadimousavi.ir" data-key="footer-email">ایمیل</a></div>
+    <div class="foot-lnks"><a href="https://www.linkedin.com/in/hadimousavi/" target="_blank" data-key="footer-linkedin">LinkedIn</a><a href="mailto:info@hadimousavi.ir" data-key="footer-email">ایمیل</a></div>
   </div>
 </footer>
 
@@ -1985,7 +1994,7 @@ const translations = {
     'job5-title': 'اپراتور ثبت داده واکسیناسیون', 'job5-date': '۱۳۹۹ – ۱۴۰۰', 'job5-company': 'مرکز واکسیناسیون کووید-۱۹ – خدابنده، زنجان',
     'job5-bul1': 'ثبت آنی داده‌های واکسیناسیون در سامانه ملی بهداشت با رعایت پروتکل‌های وزارت بهداشت', 'job5-bul2': 'هماهنگی با کادر پزشکی جهت حفظ توان پردازش داده در اوج تقاضا',
     'contact-badge': 'بیایید در ارتباط باشیم',
-    'footer-copyright': '© ۱۴۰۵ هادی موسوی — تمامی حقوق محفوظ است', 'footer-github': 'GitHub', 'footer-email': 'ایمیل',
+    'footer-copyright': '© ۱۴۰۵ هادی موسوی — تمامی حقوق محفوظ است', 'footer-linkedin': 'LinkedIn', 'footer-email': 'ایمیل',
     'skill1-title': 'بازاریابی دیجیتال', 'skill1-tag1': 'استراتژی محتوا', 'skill1-tag2': 'بازاریابی B2B', 'skill1-tag3': 'بازاریابی لینکدین', 'skill1-tag4': 'ارتباطات برند', 'skill1-tag5': 'بازاریابی محتوایی', 'skill1-tag6': 'مدیریت شبکه‌های اجتماعی',
     'skill2-title': 'طراحی گرافیک', 'skill2-tag1': 'طراحی پوستر', 'skill2-tag2': 'طراحی محتوای شبکه‌های اجتماعی', 'skill2-tag3': 'طراحی جلد کتاب', 'skill2-tag4': 'ارتباطات بصری', 'skill2-tag5': 'Photoshop',
     'skill3-title': 'هوش مصنوعی و بهره وری', 'skill3-tag1': 'تولید محتوا', 'skill3-tag2': 'تحقیق', 'skill3-tag3': 'ایده پردازی', 'skill3-tag4': 'مستند سازی', 'skill3-tag5': 'بهینه‌سازی فرایند های کاری و بازاریابی',
@@ -2037,7 +2046,7 @@ const translations = {
     'job5-title': 'Vaccination Data Entry Operator', 'job5-date': '2020 – 2021', 'job5-company': 'COVID-19 Vaccination Center – Khodabandeh, Zanjan',
     'job5-bul1': 'Real-time vaccination data entry into the national health system following Ministry of Health protocols', 'job5-bul2': 'Coordinating with medical staff to maintain data processing capacity during peak demand',
     'contact-badge': 'Let’s Connect',
-    'footer-copyright': '© 2025 Hadi Mousavi — All Rights Reserved', 'footer-github': 'GitHub', 'footer-email': 'Email',
+    'footer-copyright': '© 2025 Hadi Mousavi — All Rights Reserved', 'footer-linkedin': 'LinkedIn', 'footer-email': 'Email',
     'skill1-title': 'Digital Marketing', 'skill1-tag1': 'Content Strategy', 'skill1-tag2': 'B2B Marketing', 'skill1-tag3': 'LinkedIn Marketing', 'skill1-tag4': 'Brand Communication', 'skill1-tag5': 'Content Marketing', 'skill1-tag6': 'Social Media Management',
     'skill2-title': 'Graphic Design', 'skill2-tag1': 'Poster Design', 'skill2-tag2': 'Social Media Content Design', 'skill2-tag3': 'Book Cover Design', 'skill2-tag4': 'Visual Communication', 'skill2-tag5': 'Photoshop',
     'skill3-title': 'AI & Productivity', 'skill3-tag1': 'Content Creation', 'skill3-tag2': 'Research', 'skill3-tag3': 'Ideation', 'skill3-tag4': 'Documentation', 'skill3-tag5': 'Workflow & Marketing Optimization',
